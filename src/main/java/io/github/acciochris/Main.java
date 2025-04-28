@@ -12,6 +12,7 @@ public class Main {
 
     public int subtract(int a, int b)
     {
+        // subtract b from a
         return a - b;
     }
 }
