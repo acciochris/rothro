@@ -7,6 +7,7 @@ public class Main {
 
     public int add (int a, int b)
     {
+        // add a to b
         return a + b;
     }
 
