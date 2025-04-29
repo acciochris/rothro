@@ -1,15 +1,14 @@
 package io.github.acciochris;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 
-import org.junit.jupiter.api.*;
-
-class MainTests {
+public class MainTest {
 
     private final Main main = new Main();
 
     @Test
-    void test() {
+    public void test() {
         assertEquals(1, 1);
     }
 }
