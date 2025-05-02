@@ -2,7 +2,6 @@ package io.github.acciochris;
 
 import java.util.LinkedList;
 import java.util.List;
-import io.github.acciochris.Obstacle;
 
 public class Level {
     private List<Obstacle> obstacles;
