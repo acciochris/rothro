@@ -16,6 +16,7 @@ public class RoThro extends SimulationFrame {
 	}
 
 	protected void initializeWorld() {
+		this.world.setGravity(World.ZERO_GRAVITY);
 		for (Obstacle obstacle : level.getObstacles()) {
 			this.world.addBody(obstacle);
 		}
