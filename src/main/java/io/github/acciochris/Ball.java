@@ -19,7 +19,6 @@ import org.dyn4j.world.World;
 
 public class Ball extends SimulationBody 
 {
-    private SimulationBody ball;
     private ArrayList<ArrayList<String>> controls;
 
     private BooleanStateKeyboardInputHandler left;
@@ -32,12 +31,11 @@ public class Ball extends SimulationBody
 
     public Ball() 
     {
-        ball = new SimulationBody();
-        ball.addFixture(new Circle(1));
-        ball.setMass(MassType.NORMAL);
+        addFixture(new Circle(1));
+        setMass(MassType.NORMAL);
         controls = new ArrayList<ArrayList<String>>(5);
     }
-    public void setControls()
+    public void setControls(String control)
     {
         
     }
