@@ -8,12 +8,20 @@ import io.github.acciochris.framework.SimulationFrame;
 import org.dyn4j.world.World;
 
 public class RoThro extends SimulationFrame {
-	public RoThro() {
+	private Level level;
+
+	public RoThro(Level level) {
 		super("RoThro");
+		this.level = level;
 	}
 
 	protected void initializeWorld() {
-		this.world.setGravity(World.ZERO_GRAVITY);
+		for (Obstacle obstacle : level.getObstacles()) {
+			this.world.addBody(obstacle);
+		}
+
+		Ball ball = new Ball();
+		this.world.addBody(ball);
 	}
 
 	@Override

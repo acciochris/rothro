@@ -11,7 +11,7 @@ public class Level {
     }
 
     public void addObstacle(Obstacle obstacle) {
-
+        obstacles.add(obstacle);
     }
 
     public List<Obstacle> getObstacles() {
