@@ -8,6 +8,8 @@ public class Obstacle extends SimulationBody
 {
     private double x;
     private double y;
+    // private double velx;
+    // private double vely;
 
     public Obstacle(Convex shape, double x, double y) {
         addFixture(shape);
@@ -26,4 +28,9 @@ public class Obstacle extends SimulationBody
     {
         return y;
     }
+
+    // public void move()
+    // {
+    //     translate(velx, vely);
+    // }
 }
