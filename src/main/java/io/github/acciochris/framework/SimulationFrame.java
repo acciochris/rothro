@@ -638,7 +638,7 @@ public abstract class SimulationFrame extends JFrame {
 		this.camera.offsetY += cameraMove.y;
 		
 		// update the camera zoom
-		double scale = this.zoom.getScaleAndReset();
+		double scale = 1.0;
 		this.camera.scale *= scale;
 		this.camera.offsetX *= scale;
 		this.camera.offsetY *= scale;

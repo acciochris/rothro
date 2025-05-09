@@ -25,6 +25,10 @@ public class RoThro extends SimulationFrame {
 		this.world.addBody(ball);
 	}
 
+	protected void initializeSettings() {
+		setMousePanningEnabled(false);
+	}
+
 	@Override
 	protected void initializeCamera(Camera camera) {
 		super.initializeCamera(camera);
