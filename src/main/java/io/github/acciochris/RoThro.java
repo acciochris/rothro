@@ -10,7 +10,7 @@ import io.github.acciochris.framework.SimulationFrame;
 import org.dyn4j.world.World;
 
 public class RoThro extends SimulationFrame {
-	public static final double CAMERA_SCALE = 45.0;
+	public static final double CAMERA_SCALE = 30.0;
 	public static final int WIDTH = 1200;
 	public static final int HEIGHT = 800;
 
