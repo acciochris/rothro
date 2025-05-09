@@ -33,6 +33,7 @@ public class Ball extends SimulationBody
     {
         addFixture(new Circle(1));
         setMass(MassType.NORMAL);
+        setAngularDamping(1000.0);
         controls = new ArrayList<ArrayList<String>>(5);
     }
     public void setControls(String control)
