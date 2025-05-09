@@ -122,6 +122,10 @@ public abstract class SimulationFrame extends JFrame {
 	private final ToggleStateKeyboardInputHandler printStepNumber;
 	private final ToggleStateKeyboardInputHandler printSimulation;
 	
+	public SimulationFrame(String name) {
+		this(name, 800, 600);
+	}
+
 	/**
 	 * Constructor.
 	 * <p>
@@ -129,7 +133,7 @@ public abstract class SimulationFrame extends JFrame {
 	 * @param name the frame name
 	 * @param scale the pixels per meter scale factor
 	 */
-	public SimulationFrame(String name) {
+	public SimulationFrame(String name, int width, int height) {
 		super(name);
 		
 		this.camera = new Camera();
@@ -154,7 +158,7 @@ public abstract class SimulationFrame extends JFrame {
 		});
 		
 		// create the size of the window
-		Dimension size = new Dimension(800, 600);
+		Dimension size = new Dimension(width, height);
 		
 		// create a canvas to paint to 
 		this.canvas = new Canvas();
