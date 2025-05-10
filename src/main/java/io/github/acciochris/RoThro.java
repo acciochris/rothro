@@ -25,7 +25,9 @@ public class RoThro extends SimulationFrame {
 		this.level = level;
 		p1 = new Ball();
 		keyListener = new RothroKeyListener();
+		super.canvas.setFocusable(true);
 		super.canvas.addKeyListener(keyListener);
+		super.canvas.requestFocusInWindow();
 	}
 
 	protected void initializeWorld() {
@@ -50,6 +52,13 @@ public class RoThro extends SimulationFrame {
 		this.world.addBody(right);
 		this.world.addBody(bottom);
 		this.world.addBody(top);
+	}
+
+	@Override
+	protected void handleEvents()
+	{
+		super.handleEvents();
+		p1.controls(keyListener.getIm().keysPressed);
 	}
 
 	@Override

@@ -21,18 +21,15 @@ import org.dyn4j.world.World;
 
 public class Ball extends SimulationBody
 {
+    public int angle;
+    
     private ArrayList<ArrayList<Integer>> controls;
-
-    private BooleanStateKeyboardInputHandler left;
-	private BooleanStateKeyboardInputHandler right;
-	
-	private BooleanStateKeyboardInputHandler plus;
-	private BooleanStateKeyboardInputHandler minus;
 	
 	private BooleanStateKeyboardInputHandler shoot;
 
     public Ball() 
     {
+        angle = 90;
         addFixture(new Circle(1));
         setMass(MassType.NORMAL);
         setAngularDamping(1000.0);
@@ -51,20 +48,20 @@ public class Ball extends SimulationBody
     }
     public void controls(HashSet<Integer> keysPressed)
     {
-        int angle = 90;
         for (int i:keysPressed)
         {
-            while(controls.get(0).contains(i))
+            if(controls.get(0).contains(i))
             {
-                angle += 0.005;
+                angle += 0.01;
             }
-            while(controls.get(1).contains(i))
+            if(controls.get(1).contains(i))
             {
-                angle -= 0.005;
+                angle -= 0.01;
             }
             if(controls.get(2).contains(i))
             {
-                setLinearVelocity(new Vector2(Math.cos(angle), Math.sin(angle)));
+                applyForce(new Vector2(100*Math.cos(Math.toRadians(angle)), 100*Math.sin(Math.toRadians(angle))));
+                System.out.println(angle);
             }
         }
     }
