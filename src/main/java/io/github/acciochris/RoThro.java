@@ -16,9 +16,16 @@ public class RoThro extends SimulationFrame {
 
 	private Level level;
 
+	private Ball p1;
+
+	private RothroKeyListener keyListener;
+
 	public RoThro(Level level) {
 		super("RoThro", WIDTH, HEIGHT);
 		this.level = level;
+		p1 = new Ball();
+		keyListener = new RothroKeyListener();
+		super.canvas.addKeyListener(keyListener);
 	}
 
 	protected void initializeWorld() {
@@ -27,8 +34,7 @@ public class RoThro extends SimulationFrame {
 			this.world.addBody(obstacle);
 		}
 
-		Ball ball = new Ball();
-		this.world.addBody(ball);
+		this.world.addBody(p1);
 	}
 
 	protected void initializeSettings() {
