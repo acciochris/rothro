@@ -5,9 +5,15 @@ import java.util.List;
 
 public class Level {
     private List<Obstacle> obstacles;
+    private Hole hole;
 
     public Level() {
-        obstacles = new LinkedList<>();
+        this(new LinkedList<>(), null);
+    }
+
+    public Level(List<Obstacle> obstacles, Hole hole) {
+        this.obstacles = obstacles;
+        this.hole = hole;
     }
 
     public void addObstacle(Obstacle obstacle) {
@@ -16,5 +22,15 @@ public class Level {
 
     public List<Obstacle> getObstacles() {
         return obstacles;
+    }
+
+    public Hole getHole()
+    {
+        return hole;
+    }
+
+    public void setHole(Hole hole)
+    {
+        this.hole = hole;
     }
 }

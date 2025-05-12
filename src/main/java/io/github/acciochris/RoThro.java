@@ -13,6 +13,8 @@ public class RoThro extends SimulationFrame {
 	public static final double CAMERA_SCALE = 30.0;
 	public static final int WIDTH = 1200;
 	public static final int HEIGHT = 800;
+	private final double width = WIDTH / CAMERA_SCALE;
+	private final double height = HEIGHT / CAMERA_SCALE;
 
 	private Level level;
 
@@ -42,16 +44,34 @@ public class RoThro extends SimulationFrame {
 	protected void initializeSettings() {
 		setMousePanningEnabled(false);
 
-		double width = WIDTH / CAMERA_SCALE;
-		double height = HEIGHT / CAMERA_SCALE;
-		Obstacle left = new Obstacle(new Rectangle(2.0, height), -width / 2 - 1, 0);
-		Obstacle right = new Obstacle(new Rectangle(2.0, height), width / 2 + 1, 0);
-		Obstacle bottom = new Obstacle(new Rectangle(width, 2.0), 0, -height / 2 - 1);
-		Obstacle top = new Obstacle(new Rectangle(width, 2.0), 0, height / 2 + 1);
+		Obstacle left = new Obstacle(new Rectangle(2.0, height), -width / 2, 0);
+		Obstacle bottom = new Obstacle(new Rectangle(width, 2.0), 0, -height / 2);
+		Obstacle top = new Obstacle(new Rectangle(width, 2.0), 0, height / 2);
 		this.world.addBody(left);
-		this.world.addBody(right);
 		this.world.addBody(bottom);
 		this.world.addBody(top);
+		addHole();
+	}
+
+	private void addHole() {
+		Hole hole = level.getHole();
+		if (hole == null) {
+			this.world.addBody(new Obstacle(new Rectangle(2.0, height), width / 2, 0));
+			return;
+		}
+
+		Obstacle upper = new Obstacle(
+			new Rectangle(2.0, hole.getY() - hole.getSize() / 2),
+			width / 2,
+			(height - hole.getY() + hole.getSize() / 2) / 2
+		);
+		Obstacle lower = new Obstacle(
+			new Rectangle(2.0, height - hole.getY() - hole.getSize() / 2),
+			width / 2,
+			(-hole.getY() - hole.getSize() / 2) / 2
+		);
+		this.world.addBody(upper);
+		this.world.addBody(lower);
 	}
 
 	@Override
