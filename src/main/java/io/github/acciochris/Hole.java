@@ -1,3 +1,4 @@
+package io.github.acciochris;
 public class Hole 
 {
     private double x;
