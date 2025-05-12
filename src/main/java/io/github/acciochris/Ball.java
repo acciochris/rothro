@@ -42,9 +42,22 @@ public class Ball extends SimulationBody
         controls.get(1).add(KeyEvent.VK_RIGHT);
         controls.get(2).add(KeyEvent.VK_SPACE);
     }
-    public void setControls(String control)
+    public void setControls(int control, char option, HashSet<Integer> keysPressed)
     {
-        
+        if (option == 'd')
+        {
+            for (int a: controls.get(control))
+            {
+                controls.get(control).remove(a);
+            }
+        }
+        if (option == 'a')
+        {
+            for (int c: keysPressed)
+            {
+                controls.get(option).add(c);
+            }
+        }
     }
     public void controls(HashSet<Integer> keysPressed)
     {
