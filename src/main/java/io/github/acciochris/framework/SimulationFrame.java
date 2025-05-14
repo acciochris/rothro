@@ -387,6 +387,8 @@ public abstract class SimulationFrame extends JFrame {
 		// Sync the display on some systems.
         // (on Linux, this fixes event queue problems)
         Toolkit.getDefaultToolkit().sync();
+
+		this.gameLoopLogic();
 	}
 
 	/**
@@ -667,6 +669,8 @@ public abstract class SimulationFrame extends JFrame {
 		
 	}
 	
+	protected void gameLoopLogic() {}
+
 	/**
 	 * Stops the simulation.
 	 */
