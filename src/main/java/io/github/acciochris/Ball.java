@@ -12,22 +12,18 @@ import org.dyn4j.geometry.Polygon;
 import org.dyn4j.geometry.Circle;
 import org.dyn4j.geometry.Transform;
 import org.dyn4j.geometry.Vector2;
-import io.github.acciochris.framework.Camera;
 import io.github.acciochris.framework.SimulationBody;
-import io.github.acciochris.framework.SimulationFrame;
 import io.github.acciochris.framework.input.BooleanStateKeyboardInputHandler;
-import io.github.acciochris.framework.input.Key;
-import org.dyn4j.world.World;
 
 public class Ball extends SimulationBody
 {
-    public int angle;
+    public double angle;
     
     private ArrayList<ArrayList<Integer>> controls;
 	
 	private BooleanStateKeyboardInputHandler shoot;
 
-    public Ball() 
+    public Ball()
     {
         angle = 90;
         addFixture(new Circle(1));
@@ -40,7 +36,7 @@ public class Ball extends SimulationBody
         }
         controls.get(0).add(KeyEvent.VK_LEFT);
         controls.get(1).add(KeyEvent.VK_RIGHT);
-        controls.get(2).add(KeyEvent.VK_SPACE);
+        controls.get(2).add(KeyEvent.VK_S);
     }
     public void setControls( char option, int subjectControl, int replacementControl)
     {
@@ -62,16 +58,19 @@ public class Ball extends SimulationBody
         {
             if(controls.get(0).contains(i))
             {
-                angle += 0.01;
+                System.out.println("hapy");
+                angle += 0.5;
+                System.out.println(angle);
             }
             if(controls.get(1).contains(i))
             {
-                angle -= 0.01;
+                System.out.println("happens");
+                angle -= 0.5;
+                System.out.println(angle);
             }
             if(controls.get(2).contains(i))
             {
-                applyForce(new Vector2(100*Math.cos(Math.toRadians(angle)), 100*Math.sin(Math.toRadians(angle))));
-                System.out.println(angle);
+                setLinearVelocity(new Vector2(100*Math.cos(Math.toRadians(angle)), 100*Math.sin(Math.toRadians(angle))).multiply(0.30));
             }
         }
     }
