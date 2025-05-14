@@ -9,6 +9,31 @@ import io.github.acciochris.framework.SimulationBody;
 import io.github.acciochris.framework.SimulationFrame;
 import org.dyn4j.world.World;
 
+// Dracula Color Palette
+//
+// Background
+// #282A36
+// Current Line
+// #44475A
+// Foreground
+// #F8F8F2
+// Comment
+// #6272A4
+// Cyan
+// #8BE9FD
+// Green
+// #50FA7B
+// Orange
+// #FFB86C
+// Pink
+// #FF79C6
+// Purple
+// #BD93F9
+// Red
+// #FF5555
+// Yellow
+// #F1FA8C
+
 public class RoThro extends SimulationFrame {
 	public static final double CAMERA_SCALE = 30.0;
 	public static final int WIDTH = 1200;
@@ -44,9 +69,9 @@ public class RoThro extends SimulationFrame {
 	protected void initializeSettings() {
 		setMousePanningEnabled(false);
 
-		Obstacle left = new Obstacle(new Rectangle(2.0, height), -width / 2, 0);
-		Obstacle bottom = new Obstacle(new Rectangle(width, 2.0), 0, -height / 2);
-		Obstacle top = new Obstacle(new Rectangle(width, 2.0), 0, height / 2);
+		Obstacle left = new Obstacle(new Rectangle(1.0, height), -width / 2, 0);
+		Obstacle bottom = new Obstacle(new Rectangle(width, 1.0), 0, -height / 2);
+		Obstacle top = new Obstacle(new Rectangle(width, 1.0), 0, height / 2);
 		this.world.addBody(left);
 		this.world.addBody(bottom);
 		this.world.addBody(top);
@@ -56,17 +81,17 @@ public class RoThro extends SimulationFrame {
 	private void addHole() {
 		Hole hole = level.getHole();
 		if (hole == null) {
-			this.world.addBody(new Obstacle(new Rectangle(2.0, height), width / 2, 0));
+			this.world.addBody(new Obstacle(new Rectangle(1.0, height), width / 2, 0));
 			return;
 		}
 
 		Obstacle upper = new Obstacle(
-			new Rectangle(2.0, hole.getY() - hole.getSize() / 2),
+			new Rectangle(1.0, hole.getY() - hole.getSize() / 2),
 			width / 2,
 			(height - hole.getY() + hole.getSize() / 2) / 2
 		);
 		Obstacle lower = new Obstacle(
-			new Rectangle(2.0, height - hole.getY() - hole.getSize() / 2),
+			new Rectangle(1.0, height - hole.getY() - hole.getSize() / 2),
 			width / 2,
 			(-hole.getY() - hole.getSize() / 2) / 2
 		);

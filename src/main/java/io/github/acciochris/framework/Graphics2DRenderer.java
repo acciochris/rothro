@@ -357,7 +357,7 @@ public final class Graphics2DRenderer {
 	 */
 	private static final Color getOutlineColor(Color color) {
 		Color oc = color.darker();
-		return new Color(oc.getRed(), oc.getGreen(), oc.getBlue(), color.getAlpha());
+		return new Color(oc.getRed(), oc.getGreen(), oc.getBlue(), 0);
 	}
 	
 	/**

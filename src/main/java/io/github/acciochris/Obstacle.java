@@ -2,6 +2,7 @@ package io.github.acciochris;
 
 import org.dyn4j.dynamics.BodyFixture;
 import org.dyn4j.geometry.*;
+import java.awt.Color;
 import io.github.acciochris.framework.SimulationBody;
 
 
@@ -11,8 +12,10 @@ public class Obstacle extends SimulationBody
     private double y;
     // private double velx;
     // private double vely;
+    public static final Color DEFAULT_COLOR = new Color(0x6272a4);
 
-    public Obstacle(Convex shape, double x, double y) {
+    public Obstacle(Convex shape, double x, double y, Color color) {
+        super(color);
         this.x = x;
         this.y = y;
 
@@ -21,6 +24,10 @@ public class Obstacle extends SimulationBody
         translate(x, y);
         setMass(MassType.INFINITE);
         setAtRestDetectionEnabled(false);
+    }
+
+    public Obstacle(Convex shape, double x, double y) {
+        this(shape, x, y, DEFAULT_COLOR);
     }
 
     public double getX()

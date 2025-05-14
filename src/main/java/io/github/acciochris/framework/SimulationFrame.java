@@ -417,7 +417,7 @@ public abstract class SimulationFrame extends JFrame {
 		final int h = this.canvas.getHeight();
 		
 		// lets draw over everything with a white background
-		g.setColor(Color.WHITE);
+		g.setColor(new Color(0x282a36));
 		g.fillRect(-w / 2, -h / 2, w, h);
 	}
 	
@@ -601,7 +601,7 @@ public abstract class SimulationFrame extends JFrame {
 		// if the object is selected, draw it magenta
 		Color color = body.getColor();
 		if (this.picking.isEnabled() && this.picking.isActive() && this.picking.getBody() == body) {
-			color = Color.MAGENTA;
+			color = new Color(0xff5555);
 		}
 		
 		// draw the object 

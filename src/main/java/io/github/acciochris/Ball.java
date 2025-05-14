@@ -2,6 +2,7 @@ package io.github.acciochris;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import org.dyn4j.collision.Filter;
@@ -25,6 +26,7 @@ public class Ball extends SimulationBody
 
     public Ball()
     {
+        super(new Color(0xff79C6));
         angle = 90;
         addFixture(new Circle(1));
         setMass(MassType.NORMAL);
