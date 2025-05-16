@@ -68,6 +68,7 @@ public class RoThro extends SimulationFrame {
 
 	protected void initializeSettings() {
 		setMousePanningEnabled(false);
+		setMousePickingEnabled(false);
 
 		Obstacle left = new Obstacle(new Rectangle(1.0, height), -width / 2, 0);
 		Obstacle bottom = new Obstacle(new Rectangle(width, 1.0), 0, -height / 2);

@@ -34,6 +34,7 @@ public class Ball extends SimulationBody
         addFixture(new Circle(1));
         setMass(MassType.NORMAL);
         setAngularDamping(1000.0);
+        setAtRestDetectionEnabled(false);
         controls = new ArrayList<ArrayList<Integer>>();
         for (int i = 0; i <= 5; i++)
         {
