@@ -16,7 +16,7 @@ public class Main {
         level.addObstacle(new Obstacle(new Circle(2.0), 5.0, 10.0));
         level.addObstacle(new Obstacle(new Capsule(5.0, 2.0), 9.0, 6.0));
         level.addObstacle(new Obstacle(new Segment(new Vector2(-1.0, 4.0), new Vector2(5.0, 8.0)), 7.0, -9.0));
-        level.setHole(new Hole(8.0, 3.0));
+        level.setHole(new Hole(8.0, 2.5));
         return level;
     }
 
