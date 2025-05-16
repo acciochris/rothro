@@ -4,7 +4,9 @@ import org.dyn4j.geometry.*;
 
 public class Main {
     public static final Level[] LEVELS = {
-        level0()
+        level0(),
+        level1(),
+        level2(),
     };
 
     public static Level level0()
@@ -42,7 +44,10 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        RoThro rothro = new RoThro(LEVELS[0]);
-        rothro.run();
+        for (Level level : LEVELS)
+        {
+            RoThro rothro = new RoThro(level);
+            rothro.run();
+        }
     }
 }

@@ -362,6 +362,11 @@ public abstract class SimulationFrame extends JFrame {
 		thread.setDaemon(true);
 		// start the game loop
 		thread.start();
+		try {
+			thread.join();
+		} catch (InterruptedException e) {}
+		setVisible(false);
+		dispose();
 	}
 	
 	/**

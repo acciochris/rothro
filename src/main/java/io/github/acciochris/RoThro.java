@@ -107,8 +107,7 @@ public class RoThro extends SimulationFrame {
 		Vector2 ballCoords = p1.getWorldCenter();
 		// FIXME: hard-coded ball radius
 		if (Math.abs(ballCoords.x) > width / 2 + 1.0 || Math.abs(ballCoords.y) > height / 2 + 1.0) {
-			this.pause();
-			// TODO: display success message or smth
+			this.stop();
 		}
 	}
 
