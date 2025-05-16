@@ -166,7 +166,7 @@ public final class Graphics2DRenderer {
 			vertices[1].y * scale);
 		
 		// draw the outline
-		g.setColor(getOutlineColor(color));
+		g.setColor(color);
 		g.draw(l);
 	}
 	
