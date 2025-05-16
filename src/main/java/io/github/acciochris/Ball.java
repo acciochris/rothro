@@ -34,6 +34,7 @@ public class Ball extends SimulationBody
         addFixture(new Circle(1));
         setMass(MassType.NORMAL);
         setAngularDamping(1000.0);
+        setLinearDamping(0.1);
         setAtRestDetectionEnabled(false);
         controls = new ArrayList<ArrayList<Integer>>();
         for (int i = 0; i <= 5; i++)
@@ -64,19 +65,19 @@ public class Ball extends SimulationBody
         {
             if(controls.get(0).contains(i))
             {
-                System.out.println("hapy");
-                angle += 0.5;
-                System.out.println(angle);
+                // System.out.println("hapy");
+                angle += 1;
+                // System.out.println(angle);
             }
             if(controls.get(1).contains(i))
             {
-                System.out.println("happens");
-                angle -= 0.5;
-                System.out.println(angle);
+                // System.out.println("happens");
+                angle -= 1;
+                // System.out.println(angle);
             }
             if(controls.get(2).contains(i))
             {
-                setLinearVelocity(new Vector2(100*Math.cos(Math.toRadians(angle)), 100*Math.sin(Math.toRadians(angle))).multiply(0.30));
+                setLinearVelocity(new Vector2(40*Math.cos(Math.toRadians(angle)), 40*Math.sin(Math.toRadians(angle))).multiply(0.30));
             }
         }
     }
