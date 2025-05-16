@@ -201,16 +201,48 @@ public abstract class SimulationFrame extends JFrame {
 		this.zoom = new MouseZoomInputHandler(this.canvas, MouseEvent.BUTTON1);
 		this.zoom.install();
 		
-		this.paused = new ToggleStateKeyboardInputHandler(this.canvas, KeyEvent.VK_SPACE);
-		this.step = new ToggleStateKeyboardInputHandler(this.canvas, KeyEvent.VK_ENTER);
-		this.reset = new BooleanStateKeyboardInputHandler(this.canvas, KeyEvent.VK_R);
-		this.resetCamera = new BooleanStateKeyboardInputHandler(this.canvas, KeyEvent.VK_H);
-		this.renderContacts = new ToggleStateKeyboardInputHandler(this.canvas, KeyEvent.VK_C);
-		this.renderBodyAABBs = new ToggleStateKeyboardInputHandler(this.canvas, KeyEvent.VK_B);
-		this.renderBodyRotationRadius = new ToggleStateKeyboardInputHandler(this.canvas, KeyEvent.VK_B);
-		this.renderFixtureAABBs = new ToggleStateKeyboardInputHandler(this.canvas, KeyEvent.VK_F);
-		this.renderFixtureRotationRadius = new ToggleStateKeyboardInputHandler(this.canvas, KeyEvent.VK_F);
-		this.renderBounds = new ToggleStateKeyboardInputHandler(this.canvas, KeyEvent.VK_Z);
+		this.paused = new ToggleStateKeyboardInputHandler(this.canvas, KeyEvent.VK_SPACE) {
+			@Override
+			protected void onKeyPressed() {
+				// do nothing, disable this
+			}
+		};
+		this.step = new ToggleStateKeyboardInputHandler(this.canvas, KeyEvent.VK_ENTER) {
+			@Override
+			protected void onKeyPressed() {}
+		};
+		this.reset = new BooleanStateKeyboardInputHandler(this.canvas, KeyEvent.VK_R) {
+			@Override
+			protected void onKeyPressed() {}
+		};
+		this.resetCamera = new BooleanStateKeyboardInputHandler(this.canvas, KeyEvent.VK_H) {
+			@Override
+			protected void onKeyPressed() {}
+		};
+		this.renderContacts = new ToggleStateKeyboardInputHandler(this.canvas, KeyEvent.VK_C) {
+			@Override
+			protected void onKeyPressed() {}
+		};
+		this.renderBodyAABBs = new ToggleStateKeyboardInputHandler(this.canvas, KeyEvent.VK_B) {
+			@Override
+			protected void onKeyPressed() {}
+		};
+		this.renderBodyRotationRadius = new ToggleStateKeyboardInputHandler(this.canvas, KeyEvent.VK_B) {
+			@Override
+			protected void onKeyPressed() {}
+		};
+		this.renderFixtureAABBs = new ToggleStateKeyboardInputHandler(this.canvas, KeyEvent.VK_F) {
+			@Override
+			protected void onKeyPressed() {}
+		};
+		this.renderFixtureRotationRadius = new ToggleStateKeyboardInputHandler(this.canvas, KeyEvent.VK_F) {
+			@Override
+			protected void onKeyPressed() {}
+		};
+		this.renderBounds = new ToggleStateKeyboardInputHandler(this.canvas, KeyEvent.VK_Z) {
+			@Override
+			protected void onKeyPressed() {}
+		};
 		
 		this.paused.install();
 		this.step.install();
@@ -225,8 +257,14 @@ public abstract class SimulationFrame extends JFrame {
 		this.renderFixtureRotationRadius.install();
 		this.renderBounds.install();
 
-		this.printSimulation = new ToggleStateKeyboardInputHandler(this.canvas, KeyEvent.VK_NUMPAD0, KeyEvent.VK_0);
-		this.printStepNumber = new ToggleStateKeyboardInputHandler(this.canvas, KeyEvent.VK_NUMPAD1, KeyEvent.VK_1);
+		this.printSimulation = new ToggleStateKeyboardInputHandler(this.canvas, KeyEvent.VK_NUMPAD0, KeyEvent.VK_0) {
+			@Override
+			protected void onKeyPressed() {}
+		};
+		this.printStepNumber = new ToggleStateKeyboardInputHandler(this.canvas, KeyEvent.VK_NUMPAD1, KeyEvent.VK_1) {
+			@Override
+			protected void onKeyPressed() {}
+		};
 		
 		this.printSimulation.install();
 		this.printStepNumber.install();
@@ -239,23 +277,21 @@ public abstract class SimulationFrame extends JFrame {
 	}
 	
 	protected void printControls() {
-		System.out.println("Controls:");
-		System.out.println("------------------------------------------------------------------------------");
-		printControl("Name", "Input", "Description");
-		System.out.println("------------------------------------------------------------------------------");
-		printControl("Move", "LMB", "Click & hold the left mouse button to move object");
-		printControl("Pan", "LMB", "Click & hold the left mouse button anywhere to pan");
-		printControl("Zoom", "MW", "Mouse wheel up and down to zoom in and out");
-		printControl("Pause", "Space", "Use the space bar to pause/unpause");
-		printControl("Step", "Enter", "Use the enter key to step the scene when paused");
-		printControl("Reset", "r", "Use the r key to reset the simulation");
-		printControl("Home", "h", "Use the h key to reset the camera");
-		printControl("Contacts", "c", "Use the c key to toggle drawing of contacts");
-		printControl("Body Bounds", "b", "Use the b key to toggle drawing of body bounds");
-		printControl("Fixture Bounds", "f", "Use the f key to toggle drawing of fixture bounds");
-		printControl("World Bounds", "z", "Use the z key to toggle drawing of world bounds");
-		printControl("Print Code", "0", "Use the 0 key to print the scene to code");
-		printControl("Print Step", "1", "Use the 1 key to print the scene step number");
+		// System.out.println("Controls:");
+		// System.out.println("------------------------------------------------------------------------------");
+		// printControl("Name", "Input", "Description");
+		// System.out.println("------------------------------------------------------------------------------");
+		// printControl("Move", "LMB", "Click & hold the left mouse button to move object");
+		// printControl("Pan", "LMB", "Click & hold the left mouse button anywhere to pan");
+		// printControl("Zoom", "MW", "Mouse wheel up and down to zoom in and out");
+		// printControl("Reset", "r", "Use the r key to reset the simulation");
+		// printControl("Home", "h", "Use the h key to reset the camera");
+		// printControl("Contacts", "c", "Use the c key to toggle drawing of contacts");
+		// printControl("Body Bounds", "b", "Use the b key to toggle drawing of body bounds");
+		// printControl("Fixture Bounds", "f", "Use the f key to toggle drawing of fixture bounds");
+		// printControl("World Bounds", "z", "Use the z key to toggle drawing of world bounds");
+		// printControl("Print Code", "0", "Use the 0 key to print the scene to code");
+		// printControl("Print Step", "1", "Use the 1 key to print the scene step number");
 	}
 	
 	/**
