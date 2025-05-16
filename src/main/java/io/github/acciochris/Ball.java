@@ -3,6 +3,9 @@ package io.github.acciochris;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Line2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import org.dyn4j.collision.Filter;
@@ -75,5 +78,21 @@ public class Ball extends SimulationBody
                 setLinearVelocity(new Vector2(100*Math.cos(Math.toRadians(angle)), 100*Math.sin(Math.toRadians(angle))).multiply(0.30));
             }
         }
+    }
+
+    @Override
+    public void render(Graphics2D g, double scale, Color color) {
+        super.render(g, scale, color);
+
+        Vector2 coords = getWorldCenter();
+        Line2D.Double aimLine = new Line2D.Double(
+            coords.x * scale,
+            coords.y * scale,
+            (coords.x + Math.cos(Math.toRadians(angle)) * 3.0) * scale,
+            (coords.y + Math.sin(Math.toRadians(angle)) * 3.0) * scale
+        );
+
+        g.setColor(new Color(0xF1FA8C));
+        g.draw(aimLine);
     }
 }
