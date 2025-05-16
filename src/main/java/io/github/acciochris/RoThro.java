@@ -50,7 +50,8 @@ public class RoThro extends SimulationFrame {
 	public RoThro(Level level) {
 		super("RoThro", WIDTH, HEIGHT);
 		this.level = level;
-		p1 = new Ball();
+		p1 = new Ball(level.getBallRadius());
+		p1.translate(level.getBallPos());
 		keyListener = new RothroKeyListener();
 		super.canvas.setFocusable(true);
 		super.canvas.addKeyListener(keyListener);

@@ -27,11 +27,14 @@ public class Ball extends SimulationBody
 	
 	private BooleanStateKeyboardInputHandler shoot;
 
-    public Ball()
+    private double radius;
+
+    public Ball(double r)
     {
         super(new Color(0xff79C6));
         angle = 90;
-        addFixture(new Circle(1));
+        this.radius = r;
+        addFixture(new Circle(r));
         setMass(MassType.NORMAL);
         setAngularDamping(1000.0);
         setLinearDamping(0.1);
@@ -80,6 +83,11 @@ public class Ball extends SimulationBody
                 setLinearVelocity(new Vector2(40*Math.cos(Math.toRadians(angle)), 40*Math.sin(Math.toRadians(angle))).multiply(0.30));
             }
         }
+    }
+
+    public double getRadius() 
+    { 
+        return radius; 
     }
 
     @Override
