@@ -1,6 +1,9 @@
 package io.github.acciochris;
 
+import java.awt.Point;
+import org.dyn4j.dynamics.joint.RevoluteJoint;
 import org.dyn4j.geometry.*;
+import io.github.acciochris.framework.SimulationBody;
 
 public class Main {
     public static final Level[] LEVELS = {
@@ -15,12 +18,21 @@ public class Main {
         level.setBallRadius(1.5);
         level.setBallPos(new Vector2(-10, -5));
         level.setHole(new Hole(8.0, level.getBallRadius() * 2 + 1.0));
-        level.addObstacle(new Obstacle(new Rectangle(2.0, 1.0), 3.0, 3.0));
-        level.addObstacle(new Obstacle(new Rectangle(1.0, 2.0), 5, -8.0));
-        level.addObstacle(new Obstacle(new Rectangle(2.0, 1.0), 3.0, -5.0));
-        level.addObstacle(new Obstacle(new Circle(2.0), 5.0, 10.0));
-        level.addObstacle(new Obstacle(new Capsule(5.0, 2.0), 9.0, 6.0));
-        level.addObstacle(new Obstacle(new Segment(new Vector2(-1.0, 4.0), new Vector2(5.0, 8.0)), 7.0, -9.0));
+        Obstacle rect1 = new Obstacle(new Rectangle(4.0, 1.0), 3.0, 10.0, false);
+        Obstacle rect2 = new Obstacle(new Rectangle(3.0, 5.0), -2.0, 0.0, false);
+        Obstacle circle1 = new Obstacle(new Circle(1.0), 5.0, 0.0, false);
+        Obstacle circle2 = new Obstacle(new Circle(3.0), 7.0, -5.0, false);
+        Obstacle capsule1 = new Obstacle(new Capsule(2.0, 4.0), -9.0, 8.0, true);
+        Obstacle anchor = new Obstacle(new Polygon(new Vector2(0.0, 0.0)), capsule1.getX(), capsule1.getY() + 4.0, false);
+        level.addObstacle(rect1);
+        level.addObstacle(rect2);
+        level.addObstacle(circle1);
+        level.addObstacle(circle2);
+        level.addObstacle(capsule1);
+        level.addObstacle(anchor);
+        RevoluteJoint<SimulationBody> pJoint = new RevoluteJoint<SimulationBody>(capsule1, anchor, new Vector2(anchor.getX(), anchor.getY()));
+        //pJoint = pendulum joint. The capsule is simulated to be a physical pendulum.
+        level.addJoint(pJoint);
         return level;
     }
 

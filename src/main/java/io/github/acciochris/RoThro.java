@@ -3,6 +3,7 @@ package io.github.acciochris;
 import org.dyn4j.collision.AxisAlignedBounds;
 import org.dyn4j.collision.Bounds;
 import org.dyn4j.dynamics.BodyFixture;
+import org.dyn4j.dynamics.joint.Joint;
 import org.dyn4j.geometry.*;
 import io.github.acciochris.framework.Camera;
 import io.github.acciochris.framework.SimulationBody;
@@ -63,6 +64,11 @@ public class RoThro extends SimulationFrame {
 		for (Obstacle obstacle : level.getObstacles()) {
 			this.world.addBody(obstacle);
 		}
+		
+		for (Joint<SimulationBody> joint : level.getJoints())
+		{
+			this.world.addJoint(joint);
+		}
 
 		this.world.addBody(p1);
 	}
@@ -71,9 +77,9 @@ public class RoThro extends SimulationFrame {
 		setMousePanningEnabled(false);
 		setMousePickingEnabled(false);
 
-		Obstacle left = new Obstacle(new Rectangle(1.0, height), -width / 2, 0);
-		Obstacle bottom = new Obstacle(new Rectangle(width, 1.0), 0, -height / 2);
-		Obstacle top = new Obstacle(new Rectangle(width, 1.0), 0, height / 2);
+		Obstacle left = new Obstacle(new Rectangle(1.0, height), -width / 2, 0, false);
+		Obstacle bottom = new Obstacle(new Rectangle(width, 1.0), 0, -height / 2, false);
+		Obstacle top = new Obstacle(new Rectangle(width, 1.0), 0, height / 2, false);
 		this.world.addBody(left);
 		this.world.addBody(bottom);
 		this.world.addBody(top);
@@ -83,19 +89,19 @@ public class RoThro extends SimulationFrame {
 	private void addHole() {
 		Hole hole = level.getHole();
 		if (hole == null) {
-			this.world.addBody(new Obstacle(new Rectangle(1.0, height), width / 2, 0));
+			this.world.addBody(new Obstacle(new Rectangle(1.0, height), width / 2, 0, false));
 			return;
 		}
 
 		Obstacle upper = new Obstacle(
 			new Rectangle(1.0, hole.getY() - hole.getSize() / 2),
 			width / 2,
-			(height - hole.getY() + hole.getSize() / 2) / 2
+			(height - hole.getY() + hole.getSize() / 2) / 2, false
 		);
 		Obstacle lower = new Obstacle(
 			new Rectangle(1.0, height - hole.getY() - hole.getSize() / 2),
 			width / 2,
-			(-hole.getY() - hole.getSize() / 2) / 2
+			(-hole.getY() - hole.getSize() / 2) / 2, false
 		);
 		this.world.addBody(upper);
 		this.world.addBody(lower);
