@@ -87,7 +87,7 @@ public class RoThro extends SimulationFrame {
 						Vector2 anchorPos = new Vector2(obsX, obsY);
 						RevoluteJoint<SimulationBody> rj = new RevoluteJoint<SimulationBody>(obs, anchor, anchorPos);
 						rj.setLimitsEnabled(true);
-						//rj.
+						obs.setGravityScale(1.0);
 						rj.setLimits(-Math.PI / 3, Math.PI / 3);
 						this.world.addBody(anchor);
 						this.world.addJoint(rj);
