@@ -79,7 +79,7 @@ public class RoThro extends SimulationFrame {
 				{
 					double obsX = obs.getX();
 					double obsY = obs.getY();
-					if (obs.getJointType() == "Revolute")
+					if (obs.getJointType().equals("Revolute"))
 					{
 						Polygon fulcrum = Geometry.createEquilateralTriangle(0.1);
 						fulcrum.translate(obsX, obsY);
@@ -87,6 +87,7 @@ public class RoThro extends SimulationFrame {
 						Vector2 anchorPos = new Vector2(obsX, obsY);
 						RevoluteJoint<SimulationBody> rj = new RevoluteJoint<SimulationBody>(obs, anchor, anchorPos);
 						rj.setLimitsEnabled(true);
+						//rj.
 						rj.setLimits(-Math.PI / 3, Math.PI / 3);
 						this.world.addBody(anchor);
 						this.world.addJoint(rj);
