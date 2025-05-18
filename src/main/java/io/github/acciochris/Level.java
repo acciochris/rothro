@@ -7,8 +7,8 @@ import org.dyn4j.geometry.Vector2;
 import io.github.acciochris.framework.SimulationBody;
 
 public class Level {
-    private List<Obstacle> obstacles;
-    private List<Joint<SimulationBody>> joints;
+    private List<List<Obstacle>> obstacles;
+    private List<Integer> joints; // The integers refer to the list in the Obstacle list that contain movable objects
     private Hole hole;
     private Vector2 ballPos;
     private double ballRadius;
@@ -17,27 +17,17 @@ public class Level {
         this(new LinkedList<>(), null, null);
     }
 
-    public Level(List<Obstacle> obstacles, Hole hole, List<Joint<SimulationBody>> joints) {
+    public Level(List<List<Obstacle>> obstacles, Hole hole, List<Integer> joints) {
         this.obstacles = obstacles;
         this.joints = joints;
         this.hole = hole;
     }
 
-    public void addObstacle(Obstacle obstacle) {
+    public void addObstacle(List<Obstacle> obstacle) {
         obstacles.add(obstacle);
     }
 
-    public void addJoint(Joint<SimulationBody> joint)
-    {
-        joints.add(joint);
-    }
-
-    public List<Joint<SimulationBody>> getJoints() 
-    {
-        return joints;
-    }
-
-    public List<Obstacle> getObstacles() {
+    public List<List<Obstacle>> getObstacles() {
         return obstacles;
     }
 
@@ -75,4 +65,20 @@ public class Level {
     {
         return !joints.isEmpty();
     }
+
+    public List<Integer> getJoints()
+    {
+        return joints;
+    }
+
+    public void setJoints(List<Integer> joints)
+    {
+        this.joints = joints;
+    }
+
+    public void addJoint(Integer joint)
+    {
+        joints.add(joint);
+    }
+
 }

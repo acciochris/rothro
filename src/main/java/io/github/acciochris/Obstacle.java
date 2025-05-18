@@ -12,15 +12,19 @@ public class Obstacle extends SimulationBody
     private double x;
     private double y;
     private boolean movable;
+    private String jointType;
+    private Convex shape;
     // private double velx;
     // private double vely;
     public static final Color DEFAULT_COLOR = new Color(0x6272a4);
 
-    public Obstacle(Convex shape, double x, double y, Color color, boolean canMove) {
+    public Obstacle(Convex shape, double x, double y, Color color, boolean canMove, String jT) {
         super(color);
+        this.shape = shape;
         this.x = x;
         this.y = y;
         this.movable = canMove;
+        this.jointType = jT;
 
         if (!movable)
         {
@@ -40,7 +44,7 @@ public class Obstacle extends SimulationBody
     }
 
     public Obstacle(Convex shape, double x, double y, boolean canMove) {
-        this(shape, x, y, DEFAULT_COLOR, canMove);
+        this(shape, x, y, DEFAULT_COLOR, canMove, null);
     }
 
     public double getX()
@@ -51,6 +55,16 @@ public class Obstacle extends SimulationBody
     public double getY()
     {
         return y;
+    }
+
+    public String getJointType()
+    {
+        return jointType;
+    }
+
+    public Convex getShape()
+    {
+        return shape;
     }
 
     // public void move()

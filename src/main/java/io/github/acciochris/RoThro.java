@@ -1,9 +1,11 @@
 package io.github.acciochris;
 
+import java.util.List;
 import org.dyn4j.collision.AxisAlignedBounds;
 import org.dyn4j.collision.Bounds;
 import org.dyn4j.dynamics.BodyFixture;
 import org.dyn4j.dynamics.joint.Joint;
+import org.dyn4j.dynamics.joint.RevoluteJoint;
 import org.dyn4j.geometry.*;
 import io.github.acciochris.framework.Camera;
 import io.github.acciochris.framework.SimulationBody;
@@ -61,13 +63,36 @@ public class RoThro extends SimulationFrame {
 
 	protected void initializeWorld() {
 		this.world.setGravity(World.ZERO_GRAVITY);
-		for (Obstacle obstacle : level.getObstacles()) {
-			this.world.addBody(obstacle);
+		List<List<Obstacle>> obstacles = level.getObstacles();
+		for (List<Obstacle> obstacle : obstacles) {
+			for (Obstacle obs : obstacle)
+			{
+				this.world.addBody(obs);
+			}
 		}
 		
-		for (Joint<SimulationBody> joint : level.getJoints())
+		if (level.hasJoints())
 		{
-			this.world.addJoint(joint);
+			for (Integer joint : level.getJoints())
+			{
+				for (Obstacle obs : obstacles.get(joint))
+				{
+					double obsX = obs.getX();
+					double obsY = obs.getY();
+					if (obs.getJointType() == "Revolute")
+					{
+						Polygon fulcrum = Geometry.createEquilateralTriangle(0.1);
+						fulcrum.translate(obsX, obsY);
+						Obstacle anchor = new Obstacle(fulcrum, obsX, obsY, false);
+						Vector2 anchorPos = new Vector2(obsX, obsY);
+						RevoluteJoint<SimulationBody> rj = new RevoluteJoint<SimulationBody>(obs, anchor, anchorPos);
+						rj.setLimitsEnabled(true);
+						rj.setLimits(-Math.PI / 3, Math.PI / 3);
+						this.world.addBody(anchor);
+						this.world.addJoint(rj);
+					}
+				}
+			}
 		}
 
 		this.world.addBody(p1);
