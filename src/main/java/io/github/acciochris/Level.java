@@ -63,7 +63,7 @@ public class Level {
 
     public boolean hasJoints()
     {
-        return !joints.isEmpty();
+        return joints != null && joints.size() > 0;
     }
 
     public List<Integer> getJoints()
