@@ -84,10 +84,13 @@ public class RoThro extends SimulationFrame {
 						Polygon fulcrum = Geometry.createEquilateralTriangle(0.1);
 						fulcrum.translate(obsX, obsY);
 						Obstacle anchor = new Obstacle(fulcrum, obsX, obsY, false);
-						Vector2 anchorPos = new Vector2(obsX, obsY);
+						anchor.setMass(MassType.INFINITE);
+						Vector2 anchorPos = new Vector2(obsX, obsY + ((Capsule)obs.getShape()).getLength() / 2);
 						RevoluteJoint<SimulationBody> rj = new RevoluteJoint<SimulationBody>(obs, anchor, anchorPos);
 						rj.setLimitsEnabled(true);
 						obs.setGravityScale(1.0);
+						anchor.setGravityScale(1.0);
+						rj.setCollisionAllowed(false);
 						rj.setLimits(-Math.PI / 3, Math.PI / 3);
 						this.world.addBody(anchor);
 						this.world.addJoint(rj);

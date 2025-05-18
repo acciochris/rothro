@@ -37,7 +37,7 @@ public class Obstacle extends SimulationBody
         {
             BodyFixture fixture = addFixture(shape, 0.8, 0.0, 0.75);
             fixture.setRestitutionVelocity(0.5);
-            setMass(MassType.FIXED_LINEAR_VELOCITY);
+            setMass(MassType.NORMAL);
         }
         translate(x, y);
         setAtRestDetectionEnabled(false);
