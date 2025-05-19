@@ -48,6 +48,13 @@ public class Ball extends SimulationBody
         controls.get(1).add(KeyEvent.VK_RIGHT);
         controls.get(2).add(KeyEvent.VK_S);
     }
+
+    /**
+     * Calling this function results in a logic chain that allows the user to change what certain keys do
+     * @param option - what to do to the subject control
+     * @param subjectControl - the control in question to change
+     * @param replacementControl - the control to replace it with
+     */
     public void setControls( char option, int subjectControl, int replacementControl)
     {
         if (option == 'd')
@@ -62,21 +69,22 @@ public class Ball extends SimulationBody
             controls.get(subjectControl).add(replacementControl);
         }
     }
+
+    /**
+     * Handles all movement of the ball including turning and shooting
+     * @param keysPressed - the hash set of all the keys pressed at the current cycle of the game loop
+     */
     public void controls(HashSet<Integer> keysPressed)
     {
         for (int i:keysPressed)
         {
             if(controls.get(0).contains(i))
             {
-                // System.out.println("hapy");
                 angle += 1;
-                // System.out.println(angle);
             }
             if(controls.get(1).contains(i))
             {
-                // System.out.println("happens");
                 angle -= 1;
-                // System.out.println(angle);
             }
             if(controls.get(2).contains(i))
             {
@@ -90,6 +98,12 @@ public class Ball extends SimulationBody
         return radius; 
     }
 
+    /**
+     * Renders a line to show the direction the ball is to go in when the shoot button is pressed
+     * @param g - controls the graphical interface for the line
+     * @param scale - controls the length of the line
+     * @param color - color of the line
+     */
     @Override
     public void render(Graphics2D g, double scale, Color color) {
         super.render(g, scale, color);
