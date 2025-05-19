@@ -112,8 +112,8 @@ public class Ball extends SimulationBody
         Line2D.Double aimLine = new Line2D.Double(
             coords.x * scale,
             coords.y * scale,
-            (coords.x + Math.cos(Math.toRadians(angle)) * 3.0) * scale,
-            (coords.y + Math.sin(Math.toRadians(angle)) * 3.0) * scale
+            (coords.x + Math.cos(Math.toRadians(angle)) * radius * 3.0) * scale,
+            (coords.y + Math.sin(Math.toRadians(angle)) * radius * 3.0) * scale
         );
 
         g.setColor(new Color(0xF1FA8C));
