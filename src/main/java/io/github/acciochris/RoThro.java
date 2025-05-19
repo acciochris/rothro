@@ -1,5 +1,6 @@
 package io.github.acciochris;
 
+import java.awt.Color;
 import java.util.List;
 import org.dyn4j.collision.AxisAlignedBounds;
 import org.dyn4j.collision.Bounds;
@@ -79,19 +80,13 @@ public class RoThro extends SimulationFrame {
 				{
 					double obsX = obs.getX();
 					double obsY = obs.getY();
+					obs.setAngularDamping(1.0);
 					if (obs.getJointType().equals("Revolute"))
 					{
-						Polygon fulcrum = Geometry.createEquilateralTriangle(0.1);
-						fulcrum.translate(obsX, obsY);
-						Obstacle anchor = new Obstacle(fulcrum, obsX, obsY, false);
-						anchor.setMass(MassType.INFINITE);
-						Vector2 anchorPos = new Vector2(obsX, obsY + ((Capsule)obs.getShape()).getLength() / 2);
-						RevoluteJoint<SimulationBody> rj = new RevoluteJoint<SimulationBody>(obs, anchor, anchorPos);
-						rj.setLimitsEnabled(true);
-						obs.setGravityScale(1.0);
-						anchor.setGravityScale(1.0);
+						Circle fulcrum = Geometry.createCircle(0.1);
+						Obstacle anchor = new Obstacle(fulcrum, obsX, obsY, new Color(0xFFB86C), false, "");
+						RevoluteJoint<SimulationBody> rj = new RevoluteJoint<SimulationBody>(obs, anchor, new Vector2(obsX, obsY));
 						rj.setCollisionAllowed(false);
-						rj.setLimits(-Math.PI / 3, Math.PI / 3);
 						this.world.addBody(anchor);
 						this.world.addJoint(rj);
 					}

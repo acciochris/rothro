@@ -43,7 +43,7 @@ public class Main {
         circleObs.add(circle2);
     
         // Creation and addition of capsule Obstacles
-        Obstacle capsule1 = new Obstacle(new Capsule(2.0, 4.0), -9.0, 8.0, new Color(50, 50, 50), true, "Revolute");
+        Obstacle capsule1 = new Obstacle(new Capsule(2.0, 4.0), -9.0, 8.0, new Color(0xBD93F9), true, "Revolute");
         capsuleObs.add(capsule1);
 
         // Creation of the joints list & addition of Obstacle lists

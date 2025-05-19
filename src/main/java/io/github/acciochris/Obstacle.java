@@ -35,7 +35,7 @@ public class Obstacle extends SimulationBody
 
         else
         {
-            BodyFixture fixture = addFixture(shape, 0.8, 0.0, 0.75);
+            BodyFixture fixture = addFixture(shape, 1.0, 0.0, 0.75);
             fixture.setRestitutionVelocity(0.5);
             setMass(MassType.NORMAL);
         }
@@ -44,7 +44,7 @@ public class Obstacle extends SimulationBody
     }
 
     public Obstacle(Convex shape, double x, double y, boolean canMove) {
-        this(shape, x, y, DEFAULT_COLOR, canMove, null);
+        this(shape, x, y, DEFAULT_COLOR, canMove, "");
     }
 
     public double getX()

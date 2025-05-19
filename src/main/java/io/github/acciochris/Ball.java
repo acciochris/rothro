@@ -31,7 +31,7 @@ public class Ball extends SimulationBody
 
     public Ball(double r)
     {
-        super(new Color(0xff79C6));
+        super(new Color(0xFF79C6));
         angle = 90;
         this.radius = r;
         addFixture(new Circle(r));
