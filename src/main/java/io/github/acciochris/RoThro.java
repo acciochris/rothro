@@ -50,6 +50,9 @@ public class RoThro extends SimulationFrame {
 	private Level level;
 
 	private Ball p1;
+	private Arm arm1;
+	private Arm arm2;
+	private Avatar avatar;
 
 	private RothroKeyListener keyListener;
 
@@ -64,6 +67,10 @@ public class RoThro extends SimulationFrame {
 		super.canvas.setFocusable(true);
 		super.canvas.addKeyListener(keyListener);
 		super.canvas.requestFocusInWindow();
+
+		arm1 = new Arm(new Vector2(-1, 1));
+		arm2 = new Arm(new Vector2(1,1));
+		avatar = new Avatar(arm1, arm2);
 	}
 
 	protected void initializeWorld() {
@@ -76,6 +83,12 @@ public class RoThro extends SimulationFrame {
 			}
 		}
 		
+		this.world.addBody(arm1);
+		this.world.addBody(arm2);
+		arm1.translate(-3,1);
+		arm2.translate(3,1);
+		this.world.addBody(avatar);
+
 		if (level.hasJoints())
 		{
 			for (Integer joint : level.getJoints())
