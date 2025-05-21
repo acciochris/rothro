@@ -1,12 +1,12 @@
 package io.github.acciochris;
 
 import java.awt.Color;
-import java.util.List;
+import java.util.*;
 import org.dyn4j.collision.AxisAlignedBounds;
 import org.dyn4j.collision.Bounds;
 import org.dyn4j.dynamics.BodyFixture;
 import org.dyn4j.dynamics.joint.Joint;
-import org.dyn4j.dynamics.joint.RevoluteJoint;
+import org.dyn4j.dynamics.joint.*;
 import org.dyn4j.geometry.*;
 import io.github.acciochris.framework.Camera;
 import io.github.acciochris.framework.SimulationBody;
@@ -44,6 +44,8 @@ public class RoThro extends SimulationFrame {
 	public static final int HEIGHT = 800;
 	private final double width = WIDTH / CAMERA_SCALE;
 	private final double height = HEIGHT / CAMERA_SCALE;
+	private List<PrismaticJoint<SimulationBody>> prisJoints;
+	private List<RevoluteJoint<SimulationBody>> revJoints;
 
 	private Level level;
 
@@ -56,6 +58,8 @@ public class RoThro extends SimulationFrame {
 		this.level = level;
 		p1 = new Ball(level.getBallRadius());
 		p1.translate(level.getBallPos());
+		prisJoints = new ArrayList<PrismaticJoint<SimulationBody>>();
+		revJoints = new ArrayList<RevoluteJoint<SimulationBody>>();
 		keyListener = new RothroKeyListener();
 		super.canvas.setFocusable(true);
 		super.canvas.addKeyListener(keyListener);
@@ -80,15 +84,69 @@ public class RoThro extends SimulationFrame {
 				{
 					double obsX = obs.getX();
 					double obsY = obs.getY();
-					obs.setAngularDamping(1.0);
-					if (obs.getJointType().equals("Revolute"))
+					String jointType = obs.getJointType();
+
+					if (jointType.equals("Revolute"))
 					{
+						obs.setAngularDamping(1.0);
 						Circle fulcrum = Geometry.createCircle(0.1);
-						Obstacle anchor = new Obstacle(fulcrum, obsX, obsY, new Color(0xFFB86C), false, "");
+						Obstacle anchor = new Obstacle(fulcrum, obsX, obsY, new Color(0xFFB86C), false, "", "");
 						RevoluteJoint<SimulationBody> rj = new RevoluteJoint<SimulationBody>(obs, anchor, new Vector2(obsX, obsY));
+						revJoints.add(rj);
 						rj.setCollisionAllowed(false);
 						this.world.addBody(anchor);
 						this.world.addJoint(rj);
+					}
+
+					else if (jointType.equals("Distance"))
+					{
+
+					}
+
+					else if (jointType.equals("Weld"))
+					{
+
+					}
+
+					else if (jointType.equals("Pin"))
+					{
+
+					}
+
+					else if (jointType.equals("Prismatic"))
+					{
+        				Obstacle rectBody = new Obstacle(new Rectangle(2.75, 3.25), -2.0, -6.0, new Color(90, 40, 180), true, "", "FIXANG");
+
+						Obstacle anchor1 = new Obstacle(new Circle(0.1), -2.0, 0.0, false);
+						//Obstacle anchor2 = new Obstacle(new Circle(0.1), -2.0, -5.0, false);
+
+						PrismaticJoint<SimulationBody> pj1 = new PrismaticJoint<SimulationBody>(anchor1, rectBody, new Vector2(rectBody.getX(), rectBody.getY()), new Vector2(0, 1.0));
+						PrismaticJoint<SimulationBody> pj2 = new PrismaticJoint<SimulationBody>(anchor1, obs, new Vector2(obsX, obsY), new Vector2(0, 1.0));
+
+						prisJoints.add(pj1);
+						prisJoints.add(pj2);
+
+						obs.setLinearVelocity(obs.getLinearVelocity().getYComponent());
+						rectBody.setLinearVelocity(rectBody.getLinearVelocity().getYComponent());
+
+						pj1.setCollisionAllowed(false);
+						pj2.setCollisionAllowed(false);
+						pj1.setMotorEnabled(true);
+						pj1.setMotorSpeed(-5.0);
+						pj2.setMotorEnabled(true);
+						pj2.setMotorSpeed(5.0);
+						pj1.setMaximumMotorForceEnabled(true);
+						pj1.setMaximumMotorForce(100.0);
+						pj2.setMaximumMotorForceEnabled(true);
+						pj2.setMaximumMotorForce(100.0);
+						//pj1.setLimitsEnabled(-height / 2, height / 2);
+						//pj2.setLimitsEnabled(-height / 2, height / 2);
+
+						this.world.addBody(rectBody);
+						this.world.addBody(anchor1);
+						//this.world.addBody(anchor2);
+						this.world.addJoint(pj1);
+						this.world.addJoint(pj2);
 					}
 				}
 			}
@@ -135,6 +193,18 @@ public class RoThro extends SimulationFrame {
 	protected void gameLoopLogic() {
 		super.gameLoopLogic();
 		Vector2 ballCoords = p1.getWorldCenter();
+
+		for (PrismaticJoint<SimulationBody> pj : prisJoints)
+		{
+			Obstacle jointBody = (Obstacle)pj.getBody(1);
+			double bodyY = jointBody.getShape().getRadius() + jointBody.getWorldCenter().y;
+			if (bodyY == height || -bodyY == -height)
+			{
+				pj.setMotorSpeed(-pj.getMotorSpeed());
+				pj.setMaximumMotorForce(-pj.getMaximumMotorForce());
+			}
+		}
+		
 		// FIXME: hard-coded ball radius
 		if (Math.abs(ballCoords.x) > width / 2 + 1.0 || Math.abs(ballCoords.y) > height / 2 + 1.0) {
 			this.stop();

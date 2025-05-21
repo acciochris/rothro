@@ -14,17 +14,17 @@ public class Obstacle extends SimulationBody
     private boolean movable;
     private String jointType;
     private Convex shape;
-    // private double velx;
-    // private double vely;
+    private String massType;
     public static final Color DEFAULT_COLOR = new Color(0x6272a4);
 
-    public Obstacle(Convex shape, double x, double y, Color color, boolean canMove, String jT) {
+    public Obstacle(Convex shape, double x, double y, Color color, boolean canMove, String jT, String mT) {
         super(color);
         this.shape = shape;
         this.x = x;
         this.y = y;
         this.movable = canMove;
         this.jointType = jT;
+        this.massType = mT;
 
         if (!movable)
         {
@@ -37,14 +37,24 @@ public class Obstacle extends SimulationBody
         {
             BodyFixture fixture = addFixture(shape, 1.0, 0.0, 0.75);
             fixture.setRestitutionVelocity(0.5);
-            setMass(MassType.NORMAL);
+
+            if (massType.equals("FIXANG"))
+            {
+                setMass(MassType.FIXED_ANGULAR_VELOCITY);
+            }
+
+            else if (massType.equals("NORM"))
+            {  
+                setMass(MassType.NORMAL);
+            }
         }
+
         translate(x, y);
         setAtRestDetectionEnabled(false);
     }
 
     public Obstacle(Convex shape, double x, double y, boolean canMove) {
-        this(shape, x, y, DEFAULT_COLOR, canMove, "");
+        this(shape, x, y, DEFAULT_COLOR, canMove, "", "");
     }
 
     public double getX()
@@ -67,8 +77,8 @@ public class Obstacle extends SimulationBody
         return shape;
     }
 
-    // public void move()
-    // {
-    //     translate(velx, vely);
-    // }
+    public String getMassType()
+    {
+        return massType;
+    }
 }

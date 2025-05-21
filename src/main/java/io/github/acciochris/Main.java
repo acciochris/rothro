@@ -25,33 +25,37 @@ public class Main {
         level.setHole(new Hole(8.0, level.getBallRadius() * 2 + 1.0));
 
         // Initialization of obstacle storage lists
-        LinkedList<Obstacle> rectObs = new LinkedList<Obstacle>();
-        LinkedList<Obstacle> circleObs = new LinkedList<Obstacle>();
+        LinkedList<Obstacle> statyRectObs = new LinkedList<Obstacle>(); // staty = stationary
+        LinkedList<Obstacle> statyCircleObs = new LinkedList<Obstacle>();
         LinkedList<Obstacle> capsuleObs = new LinkedList<Obstacle>();
-        // For this level, only capsuleObs will contain movable objects
+        LinkedList<Obstacle> rectObs = new LinkedList<Obstacle>();
 
         // Creation and addition of rectangle Obstacles
-        Obstacle rect1 = new Obstacle(new Rectangle(4.0, 1.0), 3.0, 10.0, false);
-        Obstacle rect2 = new Obstacle(new Rectangle(3.0, 5.0), -2.0, 0.0, false);
-        rectObs.add(rect1);
+        Obstacle rect1 = new Obstacle(new Rectangle(4.0, 1.0), 5.0, 0.0, false);
+        Obstacle rect2 = new Obstacle(new Rectangle(3.5, 4.0), -2.0, 0.0, new Color(90, 40, 180), true, "Prismatic", "FIXANG");
+        statyRectObs.add(rect1);
         rectObs.add(rect2);
 
         // Creation and addition of circle Obstacles
-        Obstacle circle1 = new Obstacle(new Circle(1.0), 5.0, 0.0, false);
-        Obstacle circle2 = new Obstacle(new Circle(3.0), 7.0, -5.0, false);
-        circleObs.add(circle1);
-        circleObs.add(circle2);
+        Obstacle circle1 = new Obstacle(new Circle(2.5), 10.0, 6.0, false);
+        Obstacle circle2 = new Obstacle(new Circle(2.75), 9.0, -6.0, false);
+        statyCircleObs.add(circle1);
+        statyCircleObs.add(circle2);
     
         // Creation and addition of capsule Obstacles
-        Obstacle capsule1 = new Obstacle(new Capsule(6.0, 1.5), -9.0, 8.0, new Color(0xBD93F9), true, "Revolute");
+        Obstacle capsule1 = new Obstacle(new Capsule(6.0, 1.5), -9.0, 8.0, new Color(0xBD93F9), true, "Revolute", "NORM");
+        Obstacle capsule2 = new Obstacle(new Capsule(6.0, 1.5), -9.0, -8.0, new Color(30, 140, 90), true, "Revolute", "NORM");
         capsuleObs.add(capsule1);
+        capsuleObs.add(capsule2);
 
         // Creation of the joints list & addition of Obstacle lists
         ArrayList<Integer> joints = new ArrayList<Integer>();
         joints.add(2);
+        joints.add(3);
         level.setJoints(joints);
+        level.addObstacle(statyRectObs);
+        level.addObstacle(statyCircleObs);
         level.addObstacle(rectObs);
-        level.addObstacle(circleObs);
         level.addObstacle(capsuleObs);
 
         return level;
@@ -63,7 +67,22 @@ public class Main {
         level.setBallPos(new Vector2(-15, 10));
         level.setBallRadius(1.0);
         level.setHole(new Hole(5.0, level.getBallRadius() * 2 + 0.5));
-        
+
+        // Initialization of obstacle storage lists
+        LinkedList<Obstacle> statyRectObs = new LinkedList<Obstacle>();
+        LinkedList<Obstacle> statyCircleObs = new LinkedList<Obstacle>();
+        LinkedList<Obstacle> capsuleObs = new LinkedList<Obstacle>();
+        LinkedList<Obstacle> rectObs = new LinkedList<Obstacle>();
+
+        // Creation and addition of rectangle Obstacles
+
+        // Creation and addition of circle Obstacles
+    
+        // Creation and addition of capsule Obstacles
+
+        // Creation of the joints list & addition of Obstacle lists
+        ArrayList<Integer> joints = new ArrayList<Integer>();
+
         return level;
     }
 
@@ -72,7 +91,23 @@ public class Main {
         Level level = new Level();
         level.setBallRadius(0.5);
         level.setBallPos(new Vector2(-3, -9));
-        level.setHole(new Hole(8.0, level.getBallRadius() * 2 + 0.2));
+        level.setHole(new Hole(8.0, level.getBallRadius() * 2 + 0.1));
+
+        // Initialization of obstacle storage lists
+        LinkedList<Obstacle> statyRectObs = new LinkedList<Obstacle>();
+        LinkedList<Obstacle> statyCircleObs = new LinkedList<Obstacle>();
+        LinkedList<Obstacle> capsuleObs = new LinkedList<Obstacle>();
+        LinkedList<Obstacle> rectObs = new LinkedList<Obstacle>();
+
+        // Creation and addition of rectangle Obstacles
+
+        // Creation and addition of circle Obstacles
+    
+        // Creation and addition of capsule Obstacles
+
+        // Creation of the joints list & addition of Obstacle lists
+        ArrayList<Integer> joints = new ArrayList<Integer>();
+
         return level;
     }
 
