@@ -97,11 +97,11 @@ public class Avatar extends SimulationBody
             {
                 if (selectedLimb == armJoint1)
                 {
-                selectedLimb.getBody2().shoot();
+                    ((Arm)selectedLimb.getBody2()).shoot();
                 }
-                if (selectedLimb == armJoint1)
+                if (selectedLimb == armJoint2)
                 {
-                selectedLimb.getBody2().shoot();
+                    ((Arm)selectedLimb.getBody2()).shoot();
                 }
             }
 
