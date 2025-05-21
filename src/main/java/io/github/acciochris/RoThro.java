@@ -130,11 +130,11 @@ public class RoThro extends SimulationFrame {
 					{
         				Obstacle rectBody = new Obstacle(new Rectangle(2.75, 3.25), -2.0, -6.0, new Color(90, 40, 180), true, "", "FIXANG");
 
-						Obstacle anchor1 = new Obstacle(new Circle(0.1), -2.0, 0.0, false);
-						//Obstacle anchor2 = new Obstacle(new Circle(0.1), -2.0, -5.0, false);
+						Obstacle anchor1 = new Obstacle(new Circle(0.001), -2.0, height, false);
+						Obstacle anchor2 = new Obstacle(new Circle(0.1), -2.0, -height, false);
 
 						PrismaticJoint<SimulationBody> pj1 = new PrismaticJoint<SimulationBody>(anchor1, rectBody, new Vector2(rectBody.getX(), rectBody.getY()), new Vector2(0, 1.0));
-						PrismaticJoint<SimulationBody> pj2 = new PrismaticJoint<SimulationBody>(anchor1, obs, new Vector2(obsX, obsY), new Vector2(0, 1.0));
+						PrismaticJoint<SimulationBody> pj2 = new PrismaticJoint<SimulationBody>(anchor2, obs, new Vector2(obsX, obsY), new Vector2(0, 1.0));
 
 						prisJoints.add(pj1);
 						prisJoints.add(pj2);
@@ -152,12 +152,11 @@ public class RoThro extends SimulationFrame {
 						pj1.setMaximumMotorForce(100.0);
 						pj2.setMaximumMotorForceEnabled(true);
 						pj2.setMaximumMotorForce(100.0);
-						//pj1.setLimitsEnabled(-height / 2, height / 2);
-						//pj2.setLimitsEnabled(-height / 2, height / 2);
+						pj1.setLimitsEnabled(-height / 2, height / 2);
+						pj2.setLimitsEnabled(-height / 2, height / 2);
 
 						this.world.addBody(rectBody);
 						this.world.addBody(anchor1);
-						//this.world.addBody(anchor2);
 						this.world.addJoint(pj1);
 						this.world.addJoint(pj2);
 					}
@@ -210,14 +209,59 @@ public class RoThro extends SimulationFrame {
 		for (PrismaticJoint<SimulationBody> pj : prisJoints)
 		{
 			Obstacle jointBody = (Obstacle)pj.getBody(1);
-			double bodyY = jointBody.getShape().getRadius() + jointBody.getWorldCenter().y;
-			if (bodyY == height || -bodyY == -height)
+			double bodyY = jointBody.getWorldCenter().y;
+
+			if (jointBody.getShape() instanceof Rectangle)
+			{
+				if (bodyY < 0)
+				{
+					bodyY -= ((Rectangle)jointBody.getShape()).getHeight() / 2;
+				}
+				else
+				{
+					bodyY += ((Rectangle)jointBody.getShape()).getHeight() / 2;
+				}
+			}
+			else if (jointBody.getShape() instanceof Circle)
+			{
+				if (bodyY < 0)
+				{
+					bodyY -= ((Circle)jointBody.getShape()).getRadius();
+				}
+				else
+				{
+					bodyY += ((Circle)jointBody.getShape()).getRadius();
+				}
+			}
+			else if (jointBody.getShape() instanceof Capsule)
+			{
+				if (bodyY < 0)
+				{
+					bodyY -= ((Capsule)jointBody.getShape()).getLength() / 2;
+				}
+				else
+				{
+					bodyY += ((Capsule)jointBody.getShape()).getLength() / 2;
+				}
+			}
+			else if (jointBody.getShape() instanceof Triangle)
+			{
+				if (bodyY < 0)
+				{
+					bodyY -= ((Triangle)jointBody.getShape()).getRadius();
+				}
+				else
+				{
+					bodyY += ((Triangle)jointBody.getShape()).getRadius();
+				}
+			}
+
+			if (bodyY >= height || bodyY <= -height)
 			{
 				pj.setMotorSpeed(-pj.getMotorSpeed());
-				pj.setMaximumMotorForce(-pj.getMaximumMotorForce());
 			}
 		}
-		
+
 		// FIXME: hard-coded ball radius
 		if (Math.abs(ballCoords.x) > width / 2 + 1.0 || Math.abs(ballCoords.y) > height / 2 + 1.0) {
 			this.stop();

@@ -38,7 +38,7 @@ public class Main {
 
         // Creation and addition of circle Obstacles
         Obstacle circle1 = new Obstacle(new Circle(2.5), 10.0, 6.0, false);
-        Obstacle circle2 = new Obstacle(new Circle(2.75), 9.0, -6.0, false);
+        Obstacle circle2 = new Obstacle(new Circle(3), 9.0, -6.0, false);
         statyCircleObs.add(circle1);
         statyCircleObs.add(circle2);
     
