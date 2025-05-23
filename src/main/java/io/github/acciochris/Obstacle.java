@@ -35,18 +35,20 @@ public class Obstacle extends SimulationBody
 
         else
         {
-            BodyFixture fixture = addFixture(shape, 1.0, 0.0, 0.75);
-            fixture.setRestitutionVelocity(0.5);
-
+            BodyFixture fixture = null;
             if (massType.equals("FIXANG"))
             {
+                fixture = addFixture(shape, 1.0, 0.0, 1);
                 setMass(MassType.FIXED_ANGULAR_VELOCITY);
             }
 
             else if (massType.equals("NORM"))
             {  
+                fixture = addFixture(shape, 1.0, 0.0, 0.75);
                 setMass(MassType.NORMAL);
             }
+
+            fixture.setRestitutionVelocity(0.5);
         }
 
         translate(x, y);

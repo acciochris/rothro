@@ -32,7 +32,7 @@ public class Main {
 
         // Creation and addition of rectangle Obstacles
         Obstacle rect1 = new Obstacle(new Rectangle(4.0, 1.0), 5.0, 0.0, false);
-        Obstacle rect2 = new Obstacle(new Rectangle(3.5, 4.0), -2.0, 0.0, new Color(90, 40, 180), true, "Prismatic", "FIXANG");
+        Obstacle rect2 = new Obstacle(new Rectangle(3.5, 4.0), -2.0, 7.0, new Color(90, 40, 180), true, "Prismatic", "FIXANG");
         statyRectObs.add(rect1);
         rectObs.add(rect2);
 
