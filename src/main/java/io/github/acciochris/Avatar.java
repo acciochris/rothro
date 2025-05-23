@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import javax.naming.spi.ResolveResult;
 import java.awt.Dimension;
-import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import org.dyn4j.collision.Filter;
@@ -14,6 +13,7 @@ import org.dyn4j.geometry.Geometry;
 import org.dyn4j.geometry.MassType;
 import org.dyn4j.geometry.Polygon;
 import org.dyn4j.geometry.Circle;
+import org.dyn4j.geometry.Rectangle;
 import org.dyn4j.geometry.Transform;
 import org.dyn4j.geometry.Vector2;
 import io.github.acciochris.framework.SimulationBody;
@@ -24,19 +24,20 @@ public class Avatar extends SimulationBody
 {
     private RevoluteJoint<SimulationBody> armJoint1;
     private RevoluteJoint<SimulationBody> armJoint2;
-    private Rectangle body;
+    public Rectangle body;
     private ArrayList<ArrayList<Integer>> controls;
     private double armAngle1;
     private double armAngle2;
     private RevoluteJoint<SimulationBody> selectedLimb;
 
-    public Avatar(Arm arm1, Arm arm2)
+    public Avatar(RevoluteJoint<SimulationBody> armJoint1, RevoluteJoint<SimulationBody> armJoint2)
     {
         armAngle1 = 0;
         armAngle2 = 180;
         body = new Rectangle(3,5);
-        armJoint1= new RevoluteJoint<>(this, arm1, new Vector2(body.getWidth()/2 + body.getX(), body.getY()));
-        armJoint2 = new RevoluteJoint<>(this, arm2, new Vector2(body.getWidth()/2 - body.getX(), body.getY()));
+        addFixture(body);
+        this.armJoint1 = armJoint1;
+        this.armJoint2 = armJoint2;
         controls = new ArrayList<ArrayList<Integer>>();
         for (int i = 0; i <= 5; i++)
         {

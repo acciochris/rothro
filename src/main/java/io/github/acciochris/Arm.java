@@ -13,12 +13,14 @@ public class Arm extends SimulationBody
     private Rectangle arm;
     private Ball ball;
     private WeldJoint hand;
-    private Vector2 armAvatarPoint;
+    public Vector2 armAvatarPoint;
     private Vector2 armBallPoint;
 
     public Arm(Vector2 point)
     {
         arm = new Rectangle(5, 1);
+
+        addFixture(arm);
 
         armAvatarPoint = this.getLocalPoint(point);
 
