@@ -49,11 +49,11 @@ public class RoThro extends SimulationFrame {
 	private Level level;
 
 	private Ball p1;
-	private Arm arm1;
-	private Arm arm2;
-	private Avatar avatar;
-	private RevoluteJoint<SimulationBody> armJoint1;
-	private RevoluteJoint<SimulationBody> armJoint2;
+	// private Arm arm1;
+	// private Arm arm2;
+	// private Avatar avatar;
+	// private RevoluteJoint<SimulationBody> armJoint1;
+	// private RevoluteJoint<SimulationBody> armJoint2;
 
 	private RothroKeyListener keyListener;
 
@@ -71,9 +71,9 @@ public class RoThro extends SimulationFrame {
 		super.canvas.addKeyListener(keyListener);
 		super.canvas.requestFocusInWindow();
 
-		arm1 = new Arm(new Vector2(-1, 1));
-		arm2 = new Arm(new Vector2(1,1));
-		avatar = new Avatar(armJoint1, armJoint2);
+		// arm1 = new Arm(new Vector2(-1, 1));
+		// arm2 = new Arm(new Vector2(1,1));
+		// avatar = new Avatar(armJoint1, armJoint2);
 	}
 
 	protected void initializeWorld() {
@@ -86,15 +86,15 @@ public class RoThro extends SimulationFrame {
 			}
 		}
 		
-		this.world.addBody(arm1);
-		this.world.addBody(arm2);
-		arm1.translate(-3,1);
-		arm2.translate(3,1);
-		this.world.addBody(avatar);
-		armJoint1 = new RevoluteJoint<SimulationBody>(avatar, arm1, new Vector2(-1,1));
-        armJoint2 = new RevoluteJoint<SimulationBody>(avatar, arm2, new Vector2(1,1));
-		this.world.addJoint(armJoint1);
-        this.world.addJoint(armJoint2);
+		// this.world.addBody(arm1);
+		// this.world.addBody(arm2);
+		// arm1.translate(-3,1);
+		// arm2.translate(3,1);
+		// this.world.addBody(avatar);
+		// armJoint1 = new RevoluteJoint<SimulationBody>(avatar, arm1, new Vector2(-1,1));
+        // armJoint2 = new RevoluteJoint<SimulationBody>(avatar, arm2, new Vector2(1,1));
+		// this.world.addJoint(armJoint1);
+        // this.world.addJoint(armJoint2);
 
 		if (level.hasJoints())
 		{
