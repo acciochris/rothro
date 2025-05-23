@@ -37,6 +37,15 @@ import org.dyn4j.world.World;
 // Yellow
 // #F1FA8C
 
+
+/**
+ * Core logic for the RoThro game.
+ * 
+ * @author Chris Liu
+ * @author Anvesh Pattaje
+ * @author Justin Huang
+ * @version May 30, 2025
+ */
 public class RoThro extends SimulationFrame {
 	public static final double CAMERA_SCALE = 30.0;
 	public static final int WIDTH = 1200;
@@ -57,6 +66,11 @@ public class RoThro extends SimulationFrame {
 
 	private RothroKeyListener keyListener;
 
+	/**
+	 * Construct new RoThro object from a level definition.
+	 * 
+	 * @param level definition for the current level
+	 */
 	public RoThro(Level level) {
 		super("RoThro", WIDTH, HEIGHT);
 		this.level = level;
@@ -76,6 +90,10 @@ public class RoThro extends SimulationFrame {
 		avatar = new Avatar(armJoint1, armJoint2);
 	}
 
+
+	/**
+	 * Initialize the world by adding relevant obstacles, balls (and avatars).
+	 */
 	protected void initializeWorld() {
 		this.world.setGravity(World.ZERO_GRAVITY);
 		List<List<Obstacle>> obstacles = level.getObstacles();
@@ -170,6 +188,10 @@ public class RoThro extends SimulationFrame {
 		this.world.addBody(p1);
 	}
 
+	/**
+	 * Initialize several settings. Also add barriers to the four sides and
+	 * create the target hole.
+	 */
 	protected void initializeSettings() {
 		setMousePanningEnabled(false);
 		setMousePickingEnabled(false);
@@ -183,6 +205,9 @@ public class RoThro extends SimulationFrame {
 		addHole();
 	}
 
+	/**
+	 * Helper method for adding the whole to the right wall.
+	 */
 	private void addHole() {
 		Hole hole = level.getHole();
 		if (hole == null) {
@@ -204,6 +229,10 @@ public class RoThro extends SimulationFrame {
 		this.world.addBody(lower);
 	}
 
+	/**
+	 * Stop the simulation and proceed to the next level when we detect that the
+	 * ball has gone through the hole. This method is called for every frame.
+	 */
 	@Override
 	protected void gameLoopLogic() {
 		super.gameLoopLogic();
@@ -215,6 +244,9 @@ public class RoThro extends SimulationFrame {
 		}
 	}
 
+	/**
+	 * Handle relevant events with respect to shooting the ball.
+	 */
 	@Override
 	protected void handleEvents()
 	{
@@ -222,6 +254,11 @@ public class RoThro extends SimulationFrame {
 		p1.controls(keyListener.getIm().keysPressed);
 	}
 
+	/**
+	 * Initialize the viewport with the correct camera scale.
+	 * 
+	 * @param camera the camera object
+	 */
 	@Override
 	protected void initializeCamera(Camera camera) {
 		super.initializeCamera(camera);
