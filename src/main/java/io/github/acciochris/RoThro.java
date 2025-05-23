@@ -135,15 +135,13 @@ public class RoThro extends SimulationFrame {
 
 					else if (jointType.equals("Prismatic"))
 					{
-        				Obstacle rectBody = new Obstacle(new Rectangle(2.75, 3.25), -2.0, -6.0, new Color(90, 40, 180), true, "", "FIXANG");
-						double rBVertVel = 7.5;
+        				Obstacle rectBody = new Obstacle(new Rectangle(2.75, 3.25), -2.0, -4.0, new Color(90, 40, 180), true, "", "FIXANG");
 
 						Obstacle anchor1 = new Obstacle(new Circle(0.01), -2.0, 0.0, false);
 						anchor1.getFixture(0).setSensor(true);
 
 						Vector2 anchorPnt = new Vector2(anchor1.getX(), anchor1.getY());
 						Vector2 axis = new Vector2(0, 1.0);
-						//Obstacle anchor2 = new Obstacle(new Circle(0.1), -2.0, 0.0, false);
 
 						PrismaticJoint<SimulationBody> pj1 = new PrismaticJoint<SimulationBody>(anchor1, obs, anchorPnt, axis);
 						PrismaticJoint<SimulationBody> pj2 = new PrismaticJoint<SimulationBody>(anchor1, rectBody, anchorPnt, axis);
@@ -151,20 +149,17 @@ public class RoThro extends SimulationFrame {
 						prisJoints.add(pj1);
 						prisJoints.add(pj2);
 
-						// obs.setLinearVelocity(new Vector2(0, -10.0));
-						// rectBody.setLinearVelocity(new Vector2(0, rBVertVel));
-						pj1.setMotorSpeed(10.0);
-						pj2.setMotorSpeed(rBVertVel);
-						pj1.setMaximumMotorForce(100);
-						pj2.setMaximumMotorForce(100);
+						obs.setLinearVelocity(new Vector2(0, -10.0));
+						rectBody.setLinearVelocity(new Vector2(0, 7.5));
+						pj1.setMotorSpeed(-10.0);
+						pj2.setMotorSpeed(7.5);
 						pj1.setMaximumMotorForceEnabled(true);
 						pj1.setMaximumMotorForceEnabled(true);
-						//pj1.setLimitsEnabled(-height / 1.5, height / 1.5);
-						//pj2.setLimitsEnabled(-height / 1.5, height / 1.5);
+						pj1.setMaximumMotorForce(1000);
+						pj2.setMaximumMotorForce(750);
 
 						this.world.addBody(rectBody);
 						this.world.addBody(anchor1);
-						this.world.addBody(anchor2);
 						this.world.addJoint(pj1);
 						this.world.addJoint(pj2);
 					}
@@ -213,40 +208,6 @@ public class RoThro extends SimulationFrame {
 	protected void gameLoopLogic() {
 		super.gameLoopLogic();
 		Vector2 ballCoords = p1.getWorldCenter();
-
-		// for (PrismaticJoint<SimulationBody> pj : prisJoints)
-		// {
-		// 	Obstacle jointBody = (Obstacle)pj.getBody(1);
-		// 	double topBodyY = jointBody.getY();
-		// 	double lowerBodyY = topBodyY;
-
-		// 	if (jointBody.getShape() instanceof Rectangle)
-		// 	{
-		// 		topBodyY += ((Rectangle)jointBody.getShape()).getHeight() / 2;
-		// 		lowerBodyY -= ((Rectangle)jointBody.getShape()).getHeight() / 2;
-		// 	}
-		// 	else if (jointBody.getShape() instanceof Circle)
-		// 	{
-		// 		topBodyY += ((Circle)jointBody.getShape()).getRadius();
-		// 		lowerBodyY -= ((Circle)jointBody.getShape()).getRadius();
-		// 	}
-		// 	else if (jointBody.getShape() instanceof Capsule)
-		// 	{
-		// 		topBodyY += ((Capsule)jointBody.getShape()).getLength() / 2;
-		// 		lowerBodyY -= ((Capsule)jointBody.getShape()).getLength() / 2 ;
-		// 	}
-		// 	else if (jointBody.getShape() instanceof Triangle)
-		// 	{
-		// 		topBodyY += ((Triangle)jointBody.getShape()).getRadius();
-		// 		lowerBodyY -= ((Triangle)jointBody.getShape()).getRadius();
-		// 	}
-
-		// 	if (topBodyY == pj.getUpperLimit() || topBodyY == pj.getLowerLimit()
-		// 		 || lowerBodyY == pj.getUpperLimit() || lowerBodyY == pj.getLowerLimit()) 
-		// 	{
-		// 		pj.setMotorSpeed(-pj.getMotorSpeed());
-		// 	}
-		// }
 
 		// FIXME: hard-coded ball radius
 		if (Math.abs(ballCoords.x) > width / 2 + 1.0 || Math.abs(ballCoords.y) > height / 2 + 1.0) {

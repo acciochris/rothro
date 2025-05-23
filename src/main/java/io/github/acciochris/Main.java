@@ -37,7 +37,7 @@ public class Main {
         rectObs.add(rect2);
 
         // Creation and addition of circle Obstacles
-        Obstacle circle1 = new Obstacle(new Circle(2.5), 10.0, 6.0, false);
+        Obstacle circle1 = new Obstacle(new Circle(2.75), 10.0, 6.0, false);
         Obstacle circle2 = new Obstacle(new Circle(3), 9.0, -6.0, false);
         statyCircleObs.add(circle1);
         statyCircleObs.add(circle2);
@@ -73,15 +73,25 @@ public class Main {
         LinkedList<Obstacle> statyCircleObs = new LinkedList<Obstacle>();
         LinkedList<Obstacle> capsuleObs = new LinkedList<Obstacle>();
         LinkedList<Obstacle> rectObs = new LinkedList<Obstacle>();
+        LinkedList<Obstacle> triObs = new LinkedList<Obstacle>();
 
         // Creation and addition of rectangle Obstacles
+        Obstacle rect1 = new Obstacle(new Rectangle(2, 7.5), -3.0, -4.0, new Color(90, 80, 70), false, "", "");
+        statyRectObs.add(rect1);
 
         // Creation and addition of circle Obstacles
     
         // Creation and addition of capsule Obstacles
 
+        // Creation and addition of triangle Obstacles
+
         // Creation of the joints list & addition of Obstacle lists
         ArrayList<Integer> joints = new ArrayList<Integer>();
+        level.setJoints(joints);
+        level.addObstacle(statyRectObs);
+        level.addObstacle(statyCircleObs);
+        level.addObstacle(rectObs);
+        level.addObstacle(capsuleObs);
 
         return level;
     }
@@ -107,7 +117,12 @@ public class Main {
 
         // Creation of the joints list & addition of Obstacle lists
         ArrayList<Integer> joints = new ArrayList<Integer>();
-
+        level.setJoints(joints);
+        level.addObstacle(statyRectObs);
+        level.addObstacle(statyCircleObs);
+        level.addObstacle(rectObs);
+        level.addObstacle(capsuleObs);
+        
         return level;
     }
 
