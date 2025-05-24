@@ -111,8 +111,8 @@ public class Main {
         // Creation and addition of capsule Obstacles
 
         // Creation and addition of triangle Obstacles
-        Obstacle tri1 = new Obstacle(new Triangle(new Vector2(3.0, -3.0), new Vector2(0.0, 3.0), new Vector2(-3.0, -3.0)), 10.0, -4.0, new Color(60, 230, 190), true, "Revolute", "NORM");
-        Obstacle tri2 = new Obstacle(new Triangle(new Vector2(3.0, -3.0), new Vector2(0.0, 3.0), new Vector2(-3.0, -3.0)), 8.0, 5.0, new Color(60, 230, 190), true, "Revolute", "NORM");
+        Obstacle tri1 = new Obstacle(new Triangle(new Vector2(2.0, -2.0), new Vector2(0.0, 2.0), new Vector2(-2.0, -2.0)), 10.0, -4.0, new Color(60, 230, 190), true, "Revolute", "NORM");
+        Obstacle tri2 = new Obstacle(new Triangle(new Vector2(2.0, -2.0), new Vector2(0.0, 2.0), new Vector2(-2.0, -2.0)), 8.0, 5.0, new Color(60, 230, 190), true, "Revolute", "NORM");
         triObs.add(tri1);
         triObs.add(tri2);
 
