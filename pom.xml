@@ -6,7 +6,7 @@
 
     <groupId>io.github.acciochris</groupId>
     <artifactId>rothro</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -21,6 +21,22 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>3.5.3</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>3.7.1</version>
+                    <configuration>
+                        <descriptorRefs>
+                            <descriptorRef>jar-with-dependencies</descriptorRef>
+                        </descriptorRefs>
+                        <archive>
+                            <manifest>
+                                <mainClass>io.github.acciochris.Main</mainClass>
+                            </manifest>
+                        </archive>
+                        <appendAssemblyId>false</appendAssemblyId>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
