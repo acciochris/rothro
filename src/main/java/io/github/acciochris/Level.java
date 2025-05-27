@@ -2,9 +2,7 @@ package io.github.acciochris;
 
 import java.util.LinkedList;
 import java.util.List;
-import org.dyn4j.dynamics.joint.Joint;
 import org.dyn4j.geometry.Vector2;
-import io.github.acciochris.framework.SimulationBody;
 
 /**
  * Level definition class. This defines the obstacles, the hole position, the

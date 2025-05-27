@@ -4,31 +4,32 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
 import java.awt.geom.Line2D;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import org.dyn4j.collision.Filter;
-import org.dyn4j.dynamics.BodyFixture;
-import org.dyn4j.geometry.Geometry;
 import org.dyn4j.geometry.MassType;
-import org.dyn4j.geometry.Polygon;
 import org.dyn4j.geometry.Circle;
-import org.dyn4j.geometry.Transform;
 import org.dyn4j.geometry.Vector2;
 import io.github.acciochris.framework.SimulationBody;
-import io.github.acciochris.framework.input.BooleanStateKeyboardInputHandler;
 
+/**
+ * Represens the ball in the RoThro game.
+ * 
+ * @author Chris Liu
+ * @author Justin Huang
+ * @author Anvesh Pattaje
+ * @version May 30, 2025
+ */
 public class Ball extends SimulationBody
 {
-    public double angle;
-    
-    private ArrayList<ArrayList<Integer>> controls;
-	
-	private BooleanStateKeyboardInputHandler shoot;
-
+    private double angle;
     private double radius;
+    private ArrayList<ArrayList<Integer>> controls;
 
+    /**
+     * Construct a new ball with radius r.
+     * 
+     * @param r ball radius
+     */
     public Ball(double r)
     {
         super(new Color(0xFF79C6));
@@ -50,10 +51,11 @@ public class Ball extends SimulationBody
     }
 
     /**
-     * Calling this function results in a logic chain that allows the user to change what certain keys do
-     * @param option - what to do to the subject control
-     * @param subjectControl - the control in question to change
-     * @param replacementControl - the control to replace it with
+     * Update the functionalities of key presses.
+     * 
+     * @param option what to do to the subject control
+     * @param subjectControl the control in question to change
+     * @param replacementControl the control to replace it with
      */
     public void setControls( char option, int subjectControl, int replacementControl)
     {
@@ -71,8 +73,9 @@ public class Ball extends SimulationBody
     }
 
     /**
-     * Handles all movement of the ball including turning and shooting
-     * @param keysPressed - the hash set of all the keys pressed at the current cycle of the game loop
+     * Handle all movement of the ball including turning and shooting.
+     * 
+     * @param keysPressed the HashSet of all currently depressed keys
      */
     public void controls(HashSet<Integer> keysPressed)
     {
@@ -99,10 +102,11 @@ public class Ball extends SimulationBody
     }
 
     /**
-     * Renders a line to show the direction the ball is to go in when the shoot button is pressed
-     * @param g - controls the graphical interface for the line
-     * @param scale - controls the length of the line
-     * @param color - color of the line
+     * Render a line to show the direction the ball is to go.
+     * 
+     * @param g 2D graphics controller
+     * @param scale scale of the window
+     * @param color passed to superclass method
      */
     @Override
     public void render(Graphics2D g, double scale, Color color) {
