@@ -27,7 +27,6 @@ package io.github.acciochris.framework;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Ellipse2D;
 
 import org.dyn4j.dynamics.Body;
 import org.dyn4j.dynamics.BodyFixture;
@@ -36,6 +35,7 @@ import org.dyn4j.geometry.Convex;
 /**
  * Custom Body class to add drawing functionality.
  * @author William Bittle
+ * @author Chris Liu
  * @version 3.2.1
  * @since 3.0.0
  */

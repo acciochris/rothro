@@ -70,6 +70,8 @@ import org.dyn4j.world.WorldCollisionData;
 
 /**
  * A simple framework for building samples.
+ * @author William Bittle
+ * @author Chris Liu
  * @version 5.0.2
  * @since 3.2.0
  */

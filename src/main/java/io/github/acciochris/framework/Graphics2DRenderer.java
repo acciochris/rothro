@@ -45,6 +45,7 @@ import org.dyn4j.geometry.Vector2;
 /**
  * Graphics2D renderer for dyn4j shape types.
  * @author William Bittle
+ * @author Chris Liu
  * @version 3.1.7
  * @since 3.1.5
  */
