@@ -43,20 +43,20 @@ public class Main {
         LinkedList<Obstacle> rectObs = new LinkedList<Obstacle>();
 
         // Creation and addition of rectangle Obstacles
-        Obstacle rect1 = new Obstacle(new Rectangle(4.0, 1.0), 5.0, 0.0, false);
-        Obstacle rect2 = new Obstacle(new Rectangle(3.5, 4.0), -2.0, 7.0, new Color(90, 40, 180), true, "Prismatic", "FIXANG");
+        Obstacle rect1 = new Obstacle(new Rectangle(4.0, 1.0), 5.0, 0.0, false, 0);
+        Obstacle rect2 = new Obstacle(new Rectangle(3.5, 4.0), -2.0, 5.0, new Color(90, 40, 180), true, "Prismatic", "FIXANG", 0);
         statyRectObs.add(rect1);
         rectObs.add(rect2);
 
         // Creation and addition of circle Obstacles
-        Obstacle circle1 = new Obstacle(new Circle(2.75), 10.0, 6.0, false);
-        Obstacle circle2 = new Obstacle(new Circle(3), 9.0, -6.0, false);
+        Obstacle circle1 = new Obstacle(new Circle(2.75), 10.0, 6.0, false, 0);
+        Obstacle circle2 = new Obstacle(new Circle(3), 9.0, -6.0, false, 0);
         statyCircleObs.add(circle1);
         statyCircleObs.add(circle2);
     
         // Creation and addition of capsule Obstacles
-        Obstacle capsule1 = new Obstacle(new Capsule(6.0, 1.5), -9.0, 8.0, new Color(0xBD93F9), true, "Revolute", "NORM");
-        Obstacle capsule2 = new Obstacle(new Capsule(6.0, 1.5), -9.0, -8.0, new Color(30, 140, 90), true, "Revolute", "NORM");
+        Obstacle capsule1 = new Obstacle(new Capsule(6.0, 1.5), -9.0, 8.0, new Color(0xBD93F9), true, "Revolute", "NORM", 0);
+        Obstacle capsule2 = new Obstacle(new Capsule(6.0, 1.5), -9.0, -8.0, new Color(30, 140, 90), true, "Revolute", "NORM", 0);
         capsuleObs.add(capsule1);
         capsuleObs.add(capsule2);
 
@@ -94,23 +94,26 @@ public class Main {
         LinkedList<Obstacle> triObs = new LinkedList<Obstacle>();
 
         // Creation and addition of rectangle Obstacles
-        Obstacle rect1 = new Obstacle(new Rectangle(2, 7.5), -9.0, -3.0, new Color(90, 80, 170), false, "", "");
-        Obstacle rect2 = new Obstacle(new Rectangle(7.5, 2.5), -4.25, -8.0, new Color(90, 80, 170), false, "", "");
-        statyRectObs.add(rect1);
+        Obstacle rect1 = new Obstacle(new Rectangle(2, 7.5), -12.0, 0.0, new Color(90, 80, 170), true, "Revolute", "NORM", 1);
+        Obstacle rect2 = new Obstacle(new Rectangle(5, 3.0), -3.25, -9.0, new Color(90, 80, 170), false, "", "", 1);
+        rectObs.add(rect1);
         statyRectObs.add(rect2);
         // statyRectObs.add(rect2);
         // statyRectObs.add(rect2);
         // statyRectObs.add(rect2);
 
         // Creation and addition of circle Obstacles
-        Obstacle circle1 = new Obstacle(new Circle(1), -1.0, 1.0, new Color(230, 120, 255), true, "Pendulum", "NORM");
+        Obstacle circle1 = new Obstacle(new Circle(1), -1.0, 1.0, new Color(230, 120, 255), true, "Pendulum", "NORM",1);
         circleObs.add(circle1);
     
         // Creation and addition of capsule Obstacles
 
         // Creation and addition of triangle Obstacles
-        Obstacle tri1 = new Obstacle(new Triangle(new Vector2(2.0, -2.0), new Vector2(0.0, 2.0), new Vector2(-2.0, -2.0)), 10.0, -4.0, new Color(60, 230, 190), true, "Revolute", "NORM");
-        Obstacle tri2 = new Obstacle(new Triangle(new Vector2(2.0, -2.0), new Vector2(0.0, 2.0), new Vector2(-2.0, -2.0)), 8.0, 5.0, new Color(60, 230, 190), true, "Revolute", "NORM");
+        Vector2 triLocalVert1 = new Vector2(2.0, -2.0);
+        Vector2 triLocalVert2 = new Vector2(0, 2.0);
+        Vector2 triLocalVert3 = new Vector2(-2.0, -2.0);
+        Obstacle tri1 = new Obstacle(new Triangle(triLocalVert1, triLocalVert2, triLocalVert3), 6.0, 3.0, new Color(60, 230, 190), true, "Revolute", "NORM", 1);
+        Obstacle tri2 = new Obstacle(new Triangle(triLocalVert1, triLocalVert2, triLocalVert3), -7.0, 3.0, new Color(60, 230, 190), true, "Revolute", "NORM", 1);
         triObs.add(tri1);
         triObs.add(tri2);
 
@@ -118,6 +121,7 @@ public class Main {
 
         // Creation of the joints list & addition of Obstacle lists
         ArrayList<Integer> joints = new ArrayList<Integer>();
+        joints.add(2);
         joints.add(4);
         joints.add(5);
         level.setJoints(joints);
@@ -152,6 +156,8 @@ public class Main {
         LinkedList<Obstacle> polygonObs = new LinkedList<Obstacle>();
 
         // Creation and addition of rectangle Obstacles
+        Obstacle rect1 = new Obstacle(new Rectangle(2, 7.5), -12.0, 0.0, new Color(90, 80, 170), false, "", "", 2);
+        statyCircleObs.add(rect1);
 
         // Creation and addition of circle Obstacles
     

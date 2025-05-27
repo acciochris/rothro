@@ -18,12 +18,13 @@ public class Level {
     private Hole hole;
     private Vector2 ballPos;
     private double ballRadius;
+    private int levelNo;
 
     /**
      * Default constructor. Initializes everything to empty lists and/or null.
      */
     public Level() {
-        this(new LinkedList<>(), null, null);
+        this(new LinkedList<>(), null, null, 0);
     }
 
     /**
@@ -33,10 +34,11 @@ public class Level {
      * @param hole the hole
      * @param joints a List of indices specifying which sublist of obstacles need a joint
      */
-    public Level(List<List<Obstacle>> obstacles, Hole hole, List<Integer> joints) {
+    public Level(List<List<Obstacle>> obstacles, Hole hole, List<Integer> joints, int num) {
         this.obstacles = obstacles;
         this.joints = joints;
         this.hole = hole;
+        this.levelNo = num;
     }
 
     /**
@@ -155,6 +157,11 @@ public class Level {
     public void addJoint(Integer joint)
     {
         joints.add(joint);
+    }
+
+    public int getLevelNum()
+    {
+        return levelNo;
     }
 
 }

@@ -3,6 +3,8 @@ package io.github.acciochris;
 import org.dyn4j.dynamics.BodyFixture;
 import org.dyn4j.geometry.*;
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import io.github.acciochris.framework.SimulationBody;
 
 /**
@@ -20,6 +22,7 @@ public class Obstacle extends SimulationBody
     private String jointType;
     private Convex shape;
     private String massType;
+    private int level;
 
     /**
      * Default color for obstacles.
@@ -37,7 +40,7 @@ public class Obstacle extends SimulationBody
      * @param jT joint type for this obstacle
      * @param mT mass type for this obstacle
      */
-    public Obstacle(Convex shape, double x, double y, Color color, boolean canMove, String jT, String mT) {
+    public Obstacle(Convex shape, double x, double y, Color color, boolean canMove, String jT, String mT, int level) {
         super(color);
         this.shape = shape;
         this.x = x;
@@ -45,6 +48,7 @@ public class Obstacle extends SimulationBody
         this.movable = canMove;
         this.jointType = jT;
         this.massType = mT;
+        this.level = level;
 
         if (!movable)
         {
@@ -83,8 +87,8 @@ public class Obstacle extends SimulationBody
      * @param y y coordinate of the obstacle
      * @param canMove boolean parameter for whether the obstacle can move
      */
-    public Obstacle(Convex shape, double x, double y, boolean canMove) {
-        this(shape, x, y, DEFAULT_COLOR, canMove, "", "");
+    public Obstacle(Convex shape, double x, double y, boolean canMove, int level) {
+        this(shape, x, y, DEFAULT_COLOR, canMove, null, "", level);
     }
 
     /**
@@ -136,4 +140,11 @@ public class Obstacle extends SimulationBody
     {
         return massType;
     }
+
+
+    public int getLevel()
+    {
+        return level;
+    }
+
 }
