@@ -81,13 +81,14 @@ public class Main {
     public static Level level1()
     {
         Level level = new Level();
-        level.setBallPos(new Vector2(-15, 10));
+        level.setBallPos(new Vector2(-17, 0));
         level.setBallRadius(1.0);
         level.setHole(new Hole(5.0, level.getBallRadius() * 2 + 0.5));
 
         // Initialization of obstacle storage lists
         LinkedList<Obstacle> statyRectObs = new LinkedList<Obstacle>();
         LinkedList<Obstacle> statyCircleObs = new LinkedList<Obstacle>();
+        LinkedList<Obstacle> circleObs = new LinkedList<Obstacle>();
         LinkedList<Obstacle> capsuleObs = new LinkedList<Obstacle>();
         LinkedList<Obstacle> rectObs = new LinkedList<Obstacle>();
         LinkedList<Obstacle> triObs = new LinkedList<Obstacle>();
@@ -102,8 +103,8 @@ public class Main {
         // statyRectObs.add(rect2);
 
         // Creation and addition of circle Obstacles
-        Obstacle circle1 = new Obstacle(new Circle(2.25), -1.0, 8.0, new Color(190, 180, 0), false, "", "");
-        statyCircleObs.add(circle1);
+        Obstacle circle1 = new Obstacle(new Circle(1), -1.0, 1.0, new Color(230, 120, 255), true, "Pendulum", "NORM");
+        circleObs.add(circle1);
     
         // Creation and addition of capsule Obstacles
 
@@ -118,12 +119,14 @@ public class Main {
         // Creation of the joints list & addition of Obstacle lists
         ArrayList<Integer> joints = new ArrayList<Integer>();
         joints.add(4);
+        joints.add(5);
         level.setJoints(joints);
         level.addObstacle(statyRectObs);
         level.addObstacle(statyCircleObs);
         level.addObstacle(rectObs);
         level.addObstacle(capsuleObs);
         level.addObstacle(triObs);
+        level.addObstacle(circleObs);
 
         return level;
     }

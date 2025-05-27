@@ -148,6 +148,22 @@ public class RoThro extends SimulationFrame {
 
 					}
 
+					else if (jointType.equals("Pendulum"))
+					{
+						Obstacle support = new Obstacle(new Rectangle(3.0, 1.0), -1.0, 8.0, new Color(155, 80, 35), false, "", "");
+
+						RevoluteJoint<SimulationBody> p = new RevoluteJoint<SimulationBody>(support, obs, new Vector2(support.getX(), support.getY()));
+						p.setCollisionAllowed(false);
+						p.setLimitsEnabled(-Math.PI, Math.PI);
+						support.setAngularDamping(0.75);
+						//p.setMaximumMotorTorque(10.0);
+						//p.setMotorEnabled(true);
+						//p.setMotorSpeed(2.0);
+
+						this.world.addBody(support);
+						this.world.addJoint(p);
+					}
+
 					else if (jointType.equals("Prismatic"))
 					{
         				Obstacle rectBody = new Obstacle(new Rectangle(2.75, 3.25), -2.0, -4.0, new Color(90, 40, 180), true, "", "FIXANG");
