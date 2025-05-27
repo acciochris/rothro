@@ -1,6 +1,7 @@
 package io.github.acciochris;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.util.*;
 import org.dyn4j.dynamics.joint.*;
 import org.dyn4j.geometry.*;
@@ -51,6 +52,7 @@ public class RoThro extends SimulationFrame {
 	private final double height = HEIGHT / CAMERA_SCALE;
 	private List<PrismaticJoint<SimulationBody>> prisJoints;
 	private List<RevoluteJoint<SimulationBody>> revJoints;
+	private List<RevoluteJoint<SimulationBody>> pJoints;
 
 	private Level level;
 
@@ -119,6 +121,7 @@ public class RoThro extends SimulationFrame {
 				{
 					double obsX = obs.getX();
 					double obsY = obs.getY();
+					Vector2 obsPos = new Vector2(obsX, obsY);
 					String jointType = obs.getJointType();
 
 					if (jointType.equals("Revolute"))
@@ -152,16 +155,31 @@ public class RoThro extends SimulationFrame {
 					{
 						Obstacle support = new Obstacle(new Rectangle(3.0, 1.0), -1.0, 8.0, new Color(155, 80, 35), false, "", "");
 
-						RevoluteJoint<SimulationBody> p = new RevoluteJoint<SimulationBody>(support, obs, new Vector2(support.getX(), support.getY()));
-						p.setCollisionAllowed(false);
-						p.setLimitsEnabled(-Math.PI, Math.PI);
-						support.setAngularDamping(0.75);
-						//p.setMaximumMotorTorque(10.0);
-						//p.setMotorEnabled(true);
-						//p.setMotorSpeed(2.0);
+						Vector2 supptPos = new Vector2(support.getX(), support.getY());
+						double rodLength = supptPos.y - obsY;
+						double rodX = obsX;
+						double rodY = rodLength / 2 + 1.0;
+						
+						Obstacle rod = new Obstacle(new Rectangle(0.5, rodLength), rodX, rodY, new Color(200, 20, 20), true, "", "NORM");
+						RevoluteJoint<SimulationBody> hinge1 = new RevoluteJoint<SimulationBody>(support, rod, supptPos);
+						RevoluteJoint<SimulationBody> hinge2 = new RevoluteJoint<SimulationBody>(obs, rod, obsPos);	
 
+						RevoluteJoint<SimulationBody> pend = new RevoluteJoint<SimulationBody>(support, obs, supptPos);
+						pend.setCollisionAllowed(false);
+						pend.setLimits(-Math.PI / 2, Math.PI / 2);
+						pend.setLimitsEnabled(true);
+
+						FrictionJoint<SimulationBody> f = new FrictionJoint<SimulationBody>(support, obs, supptPos);
+						f.setMaximumForce(0);
+						f.setMaximumTorque(2.0);
+						
 						this.world.addBody(support);
-						this.world.addJoint(p);
+						this.world.addJoint(pend);
+						this.world.addBody(rod);
+						this.world.addJoint(hinge1);
+						this.world.addJoint(hinge2);
+						this.world.addJoint(f);
+						//pJoints.add(pend);
 					}
 
 					else if (jointType.equals("Prismatic"))
