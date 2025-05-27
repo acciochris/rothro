@@ -251,7 +251,7 @@ public class RoThro extends SimulationFrame {
 	protected void handleEvents()
 	{
 		super.handleEvents();
-		p1.controls(keyListener.getIm().keysPressed);
+		p1.controls(keyListener.getIm().getKeysPressed());
 	}
 
 	/**

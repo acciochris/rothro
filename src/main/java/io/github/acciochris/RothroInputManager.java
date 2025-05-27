@@ -5,7 +5,7 @@ import java.util.HashSet;
 //Fuckin glorified list, I can't believe KeyListener won't allow me to just return KeyEvent values
 public class RothroInputManager 
 {
-    public HashSet<Integer> keysPressed;
+    private HashSet<Integer> keysPressed;
     public RothroInputManager()
     {
         keysPressed = new HashSet<Integer>();
@@ -19,5 +19,10 @@ public class RothroInputManager
     public void keyReleased(int i)
     {
         keysPressed.remove(i);
+    }
+
+    public HashSet<Integer> getKeysPressed()
+    {
+        return keysPressed;
     }
 }
