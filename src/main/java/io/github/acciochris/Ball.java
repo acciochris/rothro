@@ -21,7 +21,7 @@ import io.github.acciochris.framework.input.BooleanStateKeyboardInputHandler;
 
 public class Ball extends SimulationBody
 {
-    public double angle;
+    private double angle;
     
     private ArrayList<ArrayList<Integer>> controls;
 	
