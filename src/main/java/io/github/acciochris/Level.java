@@ -159,9 +159,21 @@ public class Level {
         joints.add(joint);
     }
 
+    /**
+     * Getter for level number
+     * @return level number
+     */
     public int getLevelNum()
     {
         return levelNo;
     }
 
+    /**
+     * Setter for level number
+     * @param levelNo level number
+     */
+    public void setLevelNum(int levelNo)
+    {
+        this.levelNo = levelNo;
+    }
 }

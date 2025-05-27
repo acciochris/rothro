@@ -113,41 +113,17 @@ public class RoThro extends SimulationFrame {
 			@Override
 			public void begin(ContactCollisionData<SimulationBody> col, Contact c)
 			{
-				super.begin(col, c);
+				if (level.getLevelNum() != 2)
+					return;
 				SimulationBody body1 = col.getBody1();
 				SimulationBody body2 = col.getBody2();
-				boolean body1IsObs = body1 instanceof Obstacle;
-				boolean body2IsObs = body2 instanceof Obstacle;
-				Color backgrd = new Color(40, 42, 54);
-				
-				if (body1IsObs && ((Obstacle) body1).getLevel() == 2)
+				if (body1 instanceof Ball && body2 instanceof Obstacle)
 				{
-					body1.setColor(backgrd);
+					((Obstacle)body2).setVisible(true);
 				}
-
-				else if (body2IsObs && ((Obstacle) body2).getLevel() == 2)
+				else if (body2 instanceof Ball && body1 instanceof Obstacle)
 				{
-					body2.setColor(backgrd);
-				}
-			}
-
-			@Override
-			public void end(ContactCollisionData<SimulationBody> col, Contact c)
-			{
-				super.end(col, c);
-				SimulationBody body1 = col.getBody1();
-				SimulationBody body2 = col.getBody2();
-				boolean body1IsObs = body1 instanceof Obstacle;
-				boolean body2IsObs = body2 instanceof Obstacle;
-				
-				if (body1IsObs && ((Obstacle) body1).getLevel() == 2)
-				{
-					body1.setColor(body1.getColor());
-				}
-
-				else if (body2IsObs && ((Obstacle) body2).getLevel() == 2)
-				{
-					body2.setColor(body1.getColor());
+					((Obstacle)body1).setVisible(true);
 				}
 			}
 		});
@@ -264,6 +240,24 @@ public class RoThro extends SimulationFrame {
 		this.world.addBody(p1);
 	}
 
+	private class WallObstacle extends Obstacle {
+		public WallObstacle(
+			Convex shape,
+			double x,
+			double y,
+			boolean canMove,
+			int level)
+		{
+			super(shape, x, y, canMove, level);
+		}
+
+		@Override
+		public void setVisible(boolean visible)
+    	{
+        	this.visible = true;
+    	}
+	}
+
 	/**
 	 * Initialize several settings. Also add barriers to the four sides and
 	 * create the target hole.
@@ -274,9 +268,9 @@ public class RoThro extends SimulationFrame {
 
 		int levelNum = level.getLevelNum();
 
-		Obstacle left = new Obstacle(new Rectangle(1.0, height), -width / 2, 0, false, levelNum);
-		Obstacle bottom = new Obstacle(new Rectangle(width, 1.0), 0, -height / 2, false, levelNum);
-		Obstacle top = new Obstacle(new Rectangle(width, 1.0), 0, height / 2, false, levelNum);
+		Obstacle left = new WallObstacle(new Rectangle(1.0, height), -width / 2, 0, false, levelNum);
+		Obstacle bottom = new WallObstacle(new Rectangle(width, 1.0), 0, -height / 2, false, levelNum);
+		Obstacle top = new WallObstacle(new Rectangle(width, 1.0), 0, height / 2, false, levelNum);
 		this.world.addBody(left);
 		this.world.addBody(bottom);
 		this.world.addBody(top);
@@ -289,18 +283,18 @@ public class RoThro extends SimulationFrame {
 	private void addHole() {
 		Hole hole = level.getHole();
 		if (hole == null) {
-			this.world.addBody(new Obstacle(new Rectangle(1.0, height), width / 2, 0, false, 0));
+			this.world.addBody(new WallObstacle(new Rectangle(1.0, height), width / 2, 0, false, 0));
 			return;
 		}
 
 		int levelNum = level.getLevelNum();
 
-		Obstacle upper = new Obstacle(
+		Obstacle upper = new WallObstacle(
 			new Rectangle(1.0, hole.getY() - hole.getSize() / 2),
 			width / 2,
 			(height - hole.getY() + hole.getSize() / 2) / 2, false, levelNum
 		);
-		Obstacle lower = new Obstacle(
+		Obstacle lower = new WallObstacle(
 			new Rectangle(1.0, height - hole.getY() - hole.getSize() / 2),
 			width / 2,
 			(-hole.getY() - hole.getSize() / 2) / 2, false, levelNum
@@ -322,30 +316,6 @@ public class RoThro extends SimulationFrame {
 		if (Math.abs(ballCoords.x) > width / 2 + 1.0 || Math.abs(ballCoords.y) > height / 2 + 1.0) {
 			this.stop();
 		}
-
-		
-
-		for (List<Obstacle> obsList : level.getObstacles())
-		{
-			for (Obstacle obs : obsList)
-			{
-				if (obs.getLevel() == 2)
-				{
-					if (!this.world.getContacts(obs).contains((Object)p1))
-					{
-						obs.setColor(new Color(40, 42, 54));
-						repaint();
-					}
-
-					else 
-					{
-						obs.setColor(obs.getColor());
-						repaint();
-					}
-				}
-			}
-		}
-
 	}
 
 	/**

@@ -23,6 +23,7 @@ public class Obstacle extends SimulationBody
     private Convex shape;
     private String massType;
     private int level;
+    protected boolean visible;
 
     /**
      * Default color for obstacles.
@@ -49,6 +50,7 @@ public class Obstacle extends SimulationBody
         this.jointType = jT;
         this.massType = mT;
         this.level = level;
+        this.visible = true;
 
         if (!movable)
         {
@@ -147,4 +149,21 @@ public class Obstacle extends SimulationBody
         return level;
     }
 
+    public void setVisible(boolean visible)
+    {
+        this.visible = visible;
+    }
+
+    public boolean isVisible()
+    {
+        return visible;
+    }
+    
+    @Override
+    public void render(Graphics2D g, double scale, Color color) {
+        if (visible)
+        {
+            super.render(g, scale, color);
+        }
+    }
 }

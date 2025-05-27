@@ -3,6 +3,7 @@ package io.github.acciochris;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import org.dyn4j.geometry.*;
 
 /**
@@ -30,6 +31,7 @@ public class Main {
     public static Level level0()
     {
         Level level = new Level();
+        level.setLevelNum(0);
 
         // Ball & Hole Settings for level0:
         level.setBallRadius(1.5);
@@ -81,6 +83,7 @@ public class Main {
     public static Level level1()
     {
         Level level = new Level();
+        level.setLevelNum(1);
         level.setBallPos(new Vector2(-17, 0));
         level.setBallRadius(1.0);
         level.setHole(new Hole(5.0, level.getBallRadius() * 2 + 0.5));
@@ -143,6 +146,7 @@ public class Main {
     public static Level level2()
     {
         Level level = new Level();
+        level.setLevelNum(2);
         level.setBallRadius(0.5);
         level.setBallPos(new Vector2(-3, -9));
         level.setHole(new Hole(8.0, level.getBallRadius() * 2 + 0.1));
@@ -176,6 +180,14 @@ public class Main {
         level.addObstacle(capsuleObs);
         level.addObstacle(triObs);
         level.addObstacle(polygonObs);
+
+        for (List<Obstacle> obstacleList : level.getObstacles())
+        {
+            for (Obstacle obstacle : obstacleList)
+            {
+                obstacle.setVisible(false);
+            }
+        }
 
         return level;
     }
