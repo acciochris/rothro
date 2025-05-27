@@ -24,8 +24,6 @@ public class Ball extends SimulationBody
     private double angle;
     
     private ArrayList<ArrayList<Integer>> controls;
-	
-	private BooleanStateKeyboardInputHandler shoot;
 
     private double radius;
 
