@@ -1,12 +1,9 @@
 package io.github.acciochris;
 
 import java.awt.Color;
-import java.awt.Point;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import org.dyn4j.dynamics.joint.RevoluteJoint;
 import org.dyn4j.geometry.*;
-import io.github.acciochris.framework.SimulationBody;
 
 /**
  * Main entrypoint for the RoThro game.

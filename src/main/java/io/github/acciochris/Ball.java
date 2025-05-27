@@ -4,20 +4,12 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
 import java.awt.geom.Line2D;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import org.dyn4j.collision.Filter;
-import org.dyn4j.dynamics.BodyFixture;
-import org.dyn4j.geometry.Geometry;
 import org.dyn4j.geometry.MassType;
-import org.dyn4j.geometry.Polygon;
 import org.dyn4j.geometry.Circle;
-import org.dyn4j.geometry.Transform;
 import org.dyn4j.geometry.Vector2;
 import io.github.acciochris.framework.SimulationBody;
-import io.github.acciochris.framework.input.BooleanStateKeyboardInputHandler;
 
 /**
  * Represens the ball in the RoThro game.

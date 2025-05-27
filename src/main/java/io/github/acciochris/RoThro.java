@@ -2,9 +2,6 @@ package io.github.acciochris;
 
 import java.awt.Color;
 import java.util.*;
-import org.dyn4j.collision.AxisAlignedBounds;
-import org.dyn4j.collision.Bounds;
-import org.dyn4j.dynamics.BodyFixture;
 import org.dyn4j.dynamics.joint.*;
 import org.dyn4j.geometry.*;
 import io.github.acciochris.framework.Camera;
