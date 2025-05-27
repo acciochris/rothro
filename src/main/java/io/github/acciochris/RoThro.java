@@ -117,6 +117,7 @@ public class RoThro extends SimulationFrame {
 				SimulationBody body1 = col.getBody1();
 				SimulationBody body2 = col.getBody2();
 				boolean body1IsObs = body1 instanceof Obstacle;
+				boolean body2IsObs = body2 instanceof Obstacle;
 				Color backgrd = new Color(40, 42, 54);
 				
 				if (body1IsObs && ((Obstacle) body1).getLevel() == 2)
@@ -124,7 +125,7 @@ public class RoThro extends SimulationFrame {
 					body1.setColor(backgrd);
 				}
 
-				else if (((Obstacle) body2).getLevel() == 2)
+				else if (body2IsObs && ((Obstacle) body2).getLevel() == 2)
 				{
 					body2.setColor(backgrd);
 				}
@@ -137,13 +138,14 @@ public class RoThro extends SimulationFrame {
 				SimulationBody body1 = col.getBody1();
 				SimulationBody body2 = col.getBody2();
 				boolean body1IsObs = body1 instanceof Obstacle;
+				boolean body2IsObs = body2 instanceof Obstacle;
 				
 				if (body1IsObs && ((Obstacle) body1).getLevel() == 2)
 				{
 					body1.setColor(body1.getColor());
 				}
 
-				else if (((Obstacle) body2).getLevel() == 2)
+				else if (body2IsObs && ((Obstacle) body2).getLevel() == 2)
 				{
 					body2.setColor(body1.getColor());
 				}
@@ -247,16 +249,6 @@ public class RoThro extends SimulationFrame {
 
 						obs.setLinearVelocity(0.0, 5.5);
 						rectBody.setLinearVelocity(0.0, -10.0);
-						// pj1.setMotorSpeed(7.5);
-						// pj2.setMotorSpeed(-7.5);
-						// pj1.setCollisionAllowed(false);
-						// pj2.setCollisionAllowed(false);
-						// pj1.setMotorEnabled(true);
-						// pj2.setMotorEnabled(true);
-						// pj1.setMaximumMotorForce(150);
-						// pj2.setMaximumMotorForce(200);
-						// pj1.setMaximumMotorForceEnabled(true);
-						// pj2.setMaximumMotorForceEnabled(true);
 
 						this.world.addBody(rectBody);
 						this.world.addBody(anchor1);
