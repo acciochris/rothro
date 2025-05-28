@@ -2,25 +2,12 @@ package io.github.acciochris;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import javax.naming.spi.ResolveResult;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import org.dyn4j.collision.Filter;
-import org.dyn4j.dynamics.BodyFixture;
-import org.dyn4j.dynamics.PhysicsBody;
-import org.dyn4j.geometry.Geometry;
 import org.dyn4j.geometry.MassType;
-import org.dyn4j.geometry.Polygon;
 import org.dyn4j.geometry.Circle;
-import org.dyn4j.geometry.Rectangle;
-import org.dyn4j.geometry.Transform;
 import org.dyn4j.geometry.Vector2;
 import io.github.acciochris.framework.SimulationBody;
-import io.github.acciochris.framework.SimulationFrame;
-import io.github.acciochris.framework.input.BooleanStateKeyboardInputHandler;
-import org.dyn4j.dynamics.joint.RevoluteJoint;
 
 public class Avatar extends SimulationBody
 {
@@ -92,8 +79,5 @@ public class Avatar extends SimulationBody
                 this.applyImpulse(new Vector2(0, -0.6));
             }
         }
-        // this.setLinearVelocity(direction.x * 0.1, direction.y * 0.1);
-        // System.out.println(keysPressed);
     }
-
 }
