@@ -45,26 +45,4 @@ public class Ball extends SimulationBody
     { 
         return radius; 
     }
-
-    /**
-     * Renders a line to show the direction the ball is to go in when the shoot button is pressed
-     * @param g - controls the graphical interface for the line
-     * @param scale - controls the length of the line
-     * @param color - color of the line
-     */
-    @Override
-    public void render(Graphics2D g, double scale, Color color) {
-        super.render(g, scale, color);
-
-        Vector2 coords = getWorldCenter();
-        Line2D.Double aimLine = new Line2D.Double(
-            coords.x * scale,
-            coords.y * scale,
-            (coords.x + Math.cos(Math.toRadians(angle)) * radius * 3.0) * scale,
-            (coords.y + Math.sin(Math.toRadians(angle)) * radius * 3.0) * scale
-        );
-
-        g.setColor(new Color(0xF1FA8C));
-        g.draw(aimLine);
-    }
 }
