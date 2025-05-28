@@ -79,7 +79,7 @@ public class RoThro extends SimulationFrame {
 		ball = new Ball(level.getBallRadius());
 		ball.translate(level.getBallPos());
 		p1 = new Avatar();
-		p1.translate(level.getBallPos().x - ball.getRadius(),level.getBallPos().y);
+		p1.translate(level.getBallPos().x - ball.getRadius() - 1, level.getBallPos().y);
 
 		prisJoints = new ArrayList<PrismaticJoint<SimulationBody>>();
 		revJoints = new ArrayList<RevoluteJoint<SimulationBody>>();
@@ -112,11 +112,11 @@ public class RoThro extends SimulationFrame {
 					return;
 				SimulationBody body1 = col.getBody1();
 				SimulationBody body2 = col.getBody2();
-				if (body1 instanceof Ball && body2 instanceof Obstacle)
+				if (body1 instanceof Avatar && body2 instanceof Obstacle)
 				{
 					((Obstacle)body2).setVisible(true);
 				}
-				else if (body2 instanceof Ball && body1 instanceof Obstacle)
+				else if (body2 instanceof Avatar && body1 instanceof Obstacle)
 				{
 					((Obstacle)body1).setVisible(true);
 				}
@@ -312,7 +312,7 @@ public class RoThro extends SimulationFrame {
 		super.gameLoopLogic();
 		Vector2 ballCoords = ball.getWorldCenter();
 
-		if (Math.abs(ballCoords.x) > width / 2 + p1.getRadius() || Math.abs(ballCoords.y) > height / 2 + p1.getRadius()) {
+		if (Math.abs(ballCoords.x) > width / 2 + ball.getRadius() || Math.abs(ballCoords.y) > height / 2 + ball.getRadius()) {
 			this.stop();
 		}
 	}
