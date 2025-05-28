@@ -62,12 +62,9 @@ public class RoThro extends SimulationFrame {
 
 	private Level level;
 
-	private Ball p1;
-	// private Arm arm1;
-	// private Arm arm2;
-	// private Avatar avatar;
-	// private RevoluteJoint<SimulationBody> armJoint1;
-	// private RevoluteJoint<SimulationBody> armJoint2;
+	private Ball ball;
+	private Avatar p1;
+
 
 	private RothroKeyListener keyListener;
 
@@ -79,8 +76,10 @@ public class RoThro extends SimulationFrame {
 	public RoThro(Level level) {
 		super("RoThro", WIDTH, HEIGHT);
 		this.level = level;
-		p1 = new Ball(level.getBallRadius());
-		p1.translate(level.getBallPos());
+		ball = new Ball(level.getBallRadius());
+		ball.translate(level.getBallPos());
+		p1 = new Avatar();
+		p1.translate(level.getBallPos().x - ball.getRadius(),level.getBallPos().y);
 
 		prisJoints = new ArrayList<PrismaticJoint<SimulationBody>>();
 		revJoints = new ArrayList<RevoluteJoint<SimulationBody>>();
@@ -89,10 +88,6 @@ public class RoThro extends SimulationFrame {
 		super.canvas.setFocusable(true);
 		super.canvas.addKeyListener(keyListener);
 		super.canvas.requestFocusInWindow();
-
-		// arm1 = new Arm(new Vector2(-1, 1));
-		// arm2 = new Arm(new Vector2(1,1));
-		// avatar = new Avatar(armJoint1, armJoint2);
 	}
 
 
@@ -165,7 +160,7 @@ public class RoThro extends SimulationFrame {
 				}
 			}
 		}
-
+		this.world.addBody(ball);
 		this.world.addBody(p1);
 	}
 
@@ -315,7 +310,7 @@ public class RoThro extends SimulationFrame {
 	@Override
 	protected void gameLoopLogic() {
 		super.gameLoopLogic();
-		Vector2 ballCoords = p1.getWorldCenter();
+		Vector2 ballCoords = ball.getWorldCenter();
 
 		if (Math.abs(ballCoords.x) > width / 2 + p1.getRadius() || Math.abs(ballCoords.y) > height / 2 + p1.getRadius()) {
 			this.stop();
