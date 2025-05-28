@@ -14,16 +14,17 @@ import org.dyn4j.geometry.Vector2;
  */
 public class Level {
     private List<List<Obstacle>> obstacles;
-    private List<Integer> joints; // The integers refer to the list in the Obstacle list that contain movable objects
+    private List<RoThroJoint> joints; 
     private Hole hole;
     private Vector2 ballPos;
     private double ballRadius;
+    private int levelNo;
 
     /**
      * Default constructor. Initializes everything to empty lists and/or null.
      */
     public Level() {
-        this(new LinkedList<>(), null, null);
+        this(new LinkedList<>(), null, null, 0);
     }
 
     /**
@@ -33,10 +34,11 @@ public class Level {
      * @param hole the hole
      * @param joints a List of indices specifying which sublist of obstacles need a joint
      */
-    public Level(List<List<Obstacle>> obstacles, Hole hole, List<Integer> joints) {
+    public Level(List<List<Obstacle>> obstacles, Hole hole, List<RoThroJoint> joints, int num) {
         this.obstacles = obstacles;
         this.joints = joints;
         this.hole = hole;
+        this.levelNo = num;
     }
 
     /**
@@ -132,7 +134,7 @@ public class Level {
      * 
      * @return joints
      */
-    public List<Integer> getJoints()
+    public List<RoThroJoint> getJoints()
     {
         return joints;
     }
@@ -142,7 +144,7 @@ public class Level {
      * 
      * @param joints joints
      */
-    public void setJoints(List<Integer> joints)
+    public void setJoints(List<RoThroJoint> joints)
     {
         this.joints = joints;
     }
@@ -152,9 +154,26 @@ public class Level {
      * 
      * @param joint the new joint to add
      */
-    public void addJoint(Integer joint)
+    public void addJoint(RoThroJoint joint)
     {
         joints.add(joint);
     }
 
+    /**
+     * Getter for level number
+     * @return level number
+     */
+    public int getLevelNum()
+    {
+        return levelNo;
+    }
+
+    /**
+     * Setter for level number
+     * @param levelNo level number
+     */
+    public void setLevelNum(int levelNo)
+    {
+        this.levelNo = levelNo;
+    }
 }

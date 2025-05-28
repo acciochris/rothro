@@ -1,13 +1,20 @@
 package io.github.acciochris;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.util.*;
+import org.dyn4j.dynamics.Body;
+import org.dyn4j.dynamics.contact.Contact;
+import org.dyn4j.dynamics.contact.ContactConstraint;
 import org.dyn4j.dynamics.joint.*;
 import org.dyn4j.geometry.*;
 import io.github.acciochris.framework.Camera;
 import io.github.acciochris.framework.SimulationBody;
 import io.github.acciochris.framework.SimulationFrame;
+import org.dyn4j.world.ContactCollisionData;
 import org.dyn4j.world.World;
+import org.dyn4j.world.listener.ContactListener;
+import org.dyn4j.world.listener.ContactListenerAdapter;
 
 // Dracula Color Palette
 //
@@ -51,15 +58,13 @@ public class RoThro extends SimulationFrame {
 	private final double height = HEIGHT / CAMERA_SCALE;
 	private List<PrismaticJoint<SimulationBody>> prisJoints;
 	private List<RevoluteJoint<SimulationBody>> revJoints;
+	private List<RevoluteJoint<SimulationBody>> pJoints;
 
 	private Level level;
 
-	private Ball p1;
-	// private Arm arm1;
-	// private Arm arm2;
-	// private Avatar avatar;
-	// private RevoluteJoint<SimulationBody> armJoint1;
-	// private RevoluteJoint<SimulationBody> armJoint2;
+	private Ball ball;
+	private Avatar p1;
+
 
 	private RothroKeyListener keyListener;
 
@@ -71,8 +76,10 @@ public class RoThro extends SimulationFrame {
 	public RoThro(Level level) {
 		super("RoThro", WIDTH, HEIGHT);
 		this.level = level;
-		p1 = new Ball(level.getBallRadius());
-		p1.translate(level.getBallPos());
+		ball = new Ball(level.getBallRadius());
+		ball.translate(level.getBallPos());
+		p1 = new Avatar();
+		p1.translate(level.getBallPos().x - ball.getRadius() - 1, level.getBallPos().y);
 
 		prisJoints = new ArrayList<PrismaticJoint<SimulationBody>>();
 		revJoints = new ArrayList<RevoluteJoint<SimulationBody>>();
@@ -81,10 +88,6 @@ public class RoThro extends SimulationFrame {
 		super.canvas.setFocusable(true);
 		super.canvas.addKeyListener(keyListener);
 		super.canvas.requestFocusInWindow();
-
-		// arm1 = new Arm(new Vector2(-1, 1));
-		// arm2 = new Arm(new Vector2(1,1));
-		// avatar = new Avatar(armJoint1, armJoint2);
 	}
 
 
@@ -101,6 +104,25 @@ public class RoThro extends SimulationFrame {
 			}
 		}
 		
+		this.world.addContactListener(new ContactListenerAdapter<SimulationBody>() {
+			@Override
+			public void begin(ContactCollisionData<SimulationBody> col, Contact c)
+			{
+				if (level.getLevelNum() != 2)
+					return;
+				SimulationBody body1 = col.getBody1();
+				SimulationBody body2 = col.getBody2();
+				if (body1 instanceof Avatar && body2 instanceof Obstacle)
+				{
+					((Obstacle)body2).setVisible(true);
+				}
+				else if (body2 instanceof Avatar && body1 instanceof Obstacle)
+				{
+					((Obstacle)body1).setVisible(true);
+				}
+			}
+		});
+		
 		// this.world.addBody(arm1);
 		// this.world.addBody(arm2);
 		// arm1.translate(-3,1);
@@ -113,76 +135,54 @@ public class RoThro extends SimulationFrame {
 
 		if (level.hasJoints())
 		{
-			for (Integer joint : level.getJoints())
+			for (RoThroJoint joint : level.getJoints())
 			{
-				for (Obstacle obs : obstacles.get(joint))
+				String jointType = joint.getType();
+
+				if (jointType.equals("Revolute"))
 				{
-					double obsX = obs.getX();
-					double obsY = obs.getY();
-					String jointType = obs.getJointType();
+					addRevJoint(joint);
+				}
 
-					if (jointType.equals("Revolute"))
-					{
-						obs.setAngularDamping(1.0);
-						Circle fulcrum = Geometry.createCircle(0.1);
-						Obstacle anchor = new Obstacle(fulcrum, obsX, obsY, new Color(0xFFB86C), false, "", "");
-						RevoluteJoint<SimulationBody> rj = new RevoluteJoint<SimulationBody>(obs, anchor, new Vector2(obsX, obsY));
-						revJoints.add(rj);
-						rj.setCollisionAllowed(false);
-						this.world.addBody(anchor);
-						this.world.addJoint(rj);
-					}
+				else if (jointType.equals("Distance"))
+				{
+					addDistJoint(joint);
+				}
 
-					else if (jointType.equals("Distance"))
-					{
+				else if (jointType.equals("Pendulum"))
+				{
+					addPendJoint(joint);
+				}
 
-					}
-
-					else if (jointType.equals("Weld"))
-					{
-
-					}
-
-					else if (jointType.equals("Pin"))
-					{
-
-					}
-
-					else if (jointType.equals("Prismatic"))
-					{
-        				Obstacle rectBody = new Obstacle(new Rectangle(2.75, 3.25), -2.0, -4.0, new Color(90, 40, 180), true, "", "FIXANG");
-
-						Obstacle anchor1 = new Obstacle(new Circle(0.01), -2.0, 0.0, false);
-						anchor1.getFixture(0).setSensor(true);
-
-						Vector2 anchorPnt = new Vector2(anchor1.getX(), anchor1.getY());
-						Vector2 axis = new Vector2(0, 1.0);
-
-						PrismaticJoint<SimulationBody> pj1 = new PrismaticJoint<SimulationBody>(anchor1, obs, anchorPnt, axis);
-						PrismaticJoint<SimulationBody> pj2 = new PrismaticJoint<SimulationBody>(anchor1, rectBody, anchorPnt, axis);
-
-						prisJoints.add(pj1);
-						prisJoints.add(pj2);
-
-						obs.setLinearVelocity(new Vector2(0, -10.0));
-						rectBody.setLinearVelocity(new Vector2(0, 7.5));
-						pj1.setMotorSpeed(-10.0);
-						pj2.setMotorSpeed(7.5);
-						pj1.setMaximumMotorForceEnabled(true);
-						pj1.setMaximumMotorForceEnabled(true);
-						pj1.setMaximumMotorForce(1000);
-						pj2.setMaximumMotorForce(750);
-
-						this.world.addBody(rectBody);
-						this.world.addBody(anchor1);
-						this.world.addJoint(pj1);
-						this.world.addJoint(pj2);
-					}
+				else if (jointType.equals("Prismatic"))
+				{
+					addPrisJoint(joint);
 				}
 			}
 		}
-
+		this.world.addBody(ball);
 		this.world.addBody(p1);
+	}
+
+	/**
+	 * 
+	 */
+	private class WallObstacle extends Obstacle {
+		public WallObstacle(
+			Convex shape,
+			double x,
+			double y,
+			boolean canMove,
+			int level)
+		{
+			super(shape, x, y, canMove, level);
+		}
+
+		@Override
+		public void setVisible(boolean visible)
+    	{
+        	this.visible = true;
+    	}
 	}
 
 	/**
@@ -193,13 +193,88 @@ public class RoThro extends SimulationFrame {
 		setMousePanningEnabled(false);
 		setMousePickingEnabled(false);
 
-		Obstacle left = new Obstacle(new Rectangle(1.0, height), -width / 2, 0, false);
-		Obstacle bottom = new Obstacle(new Rectangle(width, 1.0), 0, -height / 2, false);
-		Obstacle top = new Obstacle(new Rectangle(width, 1.0), 0, height / 2, false);
+		int levelNum = level.getLevelNum();
+
+		Obstacle left = new WallObstacle(new Rectangle(1.0, height), -width / 2, 0, false, levelNum);
+		Obstacle bottom = new WallObstacle(new Rectangle(width, 1.0), 0, -height / 2, false, levelNum);
+		Obstacle top = new WallObstacle(new Rectangle(width, 1.0), 0, height / 2, false, levelNum);
 		this.world.addBody(left);
 		this.world.addBody(bottom);
 		this.world.addBody(top);
 		addHole();
+	}
+
+	private void addPrisJoint(RoThroJoint pris)
+	{
+		Obstacle body = pris.getBody2();
+		Obstacle anchor = pris.getBody1();
+		PrismaticJoint<SimulationBody> pj = new PrismaticJoint<SimulationBody>(anchor, body, pris.getAnchorPnt1(), pris.getAxis());
+		//pj.setLimitsEnabled(pris.getLowerLimit(), pris.getUpperLimit());
+
+		body.setLinearVelocity(0.0, pris.getBody2Speed());
+
+		this.world.addJoint(pj);
+	}
+
+	private void addRevJoint(RoThroJoint rev)
+	{
+		Obstacle b1 = rev.getBody1();
+		Obstacle b2 = rev.getBody2();
+		b2.setAngularDamping(rev.getAngularDamping());
+		RevoluteJoint<SimulationBody> rj = new RevoluteJoint<SimulationBody>(b2, b1, rev.getAnchorPnt1());
+		revJoints.add(rj);
+		rj.setCollisionAllowed(false);
+		this.world.addJoint(rj);
+	}
+
+	private void addDistJoint(RoThroJoint dist)
+	{
+		Obstacle anchor = dist.getBody1();
+		Obstacle mass = dist.getBody2();
+
+		DistanceJoint<SimulationBody> spring = new DistanceJoint<SimulationBody>(anchor, mass, dist.getAnchorPnt1(), dist.getAnchorPnt2());
+		spring.setRestDistance(dist.getDistance());
+		spring.setSpringDampingRatio(dist.getLinearDamping());
+		spring.setSpringDamperEnabled(true);
+		spring.setSpringFrequency(dist.getSpringFreq());
+		spring.setSpringEnabled(true);
+		spring.setMaximumSpringForce(dist.getMaxMotorForce());
+		spring.setMaximumSpringForceEnabled(true);
+		spring.setLimitsEnabled(dist.getLowerLimit(), dist.getUpperLimit());
+
+		this.world.addJoint(spring);
+	}
+
+	private void addPendJoint(RoThroJoint pend)
+	{
+		Obstacle support = pend.getBody1();
+		Obstacle bob = pend.getBody2();
+		Vector2 bobPos = bob.getWorldCenter();
+
+		Vector2 supptPos = support.getWorldCenter();
+		double rodLength = supptPos.y - bobPos.y;
+		double rodX = bobPos.x;
+		double rodY = rodLength / 2 + 1;
+		
+		Obstacle rod = new Obstacle(new Rectangle(0.5, rodLength), rodX, rodY, new Color(200, 20, 20), true, "", "NORM", bob.getLevel());
+
+		RevoluteJoint<SimulationBody> hinge1 = new RevoluteJoint<SimulationBody>(support, rod, supptPos);
+		RevoluteJoint<SimulationBody> hinge2 = new RevoluteJoint<SimulationBody>(bob, rod, bobPos);	
+
+		RevoluteJoint<SimulationBody> pendulum = new RevoluteJoint<SimulationBody>(support, bob, supptPos);
+		pendulum.setCollisionAllowed(false);
+		pendulum.setLimits(pend.getLowerLimit(), pend.getUpperLimit());
+		pendulum.setLimitsEnabled(true);
+
+		FrictionJoint<SimulationBody> f = new FrictionJoint<SimulationBody>(support, bob, supptPos);
+		f.setMaximumForce(0);
+		f.setMaximumTorque(pend.getMaxMotorTorque());
+		
+		this.world.addBody(rod);
+		this.world.addJoint(pendulum);
+		this.world.addJoint(hinge1);
+		this.world.addJoint(hinge2);
+		this.world.addJoint(f);
 	}
 
 	/**
@@ -208,19 +283,21 @@ public class RoThro extends SimulationFrame {
 	private void addHole() {
 		Hole hole = level.getHole();
 		if (hole == null) {
-			this.world.addBody(new Obstacle(new Rectangle(1.0, height), width / 2, 0, false));
+			this.world.addBody(new WallObstacle(new Rectangle(1.0, height), width / 2, 0, false, 0));
 			return;
 		}
 
-		Obstacle upper = new Obstacle(
+		int levelNum = level.getLevelNum();
+
+		Obstacle upper = new WallObstacle(
 			new Rectangle(1.0, hole.getY() - hole.getSize() / 2),
 			width / 2,
-			(height - hole.getY() + hole.getSize() / 2) / 2, false
+			(height - hole.getY() + hole.getSize() / 2) / 2, false, levelNum
 		);
-		Obstacle lower = new Obstacle(
+		Obstacle lower = new WallObstacle(
 			new Rectangle(1.0, height - hole.getY() - hole.getSize() / 2),
 			width / 2,
-			(-hole.getY() - hole.getSize() / 2) / 2, false
+			(-hole.getY() - hole.getSize() / 2) / 2, false, levelNum
 		);
 		this.world.addBody(upper);
 		this.world.addBody(lower);
@@ -233,10 +310,9 @@ public class RoThro extends SimulationFrame {
 	@Override
 	protected void gameLoopLogic() {
 		super.gameLoopLogic();
-		Vector2 ballCoords = p1.getWorldCenter();
+		Vector2 ballCoords = ball.getWorldCenter();
 
-		// FIXME: hard-coded ball radius
-		if (Math.abs(ballCoords.x) > width / 2 + 1.0 || Math.abs(ballCoords.y) > height / 2 + 1.0) {
+		if (Math.abs(ballCoords.x) > width / 2 + ball.getRadius() || Math.abs(ballCoords.y) > height / 2 + ball.getRadius()) {
 			this.stop();
 		}
 	}
