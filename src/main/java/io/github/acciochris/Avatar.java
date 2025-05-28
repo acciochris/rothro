@@ -3,6 +3,7 @@ package io.github.acciochris;
 import java.util.ArrayList;
 import java.util.HashSet;
 import javax.naming.spi.ResolveResult;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -20,16 +21,16 @@ import io.github.acciochris.framework.SimulationBody;
 import io.github.acciochris.framework.SimulationFrame;
 import io.github.acciochris.framework.input.BooleanStateKeyboardInputHandler;
 import org.dyn4j.dynamics.joint.RevoluteJoint;
+
 public class Avatar extends SimulationBody
 {
     private ArrayList<ArrayList<Integer>> controls;
-    private Vector2 direction;
     private double r;
 
     public Avatar()
     {
-        r = 0.5;
-        direction = new Vector2(0,0);
+        super(new Color(0xF8F8F2));
+        r = 1;
         addFixture(new Circle(r));
         setMass(MassType.NORMAL);
 
@@ -69,44 +70,30 @@ public class Avatar extends SimulationBody
 
     public void controls(HashSet<Integer> keysPressed)
     {
-        boolean stopPressed = false;
-        direction = new Vector2(0,0);
-        for (int i:keysPressed)
+        for (int i: keysPressed)
         {
             /*
              * Controls Movement
              */
-            if(controls.get(0).contains(i))
+            if (controls.get(0).contains(i))
             {
-                direction.x = -1;
+                this.applyImpulse(new Vector2(-0.6, 0));
             }
-            if(controls.get(1).contains(i))
+            if (controls.get(1).contains(i))
             {
-                direction.x = 1;
+                this.applyImpulse(new Vector2(0.6, 0));
             }
-            if(controls.get(2).contains(i))
+            if (controls.get(2).contains(i))
             {
-                direction.y = 1;
+                this.applyImpulse(new Vector2(0, 0.6));
             }
-            if(controls.get(3).contains(i))
+            if (controls.get(3).contains(i))
             {
-                direction.y = -1;
+                this.applyImpulse(new Vector2(0, -0.6));
             }
-            // if(controls.get(4).contains(i))
-            // {
-            //     stopPressed = true;
-            // }
         }
-            if (stopPressed)
-            {
-                direction = new Vector2(0,0);
-            }
-            else if (direction.x != 0 || direction.y != 0)
-            {
-                direction.normalize();
-                this.setLinearVelocity(direction.x * 5, direction.y * 5);
-            }
-            System.out.println(keysPressed);
+        // this.setLinearVelocity(direction.x * 0.1, direction.y * 0.1);
+        // System.out.println(keysPressed);
     }
 
 }
