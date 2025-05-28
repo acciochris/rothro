@@ -22,22 +22,17 @@ import io.github.acciochris.framework.input.BooleanStateKeyboardInputHandler;
 import org.dyn4j.dynamics.joint.RevoluteJoint;
 public class Avatar extends SimulationBody
 {
-    private RevoluteJoint<SimulationBody> armJoint1;
-    private RevoluteJoint<SimulationBody> armJoint2;
-    public Rectangle body;
     private ArrayList<ArrayList<Integer>> controls;
-    private double armAngle1;
-    private double armAngle2;
-    private RevoluteJoint<SimulationBody> selectedLimb;
+    private Vector2 direction;
+    private double r;
 
-    public Avatar(RevoluteJoint<SimulationBody> armJoint1, RevoluteJoint<SimulationBody> armJoint2)
+    public Avatar()
     {
-        armAngle1 = 0;
-        armAngle2 = 180;
-        body = new Rectangle(3,5);
-        addFixture(body);
-        this.armJoint1 = armJoint1;
-        this.armJoint2 = armJoint2;
+        r = 0.5;
+        direction = new Vector2(0,0);
+        addFixture(new Circle(r));
+        setMass(MassType.NORMAL);
+
         controls = new ArrayList<ArrayList<Integer>>();
         for (int i = 0; i <= 5; i++)
         {
@@ -45,97 +40,73 @@ public class Avatar extends SimulationBody
         }
         controls.get(0).add(KeyEvent.VK_LEFT);
         controls.get(1).add(KeyEvent.VK_RIGHT);
+        controls.get(2).add(KeyEvent.VK_UP);
+        controls.get(3).add(KeyEvent.VK_DOWN);
+        controls.get(4).add(KeyEvent.VK_SPACE);
+        this.setMassType(MassType.NORMAL);
+    }
+
+        /**
+     * Calling this function results in a logic chain that allows the user to change what certain keys do
+     * @param option - what to do to the subject control
+     * @param subjectControl - the control in question to change
+     * @param replacementControl - the control to replace it with
+     */
+    public void setControls( char option, int subjectControl, int replacementControl)
+    {
+        if (option == 'd')
+        {
+            for (int a: controls.get(subjectControl))
+            {
+                controls.get(subjectControl).remove(a);
+            }
+        }
+        if (option == 'a')
+        {
+            controls.get(subjectControl).add(replacementControl);
+        }
     }
 
     public void controls(HashSet<Integer> keysPressed)
     {
-        armAngle1 = armJoint1.getBody2().getTransform().getRotationAngle();
-        armAngle2 = armJoint2.getBody2().getTransform().getRotationAngle();
+        boolean stopPressed = false;
+        direction = new Vector2(0,0);
         for (int i:keysPressed)
         {
-            switch(i)
-            {
-                case KeyEvent.VK_1:
-                selectedLimb = armJoint1;
-                case KeyEvent.VK_2:
-                selectedLimb = armJoint2;
-            }
-
             /*
-             * Controls Utilization of Arms
+             * Controls Movement
              */
             if(controls.get(0).contains(i))
             {
-                if (armAngle1 <= 90)
-                {
-                    armJoint1.getBody2().setAngularVelocity(1);
-                }
-                if (armAngle2 <= 270)
-                {
-                    armJoint2.getBody2().setAngularVelocity(1);
-                }
+                direction.x = -1;
             }
             if(controls.get(1).contains(i))
             {
-                if (armAngle1 >= -90)
-                {
-                    armJoint1.getBody2().setAngularVelocity(-1);
-                }
-                if (armAngle2 >= 90)
-                {
-                    armJoint2.getBody2().setAngularVelocity(-1);
-                }
-            }
-            if (armAngle1 <= 90 || armAngle1 >= -90)
-            {
-                armJoint1.getBody2().setAngularVelocity(0);
-            }
-            if (armAngle2 <= 270 || armAngle2 >= 90)
-            {
-                armJoint2.getBody2().setAngularVelocity(0);
+                direction.x = 1;
             }
             if(controls.get(2).contains(i))
             {
-                if (selectedLimb == armJoint1)
-                {
-                    ((Arm)selectedLimb.getBody2()).shoot();
-                }
-                if (selectedLimb == armJoint2)
-                {
-                    ((Arm)selectedLimb.getBody2()).shoot();
-                }
+                direction.y = 1;
             }
-
-            /*
-             * Controls Movement with Legs
-             */
             if(controls.get(3).contains(i))
             {
-
+                direction.y = -1;
             }
-            if(controls.get(4).contains(i))
-            {
-
-            }
+            // if(controls.get(4).contains(i))
+            // {
+            //     stopPressed = true;
+            // }
         }
+            if (stopPressed)
+            {
+                direction = new Vector2(0,0);
+            }
+            else if (direction.x != 0 || direction.y != 0)
+            {
+                direction.normalize();
+                this.setLinearVelocity(direction.x * 5, direction.y * 5);
+            }
+            System.out.println(keysPressed);
     }
 
-        /*
-     * Being able to attach and detach limbs at will is a luxury at the moment may be implemented in the future
-     */
-    // public void Attachment(SimulationBody a)
-    // {
-    //     if (a instanceof Arm && (armJoint1.equals(null) || armJoint2.equals(null)))
-    //     {
-    //         if (armJoint1.equals(null))
-    //         {
-    //             armJoint1 = new RevoluteJoint<>(this, a, new Vector2(body.getWidth()/2 + body.getX(), body.getY()));
-    //         }
-    //         else if (armJoint2.equals(null))
-    //         {
-    //             armJoint2 = new RevoluteJoint<>(this, a, new Vector2(body.getWidth()/2 - body.getX(), body.getY()));
-    //         }
-    //     }
-    //     else return;
-    // }
 }

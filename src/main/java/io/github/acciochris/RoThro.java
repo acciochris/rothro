@@ -48,20 +48,19 @@ public class RoThro extends SimulationFrame {
 
 	private Level level;
 
-	private Ball p1;
-	// private Arm arm1;
-	// private Arm arm2;
-	// private Avatar avatar;
-	// private RevoluteJoint<SimulationBody> armJoint1;
-	// private RevoluteJoint<SimulationBody> armJoint2;
+	private Ball ball;
+	private Avatar p1;
+
 
 	private RothroKeyListener keyListener;
 
 	public RoThro(Level level) {
 		super("RoThro", WIDTH, HEIGHT);
 		this.level = level;
-		p1 = new Ball(level.getBallRadius());
-		p1.translate(level.getBallPos());
+		ball = new Ball(level.getBallRadius());
+		ball.translate(level.getBallPos());
+		p1 = new Avatar();
+		p1.translate(level.getBallPos().x - ball.getRadius(),level.getBallPos().y);
 
 		prisJoints = new ArrayList<PrismaticJoint<SimulationBody>>();
 		revJoints = new ArrayList<RevoluteJoint<SimulationBody>>();
@@ -70,10 +69,6 @@ public class RoThro extends SimulationFrame {
 		super.canvas.setFocusable(true);
 		super.canvas.addKeyListener(keyListener);
 		super.canvas.requestFocusInWindow();
-
-		// arm1 = new Arm(new Vector2(-1, 1));
-		// arm2 = new Arm(new Vector2(1,1));
-		// avatar = new Avatar(armJoint1, armJoint2);
 	}
 
 	protected void initializeWorld() {
@@ -85,16 +80,6 @@ public class RoThro extends SimulationFrame {
 				this.world.addBody(obs);
 			}
 		}
-		
-		// this.world.addBody(arm1);
-		// this.world.addBody(arm2);
-		// arm1.translate(-3,1);
-		// arm2.translate(3,1);
-		// this.world.addBody(avatar);
-		// armJoint1 = new RevoluteJoint<SimulationBody>(avatar, arm1, new Vector2(-1,1));
-        // armJoint2 = new RevoluteJoint<SimulationBody>(avatar, arm2, new Vector2(1,1));
-		// this.world.addJoint(armJoint1);
-        // this.world.addJoint(armJoint2);
 
 		if (level.hasJoints())
 		{
@@ -160,13 +145,14 @@ public class RoThro extends SimulationFrame {
 
 						this.world.addBody(rectBody);
 						this.world.addBody(anchor1);
+						//this.world.addBody(anchor2);
 						this.world.addJoint(pj1);
 						this.world.addJoint(pj2);
 					}
 				}
 			}
 		}
-
+		this.world.addBody(ball);
 		this.world.addBody(p1);
 	}
 
@@ -207,7 +193,7 @@ public class RoThro extends SimulationFrame {
 	@Override
 	protected void gameLoopLogic() {
 		super.gameLoopLogic();
-		Vector2 ballCoords = p1.getWorldCenter();
+		Vector2 ballCoords = ball.getWorldCenter();
 
 		// FIXME: hard-coded ball radius
 		if (Math.abs(ballCoords.x) > width / 2 + 1.0 || Math.abs(ballCoords.y) > height / 2 + 1.0) {

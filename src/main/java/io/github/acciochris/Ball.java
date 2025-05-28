@@ -39,58 +39,6 @@ public class Ball extends SimulationBody
         setAngularDamping(1000.0);
         setLinearDamping(0.1);
         setAtRestDetectionEnabled(false);
-        controls = new ArrayList<ArrayList<Integer>>();
-        for (int i = 0; i <= 5; i++)
-        {
-            controls.add(new ArrayList<Integer>());
-        }
-        controls.get(0).add(KeyEvent.VK_LEFT);
-        controls.get(1).add(KeyEvent.VK_RIGHT);
-        controls.get(2).add(KeyEvent.VK_S);
-    }
-
-    /**
-     * Calling this function results in a logic chain that allows the user to change what certain keys do
-     * @param option - what to do to the subject control
-     * @param subjectControl - the control in question to change
-     * @param replacementControl - the control to replace it with
-     */
-    public void setControls( char option, int subjectControl, int replacementControl)
-    {
-        if (option == 'd')
-        {
-            for (int a: controls.get(subjectControl))
-            {
-                controls.get(subjectControl).remove(a);
-            }
-        }
-        if (option == 'a')
-        {
-            controls.get(subjectControl).add(replacementControl);
-        }
-    }
-
-    /**
-     * Handles all movement of the ball including turning and shooting
-     * @param keysPressed - the hash set of all the keys pressed at the current cycle of the game loop
-     */
-    public void controls(HashSet<Integer> keysPressed)
-    {
-        for (int i:keysPressed)
-        {
-            if(controls.get(0).contains(i))
-            {
-                angle += 1;
-            }
-            if(controls.get(1).contains(i))
-            {
-                angle -= 1;
-            }
-            if(controls.get(2).contains(i))
-            {
-                setLinearVelocity(new Vector2(40*Math.cos(Math.toRadians(angle)), 40*Math.sin(Math.toRadians(angle))).multiply(0.30));
-            }
-        }
     }
 
     public double getRadius() 
