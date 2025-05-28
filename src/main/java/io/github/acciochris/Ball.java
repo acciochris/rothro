@@ -33,6 +33,11 @@ public class Ball extends SimulationBody
         setAtRestDetectionEnabled(false);
     }
 
+    /**
+     * Getter for ball radius.
+     * 
+     * @return ball radius
+     */
     public double getRadius() 
     { 
         return radius; 
