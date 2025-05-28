@@ -9,11 +9,21 @@ import org.dyn4j.geometry.Circle;
 import org.dyn4j.geometry.Vector2;
 import io.github.acciochris.framework.SimulationBody;
 
+/**
+ * The ball that pushes the target ball in the game.
+ * 
+ * @author Chris Liu
+ * @author Justin Huang
+ * @version May 30, 2025
+ */
 public class Avatar extends SimulationBody
 {
     private ArrayList<ArrayList<Integer>> controls;
     private double r;
 
+    /**
+     * Constructs a new Avatar.
+     */
     public Avatar()
     {
         super(new Color(0xF8F8F2));
@@ -34,11 +44,12 @@ public class Avatar extends SimulationBody
         this.setMassType(MassType.NORMAL);
     }
 
-        /**
-     * Calling this function results in a logic chain that allows the user to change what certain keys do
-     * @param option - what to do to the subject control
-     * @param subjectControl - the control in question to change
-     * @param replacementControl - the control to replace it with
+    /**
+     * Update the functionalities of key presses.
+     * 
+     * @param option what to do to the subject control
+     * @param subjectControl the control in question to change
+     * @param replacementControl the control to replace it with
      */
     public void setControls( char option, int subjectControl, int replacementControl)
     {
@@ -55,6 +66,11 @@ public class Avatar extends SimulationBody
         }
     }
 
+    /**
+     * Handle all movement of the avatar ball.
+     * 
+     * @param keysPressed the HashSet of all currently depressed keys
+     */
     public void controls(HashSet<Integer> keysPressed)
     {
         for (int i: keysPressed)
