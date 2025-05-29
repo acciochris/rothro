@@ -12,52 +12,70 @@ import org.dyn4j.geometry.Vector2;
  * @author Anvesh Pattaje
  * @version May 30, 2025
  */
-public class Level {
+public class Level
+{
     private List<List<Obstacle>> obstacles;
-    private List<RoThroJoint> joints; 
-    private Hole hole;
-    private Vector2 ballPos;
-    private double ballRadius;
-    private int levelNo;
+    private List<RoThroJoint>    joints;
+    private Hole                 hole;
+    private Vector2              ballPos;
+    private double               ballRadius;
+    private int                  levelNo;
 
     /**
      * Default constructor. Initializes everything to empty lists and/or null.
      */
-    public Level() {
+    public Level()
+    {
         this(new LinkedList<>(), null, null, 0);
     }
+
 
     /**
      * Constructor that sets the obstacles, the holes, and a list of joints.
      * 
-     * @param obstacles a List of List of obstacles
-     * @param hole the hole
-     * @param joints a List of indices specifying which sublist of obstacles need a joint
+     * @param obstacles
+     *            a List of List of obstacles
+     * @param hole
+     *            the hole
+     * @param joints
+     *            a List of indices specifying which sublist of obstacles need a
+     *            joint
      */
-    public Level(List<List<Obstacle>> obstacles, Hole hole, List<RoThroJoint> joints, int num) {
+    public Level(
+        List<List<Obstacle>> obstacles,
+        Hole hole,
+        List<RoThroJoint> joints,
+        int num)
+    {
         this.obstacles = obstacles;
         this.joints = joints;
         this.hole = hole;
         this.levelNo = num;
     }
 
+
     /**
      * Add a new set of obstacles (in a List).
      * 
-     * @param obstacle the new List of obstacles to add
+     * @param obstacle
+     *            the new List of obstacles to add
      */
-    public void addObstacle(List<Obstacle> obstacle) {
+    public void addObstacle(List<Obstacle> obstacle)
+    {
         obstacles.add(obstacle);
     }
+
 
     /**
      * Getter for obstacles.
      * 
      * @return obstacles
      */
-    public List<List<Obstacle>> getObstacles() {
+    public List<List<Obstacle>> getObstacles()
+    {
         return obstacles;
     }
+
 
     /**
      * Getter for hole.
@@ -69,15 +87,18 @@ public class Level {
         return hole;
     }
 
+
     /**
      * Setter for initial ball position.
      * 
-     * @param ballPos ball position as a vector
+     * @param ballPos
+     *            ball position as a vector
      */
     public void setBallPos(Vector2 ballPos)
     {
         this.ballPos = ballPos;
     }
+
 
     /**
      * Getter for initial ball position.
@@ -89,15 +110,18 @@ public class Level {
         return ballPos;
     }
 
+
     /**
      * Setter for ball radius
      * 
-     * @param ballRadius ball radius
+     * @param ballRadius
+     *            ball radius
      */
     public void setBallRadius(double ballRadius)
     {
         this.ballRadius = ballRadius;
     }
+
 
     /**
      * Getter for ball radius
@@ -109,15 +133,18 @@ public class Level {
         return ballRadius;
     }
 
+
     /**
      * Setter for hole
      * 
-     * @param hole the hole
+     * @param hole
+     *            the hole
      */
     public void setHole(Hole hole)
     {
         this.hole = hole;
     }
+
 
     /**
      * Returns whether there are any joints
@@ -129,6 +156,7 @@ public class Level {
         return joints != null && joints.size() > 0;
     }
 
+
     /**
      * Getter for joints
      * 
@@ -139,28 +167,34 @@ public class Level {
         return joints;
     }
 
+
     /**
      * Setter for joints
      * 
-     * @param joints joints
+     * @param joints
+     *            joints
      */
     public void setJoints(List<RoThroJoint> joints)
     {
         this.joints = joints;
     }
 
+
     /**
      * Add a new joint to the list of joints
      * 
-     * @param joint the new joint to add
+     * @param joint
+     *            the new joint to add
      */
     public void addJoint(RoThroJoint joint)
     {
         joints.add(joint);
     }
 
+
     /**
      * Getter for level number
+     * 
      * @return level number
      */
     public int getLevelNum()
@@ -168,9 +202,12 @@ public class Level {
         return levelNo;
     }
 
+
     /**
      * Setter for level number
-     * @param levelNo level number
+     * 
+     * @param levelNo
+     *            level number
      */
     public void setLevelNum(int levelNo)
     {

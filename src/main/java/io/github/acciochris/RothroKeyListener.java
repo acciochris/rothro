@@ -9,7 +9,8 @@ import java.awt.event.KeyListener;
  * @author Justin Huang
  * @version May 30, 2025
  */
-public class RothroKeyListener implements KeyListener
+public class RothroKeyListener
+    implements KeyListener
 {
     private RothroInputManager im;
 
@@ -20,23 +21,27 @@ public class RothroKeyListener implements KeyListener
     {
         im = new RothroInputManager();
     }
-    
+
+
     /**
      * Forward key presses to input manager.
      * 
-     * @param e the key event
+     * @param e
+     *            the key event
      */
     @Override
     public void keyPressed(KeyEvent e)
     {
         im.keyPressed(e.getKeyCode());
-        
+
     }
+
 
     /**
      * Forward key releases to input manager.
      * 
-     * @param e the key event
+     * @param e
+     *            the key event
      */
     @Override
     public void keyReleased(KeyEvent e)
@@ -48,10 +53,14 @@ public class RothroKeyListener implements KeyListener
     /**
      * keyTyped is unused for this project.
      * 
-     * @param e unused
+     * @param e
+     *            unused
      */
     @Override
-    public void keyTyped(KeyEvent e) {}
+    public void keyTyped(KeyEvent e)
+    {
+    }
+
 
     /**
      * Getter for input manager

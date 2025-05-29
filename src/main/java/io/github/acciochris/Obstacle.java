@@ -13,16 +13,17 @@ import io.github.acciochris.framework.SimulationBody;
  * @author Anvesh Pattaje
  * @version May 30, 2025
  */
-public class Obstacle extends SimulationBody 
+public class Obstacle
+    extends SimulationBody
 {
-    private double x;
-    private double y;
-    private boolean movable;
-    private String jointType;
-    private Convex shape;
-    private String massType;
-    private int level;
-    protected boolean visible;
+    private double            x;
+    private double            y;
+    private boolean           movable;
+    private String            jointType;
+    private Convex            shape;
+    private String            massType;
+    private int               level;
+    protected boolean         visible;
 
     /**
      * Default color for obstacles.
@@ -32,15 +33,31 @@ public class Obstacle extends SimulationBody
     /**
      * Construct a new Obstacle from various parameters.
      * 
-     * @param shape a Convex shape for the obstacle
-     * @param x x coordinate of the obstacle
-     * @param y y coordinate of the obstacle
-     * @param color color of the obstacle
-     * @param canMove boolean parameter for whether the obstacle can move
-     * @param jT joint type for this obstacle
-     * @param mT mass type for this obstacle
+     * @param shape
+     *            a Convex shape for the obstacle
+     * @param x
+     *            x coordinate of the obstacle
+     * @param y
+     *            y coordinate of the obstacle
+     * @param color
+     *            color of the obstacle
+     * @param canMove
+     *            boolean parameter for whether the obstacle can move
+     * @param jT
+     *            joint type for this obstacle
+     * @param mT
+     *            mass type for this obstacle
      */
-    public Obstacle(Convex shape, double x, double y, Color color, boolean canMove, String jT, String mT, int level) {
+    public Obstacle(
+        Convex shape,
+        double x,
+        double y,
+        Color color,
+        boolean canMove,
+        String jT,
+        String mT,
+        int level)
+    {
         super(color);
         this.shape = shape;
         this.x = x;
@@ -68,7 +85,7 @@ public class Obstacle extends SimulationBody
             }
 
             else if (massType.equals("NORM"))
-            {  
+            {
                 fixture = addFixture(shape, 1.0, 0.0, 0.75);
                 setMass(MassType.NORMAL);
             }
@@ -80,17 +97,29 @@ public class Obstacle extends SimulationBody
         setAtRestDetectionEnabled(false);
     }
 
+
     /**
      * Simplified constructor for obstacles without colors or joints.
      * 
-     * @param shape a Convex shape for the obstacle
-     * @param x x coordinate of the obstacle
-     * @param y y coordinate of the obstacle
-     * @param canMove boolean parameter for whether the obstacle can move
+     * @param shape
+     *            a Convex shape for the obstacle
+     * @param x
+     *            x coordinate of the obstacle
+     * @param y
+     *            y coordinate of the obstacle
+     * @param canMove
+     *            boolean parameter for whether the obstacle can move
      */
-    public Obstacle(Convex shape, double x, double y, boolean canMove, int level) {
+    public Obstacle(
+        Convex shape,
+        double x,
+        double y,
+        boolean canMove,
+        int level)
+    {
         this(shape, x, y, DEFAULT_COLOR, canMove, null, "", level);
     }
+
 
     /**
      * Getter for x coordinate.
@@ -102,6 +131,7 @@ public class Obstacle extends SimulationBody
         return x;
     }
 
+
     /**
      * Getter for y coordinate.
      * 
@@ -111,6 +141,7 @@ public class Obstacle extends SimulationBody
     {
         return y;
     }
+
 
     /**
      * Getter for joint type.
@@ -122,6 +153,7 @@ public class Obstacle extends SimulationBody
         return jointType;
     }
 
+
     /**
      * Getter for shape.
      * 
@@ -131,6 +163,7 @@ public class Obstacle extends SimulationBody
     {
         return shape;
     }
+
 
     /**
      * Getter for mass type.
@@ -142,6 +175,7 @@ public class Obstacle extends SimulationBody
         return massType;
     }
 
+
     /**
      * Getter for level.
      * 
@@ -152,15 +186,18 @@ public class Obstacle extends SimulationBody
         return level;
     }
 
+
     /**
      * Setter for visible.
      * 
-     * @param visible visibility
+     * @param visible
+     *            visibility
      */
     public void setVisible(boolean visible)
     {
         this.visible = visible;
     }
+
 
     /**
      * Getter for visible.
@@ -171,16 +208,21 @@ public class Obstacle extends SimulationBody
     {
         return visible;
     }
-    
-	/**
-	 * Render the obstacle if it's visible.
+
+
+    /**
+     * Render the obstacle if it's visible.
      * 
-	 * @param g the graphics object to render to
-	 * @param scale the scaling factor
-	 * @param color the color to render the body
-	 */
+     * @param g
+     *            the graphics object to render to
+     * @param scale
+     *            the scaling factor
+     * @param color
+     *            the color to render the body
+     */
     @Override
-    public void render(Graphics2D g, double scale, Color color) {
+    public void render(Graphics2D g, double scale, Color color)
+    {
         if (visible)
         {
             super.render(g, scale, color);

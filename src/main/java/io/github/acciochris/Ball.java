@@ -13,14 +13,16 @@ import io.github.acciochris.framework.SimulationBody;
  * @author Anvesh Pattaje
  * @version May 30, 2025
  */
-public class Ball extends SimulationBody
+public class Ball
+    extends SimulationBody
 {
     private double radius;
 
     /**
      * Construct a new ball with radius r.
      * 
-     * @param r ball radius
+     * @param r
+     *            ball radius
      */
     public Ball(double r)
     {
@@ -33,13 +35,14 @@ public class Ball extends SimulationBody
         setAtRestDetectionEnabled(false);
     }
 
+
     /**
      * Getter for ball radius.
      * 
      * @return ball radius
      */
-    public double getRadius() 
-    { 
-        return radius; 
+    public double getRadius()
+    {
+        return radius;
     }
 }

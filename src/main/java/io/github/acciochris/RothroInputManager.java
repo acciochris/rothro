@@ -8,7 +8,7 @@ import java.util.HashSet;
  * @author Justin Huang
  * @version May 30, 2025
  */
-public class RothroInputManager 
+public class RothroInputManager
 {
     private HashSet<Integer> keysPressed;
 
@@ -20,25 +20,30 @@ public class RothroInputManager
         keysPressed = new HashSet<Integer>();
     }
 
+
     /**
      * Add new pressed key.
      * 
-     * @param i keyCode of pressed key
+     * @param i
+     *            keyCode of pressed key
      */
     public void keyPressed(int i)
     {
         keysPressed.add(i);
     }
 
+
     /**
      * Remove existing pressed key.
      * 
-     * @param i keyCode of pressed key
+     * @param i
+     *            keyCode of pressed key
      */
     public void keyReleased(int i)
     {
         keysPressed.remove(i);
     }
+
 
     /**
      * Getter for keysPressed

@@ -7,7 +7,7 @@ package io.github.acciochris;
  * @author Anvesh Pattaje
  * @version May 30, 2025
  */
-public class Hole 
+public class Hole
 {
     private double y;
     private double size;
@@ -15,14 +15,17 @@ public class Hole
     /**
      * Construct a new hole with y coordinate and diameter
      * 
-     * @param y y coordinate of hole
-     * @param size hole diameter
+     * @param y
+     *            y coordinate of hole
+     * @param size
+     *            hole diameter
      */
     public Hole(double y, double size)
     {
         this.y = y;
         this.size = size;
     }
+
 
     /**
      * Getter for hole size.
@@ -33,6 +36,7 @@ public class Hole
     {
         return size;
     }
+
 
     /**
      * Getter for hole y coordinate

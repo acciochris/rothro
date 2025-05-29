@@ -8,50 +8,86 @@ import org.dyn4j.geometry.Vector2;
  * @author Anvesh Pattaje
  * @version May 30, 2025
  */
-public class RoThroJoint 
+public class RoThroJoint
 {
-    private String type;
-    private double distance;
-    private double maxMotorForce;
-    private double maxMotorTorque;
-    private double motorSpeed;
-    private double springFreq;
-    private double angularDamping;
-    private double lowerLimit;
-    private double upperLimit;
-    private double body1Speed;
-    private double body2Speed;
-    private double linearDamping;
-    private Vector2 axis;
-    private Vector2 anchorPnt1;
-    private Vector2 anchorPnt2;
+    private String   type;
+    private double   distance;
+    private double   maxMotorForce;
+    private double   maxMotorTorque;
+    private double   motorSpeed;
+    private double   springFreq;
+    private double   angularDamping;
+    private double   lowerLimit;
+    private double   upperLimit;
+    private double   body1Speed;
+    private double   body2Speed;
+    private double   linearDamping;
+    private Vector2  axis;
+    private Vector2  anchorPnt1;
+    private Vector2  anchorPnt2;
     private Obstacle body1;
     private Obstacle body2;
-    private boolean limitsEnabled;
+    private boolean  limitsEnabled;
 
     /**
      * Construct a new RoThro joint based on various parameters.
      * 
-     * @param t joint type
-     * @param linDampg desired linear damping (for springs)
-     * @param b1Speed desired speed for body1 (for Prismatic Joint)
-     * @param b2Speed desired speed for body2 (for Prismatic Joint)
-     * @param upLim upper Limit constraint for movement (All Joints)
-     * @param lowLim lower Limit constraint for movement (All Joints)
-     * @param angDampg desired linear damping (for hinges)
-     * @param dist desired distance for rest pos (springs)
-     * @param mMotF max motor force (for springs and Prismatic Joints)
-     * @param mMotT max motor torque (for hinges and pendulum)
-     * @param speed desired motor speed (prismatic joint)
-     * @param f frequency of spring joint (stiffness)
-     * @param axis axis along which bodies move (Prismatic Joint)
-     * @param anchorPnt1 anchor pnt1 (for all Joints)
-     * @param anchorPnt2 anchor pnt2 (for all Joints)
-     * @param b1 Obstacle 1
-     * @param b2 Obstacle 2
-     * @param limEn whether limits are enabled
+     * @param t
+     *            joint type
+     * @param linDampg
+     *            desired linear damping (for springs)
+     * @param b1Speed
+     *            desired speed for body1 (for Prismatic Joint)
+     * @param b2Speed
+     *            desired speed for body2 (for Prismatic Joint)
+     * @param upLim
+     *            upper Limit constraint for movement (All Joints)
+     * @param lowLim
+     *            lower Limit constraint for movement (All Joints)
+     * @param angDampg
+     *            desired linear damping (for hinges)
+     * @param dist
+     *            desired distance for rest pos (springs)
+     * @param mMotF
+     *            max motor force (for springs and Prismatic Joints)
+     * @param mMotT
+     *            max motor torque (for hinges and pendulum)
+     * @param speed
+     *            desired motor speed (prismatic joint)
+     * @param f
+     *            frequency of spring joint (stiffness)
+     * @param axis
+     *            axis along which bodies move (Prismatic Joint)
+     * @param anchorPnt1
+     *            anchor pnt1 (for all Joints)
+     * @param anchorPnt2
+     *            anchor pnt2 (for all Joints)
+     * @param b1
+     *            Obstacle 1
+     * @param b2
+     *            Obstacle 2
+     * @param limEn
+     *            whether limits are enabled
      */
-    public RoThroJoint(String t, double linDampg, double b1Speed, double b2Speed, double upLim, double lowLim, double angDampg, double dist, double mMotF, double mMotT, double speed, double f, Vector2 axis, Vector2 anchorPnt1, Vector2 anchorPnt2, Obstacle b1, Obstacle b2, boolean limEn)
+    public RoThroJoint(
+        String t,
+        double linDampg,
+        double b1Speed,
+        double b2Speed,
+        double upLim,
+        double lowLim,
+        double angDampg,
+        double dist,
+        double mMotF,
+        double mMotT,
+        double speed,
+        double f,
+        Vector2 axis,
+        Vector2 anchorPnt1,
+        Vector2 anchorPnt2,
+        Obstacle b1,
+        Obstacle b2,
+        boolean limEn)
     {
         type = t;
         distance = dist;
@@ -73,6 +109,7 @@ public class RoThroJoint
         limitsEnabled = limEn;
     }
 
+
     /**
      * Getter for axis.
      * 
@@ -82,6 +119,7 @@ public class RoThroJoint
     {
         return axis;
     }
+
 
     /**
      * Getter for body1.
@@ -93,6 +131,7 @@ public class RoThroJoint
         return body1;
     }
 
+
     /**
      * Getter for body2.
      * 
@@ -102,6 +141,7 @@ public class RoThroJoint
     {
         return body2;
     }
+
 
     /**
      * Getter for distance.
@@ -113,6 +153,7 @@ public class RoThroJoint
         return distance;
     }
 
+
     /**
      * Getter for maxMotorForce.
      * 
@@ -122,6 +163,7 @@ public class RoThroJoint
     {
         return maxMotorForce;
     }
+
 
     /**
      * Getter for maxMotorTorque.
@@ -133,6 +175,7 @@ public class RoThroJoint
         return maxMotorTorque;
     }
 
+
     /**
      * Getter for motorSpeed.
      * 
@@ -142,6 +185,7 @@ public class RoThroJoint
     {
         return motorSpeed;
     }
+
 
     /**
      * Getter for anchorPnt1.
@@ -153,6 +197,7 @@ public class RoThroJoint
         return anchorPnt1;
     }
 
+
     /**
      * Getter for linearDamping.
      * 
@@ -162,6 +207,7 @@ public class RoThroJoint
     {
         return linearDamping;
     }
+
 
     /**
      * Getter for springFreq.
@@ -173,6 +219,7 @@ public class RoThroJoint
         return springFreq;
     }
 
+
     /**
      * Getter for whether limits are enabled.
      * 
@@ -182,6 +229,7 @@ public class RoThroJoint
     {
         return limitsEnabled;
     }
+
 
     /**
      * Getter for joint type.
@@ -193,6 +241,7 @@ public class RoThroJoint
         return type;
     }
 
+
     /**
      * Getter for body1Speed.
      * 
@@ -202,6 +251,7 @@ public class RoThroJoint
     {
         return body1Speed;
     }
+
 
     /**
      * Getter for body2Speed.
@@ -213,6 +263,7 @@ public class RoThroJoint
         return body2Speed;
     }
 
+
     /**
      * Getter for anchorPnt2.
      * 
@@ -222,6 +273,7 @@ public class RoThroJoint
     {
         return anchorPnt2;
     }
+
 
     /**
      * Getter for angularDamping.
@@ -233,6 +285,7 @@ public class RoThroJoint
         return angularDamping;
     }
 
+
     /**
      * Getter for lowerLimit.
      * 
@@ -242,6 +295,7 @@ public class RoThroJoint
     {
         return lowerLimit;
     }
+
 
     /**
      * Getter for upperLimit.
@@ -253,180 +307,216 @@ public class RoThroJoint
         return upperLimit;
     }
 
+
     /**
      * Setter for axis.
      * 
-     * @param axis new axis
+     * @param axis
+     *            new axis
      */
     public void setAxis(Vector2 axis)
     {
         this.axis = axis;
     }
 
+
     /**
      * Setter for limitsEnabled.
      * 
-     * @param limitsEnabled new limitsEnabled
+     * @param limitsEnabled
+     *            new limitsEnabled
      */
     public void setLimitsEnabled(boolean limitsEnabled)
     {
         this.limitsEnabled = limitsEnabled;
     }
 
+
     /**
      * Setter for body1Speed.
      * 
-     * @param body1Speed new body1Speed
+     * @param body1Speed
+     *            new body1Speed
      */
     public void setBody1Speed(double body1Speed)
     {
         this.body1Speed = body1Speed;
     }
 
+
     /**
      * Setter for body2Speed.
      * 
-     * @param body2Speed new body2Speed
+     * @param body2Speed
+     *            new body2Speed
      */
     public void setBody2Speed(double body2Speed)
     {
         this.body2Speed = body2Speed;
     }
 
+
     /**
      * Setter for anchorPnt1.
      * 
-     * @param anchorPnt new anchorPnt1
+     * @param anchorPnt
+     *            new anchorPnt1
      */
     public void setAnchorPnt1(Vector2 anchorPnt)
     {
         this.anchorPnt1 = anchorPnt;
     }
 
+
     /**
      * Setter for anchorPnt2.
      * 
-     * @param anchorPnt2 new anchorPnt2
+     * @param anchorPnt2
+     *            new anchorPnt2
      */
     public void setAnchorPnt2(Vector2 anchorPnt2)
     {
         this.anchorPnt2 = anchorPnt2;
     }
 
+
     /**
      * Setter for angularDamping.
      * 
-     * @param angularDamping new angularDamping
+     * @param angularDamping
+     *            new angularDamping
      */
     public void setAngularDamping(double angularDamping)
     {
         this.angularDamping = angularDamping;
     }
 
+
     /**
      * Setter for linearDamping.
      * 
-     * @param linearDamping new linearDamping
+     * @param linearDamping
+     *            new linearDamping
      */
     public void setLinearDamping(double linearDamping)
     {
         this.linearDamping = linearDamping;
     }
 
+
     /**
      * Setter for lowerLimit.
      * 
-     * @param lowerLimit new lowerLimit
+     * @param lowerLimit
+     *            new lowerLimit
      */
     public void setLowerLimit(double lowerLimit)
     {
         this.lowerLimit = lowerLimit;
     }
 
+
     /**
      * Setter for upperLimit.
      * 
-     * @param upperLimit new upperLimit
+     * @param upperLimit
+     *            new upperLimit
      */
     public void setUpperLimit(double upperLimit)
     {
         this.upperLimit = upperLimit;
     }
 
+
     /**
      * Setter for body1.
      * 
-     * @param body1 new body1
+     * @param body1
+     *            new body1
      */
     public void setBody1(Obstacle body1)
     {
         this.body1 = body1;
     }
 
+
     /**
      * Setter for body2.
      * 
-     * @param body2 new body2
+     * @param body2
+     *            new body2
      */
     public void setBody2(Obstacle body2)
     {
         this.body2 = body2;
     }
 
+
     /**
      * Setter for distance.
      * 
-     * @param distance new distance
+     * @param distance
+     *            new distance
      */
     public void setDistance(double distance)
     {
         this.distance = distance;
     }
 
+
     /**
      * Setter for maxMotorForce.
      * 
-     * @param maxMotorForce new MaxMotorForce
+     * @param maxMotorForce
+     *            new MaxMotorForce
      */
     public void setMaxMotorForce(double maxMotorForce)
     {
         this.maxMotorForce = maxMotorForce;
     }
 
+
     /**
      * Setter for maxMotorTorque.
      * 
-     * @param maxMotorTorque new maxMotorTorque
+     * @param maxMotorTorque
+     *            new maxMotorTorque
      */
     public void setMaxMotorTorque(double maxMotorTorque)
     {
         this.maxMotorTorque = maxMotorTorque;
     }
 
+
     /**
      * Setter for motorSpeed.
      * 
-     * @param motorSpeed new motorSpeed
+     * @param motorSpeed
+     *            new motorSpeed
      */
     public void setMotorSpeed(double motorSpeed)
     {
         this.motorSpeed = motorSpeed;
     }
 
+
     /**
      * Setter for springFreq.
      * 
-     * @param springFreq new springFreq
+     * @param springFreq
+     *            new springFreq
      */
     public void setSpringFreq(double springFreq)
     {
         this.springFreq = springFreq;
     }
 
+
     /**
      * Setter for joint type
      * 
-     * @param type new joint type
+     * @param type
+     *            new joint type
      */
     public void setType(String type)
     {
