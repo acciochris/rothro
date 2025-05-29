@@ -1,11 +1,8 @@
 package io.github.acciochris;
 
 import java.awt.Color;
-import java.awt.Graphics2D;
 import java.util.*;
-import org.dyn4j.dynamics.Body;
 import org.dyn4j.dynamics.contact.Contact;
-import org.dyn4j.dynamics.contact.ContactConstraint;
 import org.dyn4j.dynamics.joint.*;
 import org.dyn4j.geometry.*;
 import io.github.acciochris.framework.Camera;
@@ -13,7 +10,6 @@ import io.github.acciochris.framework.SimulationBody;
 import io.github.acciochris.framework.SimulationFrame;
 import org.dyn4j.world.ContactCollisionData;
 import org.dyn4j.world.World;
-import org.dyn4j.world.listener.ContactListener;
 import org.dyn4j.world.listener.ContactListenerAdapter;
 
 // Dracula Color Palette
