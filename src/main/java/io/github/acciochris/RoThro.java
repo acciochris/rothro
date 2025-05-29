@@ -52,9 +52,6 @@ public class RoThro extends SimulationFrame {
 	public static final int HEIGHT = 800;
 	private final double width = WIDTH / CAMERA_SCALE;
 	private final double height = HEIGHT / CAMERA_SCALE;
-	private List<PrismaticJoint<SimulationBody>> prisJoints;
-	private List<RevoluteJoint<SimulationBody>> revJoints;
-	private List<RevoluteJoint<SimulationBody>> pJoints;
 
 	private Level level;
 
@@ -76,9 +73,6 @@ public class RoThro extends SimulationFrame {
 		ball.translate(level.getBallPos());
 		p1 = new Avatar();
 		p1.translate(level.getBallPos().x - ball.getRadius() - 1, level.getBallPos().y);
-
-		prisJoints = new ArrayList<PrismaticJoint<SimulationBody>>();
-		revJoints = new ArrayList<RevoluteJoint<SimulationBody>>();
 
 		keyListener = new RothroKeyListener();
 		super.canvas.setFocusable(true);
@@ -151,7 +145,7 @@ public class RoThro extends SimulationFrame {
 	}
 
 	/**
-	 * 
+	 * Subclass of Obstacle that is always visible.
 	 */
 	private class WallObstacle extends Obstacle {
 		public WallObstacle(
@@ -211,7 +205,6 @@ public class RoThro extends SimulationFrame {
 		Obstacle b2 = rev.getBody2();
 		b2.setAngularDamping(rev.getAngularDamping());
 		RevoluteJoint<SimulationBody> rj = new RevoluteJoint<SimulationBody>(b2, b1, rev.getAnchorPnt1());
-		revJoints.add(rj);
 		if (rev.getLimEn())
 		{
 			rj.setLimitsEnabled(rev.getLowerLimit(), rev.getUpperLimit());
