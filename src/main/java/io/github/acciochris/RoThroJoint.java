@@ -32,15 +32,24 @@ public class RoThroJoint
     /**
      * Construct a new RoThro joint based on various parameters.
      * 
-     * @param t the type of Joint
-     * @param dist desired target distance if required by a Joint
-     * @param mMotF maximum motor force that an enabled motor can exert to make the body involved in the Joint reach motorSpeed
-     * @param mMotT maximum motor torque that an enabled motor can exert to make the body involved in the Joint reach a desired angular velocity
-     * @param speed desired motor speed
-     * @param f frequency of SHM
-     * @param axis the axis along which a Body will move; used in Prismatic Joints
+     * @param t joint type
+     * @param linDampg desired linear damping (for springs)
+     * @param b1Speed desired speed for body1 (for Prismatic Joint)
+     * @param b2Speed desired speed for body2 (for Prismatic Joint)
+     * @param upLim upper Limit constraint for movement (All Joints)
+     * @param lowLim lower Limit constraint for movement (All Joints)
+     * @param angDampg desired linear damping (for hinges)
+     * @param dist desired distance for rest pos (springs)
+     * @param mMotF max motor force (for springs and Prismatic Joints)
+     * @param mMotT max motor torque (for hinges and pendulum)
+     * @param speed desired motor speed (prismatic joint)
+     * @param f frequency of spring joint (stiffness)
+     * @param axis axis along which bodies move (Prismatic Joint)
+     * @param anchorPnt1 anchor pnt1 (for all Joints)
+     * @param anchorPnt2 anchor pnt2 (for all Joints)
      * @param b1 Obstacle 1
      * @param b2 Obstacle 2
+     * @param limEn whether limits are enabled
      */
     public RoThroJoint(String t, double linDampg, double b1Speed, double b2Speed, double upLim, double lowLim, double angDampg, double dist, double mMotF, double mMotT, double speed, double f, Vector2 axis, Vector2 anchorPnt1, Vector2 anchorPnt2, Obstacle b1, Obstacle b2, boolean limEn)
     {
