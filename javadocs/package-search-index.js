@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"io.github.acciochris"},{"l":"io.github.acciochris.framework"}];updateSearchResults();
