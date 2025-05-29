@@ -97,8 +97,8 @@ public class Main {
         Obstacle capsule1 = new Obstacle(new Capsule(6.0, 1.5), -9.0, 8.0, new Color(0xBD93F9), true, "Revolute", "NORM", 0);
         Obstacle capsule2 = new Obstacle(new Capsule(6.0, 1.5), -9.0, -8.0, new Color(30, 140, 90), true, "Revolute", "NORM", 0);
         Circle fulcrum = Geometry.createCircle(0.1);
-        Obstacle anchorC1 = new Obstacle(fulcrum, -9.0, 8.0, new Color(0xFFB86C), false, "", "", 0);
-        Obstacle anchorC2 = new Obstacle(fulcrum, -9.0, -8.0, new Color(0xFFB86C), false, "", "", 0);
+        Obstacle anchorC1 = new Obstacle(fulcrum, -9.0, 8.0, new Color(0, 0, 0, 0), false, "", "", 0);
+        Obstacle anchorC2 = new Obstacle(fulcrum, -9.0, -8.0, new Color(0, 0, 0, 0), false, "", "", 0);
         capsuleObs.add(capsule1);
         capsuleObs.add(capsule2);
         statyCircleObs.add(anchorC1);
@@ -147,9 +147,9 @@ public class Main {
         Obstacle rect1 = new Obstacle(new Rectangle(2.5, 7.5), -12.0, 6.0, new Color(90, 80, 170), true, "Revolute", "NORM", 1);
         Obstacle rect2 = new Obstacle(new Rectangle(2.5, 7.5), -12.0, -6.0, new Color(90, 120, 170), true, "Revolute", "NORM", 1);
         Obstacle rect3 = new Obstacle(new Rectangle(3, 3), 12.0, -3.25, new Color(90, 80, 170), true, "Distance", "FIXANG", 1);
-        Obstacle anchorR1 = new Obstacle(fulcrum, -12.0, 6.0, new Color(0xFFB86C), false, "", "", 0);
-        Obstacle anchorR2 = new Obstacle(fulcrum, -12.0, -6.0, new Color(0xFFB86C), false, "", "", 0);
-        Obstacle anchorR3 = new Obstacle(fulcrum, 20.0, -3.25, new Color(0xFFB86C), false, "", "", 0);
+        Obstacle anchorR1 = new Obstacle(fulcrum, -12.0, 6.0, new Color(0, 0, 0, 0), false, "", "", 0);
+        Obstacle anchorR2 = new Obstacle(fulcrum, -12.0, -6.0, new Color(0, 0, 0, 0), false, "", "", 0);
+        Obstacle anchorR3 = new Obstacle(fulcrum, 20.0, -3.25, new Color(0, 0, 0, 0), false, "", "", 0);
         rectObs.add(rect1);
         rectObs.add(rect2);
         statyCircleObs.add(anchorR1);
@@ -165,7 +165,7 @@ public class Main {
         Obstacle circle2 = new Obstacle(new Circle(2), 16.0, 10.0, new Color(100, 50, 190), true, "Distance", "FIXANG", 1);
         Obstacle circle3 = new Obstacle(new Circle(1.0), -1.0, -8.0, new Color(100, 50, 190), true, "", "NORM", 1);
         Obstacle supptRect = new Obstacle(new Rectangle(3.0, 1.0), -1.0, 10.5, new Color(155, 80, 35), false, "", "", 1);
-        Obstacle anchorC1 = new Obstacle(fulcrum, 16.0, 13.0, new Color(0xFFB86C), false, "", "", 0);
+        Obstacle anchorC1 = new Obstacle(fulcrum, 16.0, 13.0, new Color(0, 0, 0, 0), false, "", "", 0);
         circleObs.add(circle1);
         circleObs.add(circle2);
         circleObs.add(circle3);
@@ -193,10 +193,10 @@ public class Main {
         Obstacle tri4 = new Obstacle(new Triangle(triLocalVert4, triLocalVert5, triLocalVert6), 4.0, -9.75, new Color(160, 230, 90), false, "", "", 1);
         Obstacle tri5 = new Obstacle(new Triangle(triLocalVert7, triLocalVert8, triLocalVert9), -3.0, -4.0, new Color(130, 20, 215), true, "Revolute", "NORM", 1);
         Obstacle tri6 = new Obstacle(new Triangle(triLocalVert7, triLocalVert8, triLocalVert9), 1.0, -4.0, new Color(130, 20, 215), true, "Revolute", "NORM", 1);
-        Obstacle anchorT1 = new Obstacle(fulcrum, 6.0, 3.25, new Color(0xFFB86C), false, "", "", 0);
-        Obstacle anchorT2 = new Obstacle(fulcrum, -6.0, 3.25, new Color(0xFFB86C), false, "", "", 0);
-        Obstacle anchorT5 = new Obstacle(fulcrum, -3.0, -4.0, new Color(0xFFB86C), false, "", "", 0);
-        Obstacle anchorT6 = new Obstacle(fulcrum, 1.0, -4.0, new Color(0xFFB86C), false, "", "", 0);
+        Obstacle anchorT1 = new Obstacle(fulcrum, 6.0, 3.25, new Color(0, 0, 0, 0), false, "", "", 0);
+        Obstacle anchorT2 = new Obstacle(fulcrum, -6.0, 3.25, new Color(0, 0, 0, 0), false, "", "", 0);
+        Obstacle anchorT5 = new Obstacle(fulcrum, -3.0, -4.0, new Color(0, 0, 0, 0), false, "", "", 0);
+        Obstacle anchorT6 = new Obstacle(fulcrum, 1.0, -4.0, new Color(0, 0, 0, 0), false, "", "", 0);
         triObs.add(tri1);
         triObs.add(tri2);
         triObs.add(tri3);
@@ -247,7 +247,7 @@ public class Main {
         level.setBallPos(new Vector2(-13, 0));
         level.setHole(new Hole(8.0, level.getBallRadius() * 2 + 0.1));
         Circle fulcrum = Geometry.createCircle(0.1);
-        Color fulCol = new Color(0xFFB86C);
+        Color fulCol = new Color(0, 0, 0, 0);
 
         // Initialization of obstacle storage lists
         LinkedList<Obstacle> statyRectObs = new LinkedList<Obstacle>();
