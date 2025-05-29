@@ -1,14 +1,8 @@
 package io.github.acciochris;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.geom.Line2D;
-import java.awt.event.KeyEvent;
 import org.dyn4j.geometry.MassType;
 import org.dyn4j.geometry.Circle;
-import org.dyn4j.geometry.Vector2;
 import io.github.acciochris.framework.SimulationBody;
 
 /**
@@ -21,9 +15,7 @@ import io.github.acciochris.framework.SimulationBody;
  */
 public class Ball extends SimulationBody
 {
-    private double angle;
     private double radius;
-    private ArrayList<ArrayList<Integer>> controls;
 
     /**
      * Construct a new ball with radius r.
@@ -33,7 +25,6 @@ public class Ball extends SimulationBody
     public Ball(double r)
     {
         super(new Color(0xFF79C6));
-        angle = 90;
         this.radius = r;
         addFixture(new Circle(r));
         setMass(MassType.NORMAL);
@@ -42,6 +33,11 @@ public class Ball extends SimulationBody
         setAtRestDetectionEnabled(false);
     }
 
+    /**
+     * Getter for ball radius.
+     * 
+     * @return ball radius
+     */
     public double getRadius() 
     { 
         return radius; 

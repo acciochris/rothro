@@ -2,31 +2,28 @@ package io.github.acciochris;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import javax.naming.spi.ResolveResult;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import org.dyn4j.collision.Filter;
-import org.dyn4j.dynamics.BodyFixture;
-import org.dyn4j.dynamics.PhysicsBody;
-import org.dyn4j.geometry.Geometry;
 import org.dyn4j.geometry.MassType;
-import org.dyn4j.geometry.Polygon;
 import org.dyn4j.geometry.Circle;
-import org.dyn4j.geometry.Rectangle;
-import org.dyn4j.geometry.Transform;
 import org.dyn4j.geometry.Vector2;
 import io.github.acciochris.framework.SimulationBody;
-import io.github.acciochris.framework.SimulationFrame;
-import io.github.acciochris.framework.input.BooleanStateKeyboardInputHandler;
-import org.dyn4j.dynamics.joint.RevoluteJoint;
 
+/**
+ * The ball that pushes the target ball in the game.
+ * 
+ * @author Chris Liu
+ * @author Justin Huang
+ * @version May 30, 2025
+ */
 public class Avatar extends SimulationBody
 {
     private ArrayList<ArrayList<Integer>> controls;
     private double r;
 
+    /**
+     * Constructs a new Avatar.
+     */
     public Avatar()
     {
         super(new Color(0xF8F8F2));
@@ -47,11 +44,12 @@ public class Avatar extends SimulationBody
         this.setMassType(MassType.NORMAL);
     }
 
-        /**
-     * Calling this function results in a logic chain that allows the user to change what certain keys do
-     * @param option - what to do to the subject control
-     * @param subjectControl - the control in question to change
-     * @param replacementControl - the control to replace it with
+    /**
+     * Update the functionalities of key presses.
+     * 
+     * @param option what to do to the subject control
+     * @param subjectControl the control in question to change
+     * @param replacementControl the control to replace it with
      */
     public void setControls( char option, int subjectControl, int replacementControl)
     {
@@ -68,6 +66,11 @@ public class Avatar extends SimulationBody
         }
     }
 
+    /**
+     * Handle all movement of the avatar ball.
+     * 
+     * @param keysPressed the HashSet of all currently depressed keys
+     */
     public void controls(HashSet<Integer> keysPressed)
     {
         for (int i: keysPressed)
@@ -92,8 +95,5 @@ public class Avatar extends SimulationBody
                 this.applyImpulse(new Vector2(0, -0.6));
             }
         }
-        // this.setLinearVelocity(direction.x * 0.1, direction.y * 0.1);
-        // System.out.println(keysPressed);
     }
-
 }
