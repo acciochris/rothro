@@ -253,6 +253,11 @@ public class RoThro extends SimulationFrame {
 		
 		Obstacle rod = new Obstacle(new Rectangle(0.5, rodLength), supptPos.x, rodY, new Color(200, 20, 20), true, "", "NORM", bob.getLevel());
 
+		if (bob.getLevel() == 2)
+		{
+			rod.setVisible(false);
+		}
+
 		RevoluteJoint<SimulationBody> hinge1 = new RevoluteJoint<SimulationBody>(support, rod, supptPos);
 		RevoluteJoint<SimulationBody> hinge2 = new RevoluteJoint<SimulationBody>(bob, rod, bobPos);	
 
