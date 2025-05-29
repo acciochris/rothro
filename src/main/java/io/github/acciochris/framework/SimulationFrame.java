@@ -565,7 +565,7 @@ public abstract class SimulationFrame extends JFrame {
 				double target = dj.getRestDistance();
 				double val = Math.abs(target - dj.getAnchor1().distance(dj.getAnchor2())) * 100;
 				int red = (int)Math.floor(Math.min(val, 255));
-				g.setColor(new Color(red, 0, 0));
+				g.setColor(new Color(red, 0, 0, 0));
 				g.draw(vn);
 			} else if (j instanceof PinJoint) {
 				PinJoint<SimulationBody> pj = (PinJoint<SimulationBody>)j;
@@ -580,7 +580,7 @@ public abstract class SimulationFrame extends JFrame {
 				}
 				double val = pj.getReactionForce(this.world.getTimeStep().getInverseDeltaTime()).getMagnitude();
 				int red = (int)Math.floor((val / max) * 255);
-				g.setColor(new Color(red, 0, 0));
+				g.setColor(new Color(red, 0, 0, 0));
 				g.draw(vn);
 			}
 		}
