@@ -6,7 +6,7 @@ import org.dyn4j.geometry.Circle;
 import io.github.acciochris.framework.SimulationBody;
 
 /**
- * Represens the ball in the RoThro game.
+ * Represents the ball in the RoThro game.
  * 
  * @author Chris Liu
  * @author Justin Huang

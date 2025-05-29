@@ -133,7 +133,8 @@ public abstract class SimulationFrame extends JFrame {
 	 * <p>
 	 * By default creates a 800x600 canvas.
 	 * @param name the frame name
-	 * @param scale the pixels per meter scale factor
+	 * @param width frame width
+	 * @param height frame height
 	 */
 	public SimulationFrame(String name, int width, int height) {
 		super(name);
