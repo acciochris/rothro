@@ -58,7 +58,6 @@ public class RoThro extends SimulationFrame {
 	private Ball ball;
 	private Avatar p1;
 
-
 	private RothroKeyListener keyListener;
 
 	/**
@@ -184,6 +183,11 @@ public class RoThro extends SimulationFrame {
 		addHole();
 	}
 
+	/**
+	 * Add prismatic joint.
+	 * 
+	 * @param pris the prismatic joint
+	 */
 	private void addPrisJoint(RoThroJoint pris)
 	{
 		Obstacle body = pris.getBody2();
@@ -199,6 +203,11 @@ public class RoThro extends SimulationFrame {
 		this.world.addJoint(pj);
 	}
 
+	/**
+	 * Add revolute joint.
+	 * 
+	 * @param rev the revolute joint
+	 */
 	private void addRevJoint(RoThroJoint rev)
 	{
 		Obstacle b1 = rev.getBody1();
@@ -213,6 +222,11 @@ public class RoThro extends SimulationFrame {
 		this.world.addJoint(rj);
 	}
 
+	/**
+	 * Add distance joint.
+	 * 
+	 * @param dist the distance joint
+	 */
 	private void addDistJoint(RoThroJoint dist)
 	{
 		Obstacle anchor = dist.getBody1();
@@ -234,6 +248,11 @@ public class RoThro extends SimulationFrame {
 		this.world.addJoint(spring);
 	}
 
+	/**
+	 * Add pendulum joint.
+	 * 
+	 * @param pend the pendulum joint
+	 */
 	private void addPendJoint(RoThroJoint pend)
 	{
 		Obstacle support = pend.getBody1();
