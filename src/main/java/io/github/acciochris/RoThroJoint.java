@@ -14,7 +14,6 @@ public class RoThroJoint
     double maxMotorForce;
     double maxMotorTorque;
     double motorSpeed;
-    double springConst;
     double springFreq;
     double angularDamping;
     double lowerLimit;
@@ -27,6 +26,7 @@ public class RoThroJoint
     Vector2 anchorPnt2;
     Obstacle body1;
     Obstacle body2;
+    boolean limitsEnabled;
 
     /**
      * @param t - the type of Joint
@@ -39,7 +39,7 @@ public class RoThroJoint
      * @param b1 - Obstacle 1
      * @param b2 - Obstacle 2
      */
-    public RoThroJoint(String t, double linDampg, double b1Speed, double b2Speed, double upLim, double lowLim, double angDampg, double dist, double mMotF, double mMotT, double speed, double f, Vector2 axis, Vector2 anchorPnt1, Vector2 anchorPnt2, Obstacle b1, Obstacle b2)
+    public RoThroJoint(String t, double linDampg, double b1Speed, double b2Speed, double upLim, double lowLim, double angDampg, double dist, double mMotF, double mMotT, double speed, double f, Vector2 axis, Vector2 anchorPnt1, Vector2 anchorPnt2, Obstacle b1, Obstacle b2, boolean limEn)
     {
         type = t;
         distance = dist;
@@ -58,6 +58,7 @@ public class RoThroJoint
         body1Speed = b1Speed;
         body2Speed = b2Speed;
         linearDamping = linDampg;
+        limitsEnabled = limEn;
     }
 
     public Vector2 getAxis()
@@ -109,6 +110,11 @@ public class RoThroJoint
         return springFreq;
     }
 
+    public boolean getLimEn()
+    {
+        return limitsEnabled;
+    }
+
     public String getType()
     {
         return type;
@@ -147,6 +153,11 @@ public class RoThroJoint
     public void setAxis(Vector2 axis)
     {
         this.axis = axis;
+    }
+
+    public void setLimitsEnabled(boolean limitsEnabled)
+    {
+        this.limitsEnabled = limitsEnabled;
     }
 
     public void setBody1Speed(double body1Speed)

@@ -6,6 +6,34 @@ import java.util.LinkedList;
 import java.util.List;
 import org.dyn4j.geometry.*;
 
+// Dracula Color Pallette
+//
+// Background
+// #282A36
+// Current Line
+// #44475A
+// Foreground
+// #F8F8F2
+// Comment
+// #6272A4
+// Cyan
+// #8BE9FD
+// Green
+// #50FA7B
+// Orange
+// #FFB86C
+// Pink
+// #FF79C6
+// Purple
+// #BD93F9
+// Red
+// #FF5555
+// Yellow
+// #F1FA8C
+// #F234C4
+// #E789A1
+//rgba(125, 87, 82, 0.56)
+
 /**
  * Main entrypoint for the RoThro game.
  * 
@@ -78,10 +106,10 @@ public class Main {
 
         // Creation of the joints list & addition of Obstacle lists
         ArrayList<RoThroJoint> joints = new ArrayList<RoThroJoint>();
-        joints.add(new RoThroJoint("Revolute", 0, 0, 0, 0, 0, 0.8, 0, 0, 0, 0, 0, null, capsule1.getWorldCenter(), null, anchorC1, capsule1));
-        joints.add(new RoThroJoint("Revolute", 0, 0, 0, 0, 0, 0.8, 0, 0, 0, 0, 0, null, capsule2.getWorldCenter(), null, anchorC2, capsule2));
-        joints.add(new RoThroJoint("Prismatic", 0, 0, 10.0, 0, 0, 0, 0, 0, 0, 0, 0, axis, anchorPnt, null, anchor1, rect3));
-        joints.add(new RoThroJoint("Prismatic", 0, 0, -7.5, 0, 0, 0, 0, 0, 0, 0, 0, axis, anchorPnt, null, anchor1, rect2));
+        joints.add(new RoThroJoint("Revolute", 0, 0, 0, 0, 0, 0.8, 0, 0, 0, 0, 0, null, capsule1.getWorldCenter(), null, anchorC1, capsule1, false));
+        joints.add(new RoThroJoint("Revolute", 0, 0, 0, 0, 0, 0.8, 0, 0, 0, 0, 0, null, capsule2.getWorldCenter(), null, anchorC2, capsule2, false));
+        joints.add(new RoThroJoint("Prismatic", 0, 0, 10.0, 0, 0, 0, 0, 0, 0, 0, 0, axis, anchorPnt, null, anchor1, rect3, false));
+        joints.add(new RoThroJoint("Prismatic", 0, 0, -7.5, 0, 0, 0, 0, 0, 0, 0, 0, axis, anchorPnt, null, anchor1, rect2, false));
         level.setJoints(joints);
         level.addObstacle(statyRectObs);
         level.addObstacle(statyCircleObs);
@@ -100,7 +128,7 @@ public class Main {
     {
         Level level = new Level();
         level.setLevelNum(1);
-        level.setBallPos(new Vector2(-18, 0));
+        level.setBallPos(new Vector2(-15, 0));
         level.setBallRadius(1.0);
         level.setHole(new Hole(5.0, level.getBallRadius() * 2 + 0.5));
 
@@ -156,19 +184,19 @@ public class Main {
         Vector2 triLocalVert4 = new Vector2(3.0, -3.0);
         Vector2 triLocalVert5 = new Vector2(0, 3.0);
         Vector2 triLocalVert6 = new Vector2(-3.0, -3.0);
-        Vector2 triLocalVert7 = new Vector2(1.25, -1.25);
-        Vector2 triLocalVert8 = new Vector2(0.0, 1.25);
-        Vector2 triLocalVert9 = new Vector2(-1.25, -1.25);
+        Vector2 triLocalVert7 = new Vector2(1.75, -1.75);
+        Vector2 triLocalVert8 = new Vector2(0.0, 1.75);
+        Vector2 triLocalVert9 = new Vector2(-1.75, -1.75);
         Obstacle tri1 = new Obstacle(new Triangle(triLocalVert1, triLocalVert2, triLocalVert3), 6.0, 3.25, new Color(60, 230, 190), true, "Revolute", "NORM", 1);
         Obstacle tri2 = new Obstacle(new Triangle(triLocalVert1, triLocalVert2, triLocalVert3), -6.0, 3.25, new Color(60, 230, 190), true, "Revolute", "NORM", 1);
         Obstacle tri3 = new Obstacle(new Triangle(triLocalVert4, triLocalVert5, triLocalVert6), -5.0, -9.75, new Color(160, 230, 90), false, "", "", 1);
         Obstacle tri4 = new Obstacle(new Triangle(triLocalVert4, triLocalVert5, triLocalVert6), 4.0, -9.75, new Color(160, 230, 90), false, "", "", 1);
-        Obstacle tri5 = new Obstacle(new Triangle(triLocalVert7, triLocalVert8, triLocalVert9), -2.5, -4.0, new Color(130, 20, 215), true, "Revolute", "NORM", 1);
-        Obstacle tri6 = new Obstacle(new Triangle(triLocalVert7, triLocalVert8, triLocalVert9), 0.0, -4.0, new Color(130, 20, 215), true, "Revolute", "NORM", 1);
+        Obstacle tri5 = new Obstacle(new Triangle(triLocalVert7, triLocalVert8, triLocalVert9), -3.0, -4.0, new Color(130, 20, 215), true, "Revolute", "NORM", 1);
+        Obstacle tri6 = new Obstacle(new Triangle(triLocalVert7, triLocalVert8, triLocalVert9), 1.0, -4.0, new Color(130, 20, 215), true, "Revolute", "NORM", 1);
         Obstacle anchorT1 = new Obstacle(fulcrum, 6.0, 3.25, new Color(0xFFB86C), false, "", "", 0);
         Obstacle anchorT2 = new Obstacle(fulcrum, -6.0, 3.25, new Color(0xFFB86C), false, "", "", 0);
-        Obstacle anchorT5 = new Obstacle(fulcrum, -2.5, -4.0, new Color(0xFFB86C), false, "", "", 0);
-        Obstacle anchorT6 = new Obstacle(fulcrum, 0.0, -4.0, new Color(0xFFB86C), false, "", "", 0);
+        Obstacle anchorT5 = new Obstacle(fulcrum, -3.0, -4.0, new Color(0xFFB86C), false, "", "", 0);
+        Obstacle anchorT6 = new Obstacle(fulcrum, 1.0, -4.0, new Color(0xFFB86C), false, "", "", 0);
         triObs.add(tri1);
         triObs.add(tri2);
         triObs.add(tri3);
@@ -184,17 +212,17 @@ public class Main {
 
         // Creation of the joints list & addition of Obstacle lists
         ArrayList<RoThroJoint> joints = new ArrayList<RoThroJoint>();
-        joints.add(new RoThroJoint("Revolute", 0, 0, 0, 0, 0, 0.8, 0, 0, 0, 0, 0, null, rect1.getWorldCenter(), null, anchorR1, rect1));
-        joints.add(new RoThroJoint("Revolute", 0, 0, 0, 0, 0, 0.8, 0, 0, 0, 0, 0, null, rect2.getWorldCenter(), null, anchorR2, rect2));
-        joints.add(new RoThroJoint("Revolute", 0, 0, 0, 0, 0, 0.8, 0, 0, 0, 0, 0, null, tri1.getWorldCenter(), null, anchorT1, tri1));
-        joints.add(new RoThroJoint("Revolute", 0, 0, 0, 0, 0, 0.8, 0, 0, 0, 0, 0, null, tri2.getWorldCenter(), null, anchorT2, tri2));
-        joints.add(new RoThroJoint("Revolute", 0, 0, 0, 0, 0, 0.8, 0, 0, 0, 0, 0, null, tri5.getWorldCenter(), null, anchorT5, tri5));
-        joints.add(new RoThroJoint("Revolute", 0, 0, 0, 0, 0, 0.8, 0, 0, 0, 0, 0, null, tri6.getWorldCenter(), null, anchorT6, tri6));
-        joints.add(new RoThroJoint("Distance", 0.4, 0, 0, 6, 0, 0, 5.0, 25.0, 0, 0, 0.5, null, circle2.getWorldCenter(), spgAnch1, anchorC1, circle2));
-        joints.add(new RoThroJoint("Distance", 0.4, 0, 0, 6, 0, 0, 5.0, 25.0, 0, 0, 0.5, null, rect3.getWorldCenter(), anchorR3.getWorldCenter(), anchorR3, rect3));
-        joints.add(new RoThroJoint("Prismatic", 0.0, 0, 0, 0, 0, 0, 0, 0.0, 0, 0, 0, rectSpgAxis, anchorR3.getWorldCenter(), null, anchorR3, rect3));
-        joints.add(new RoThroJoint("Prismatic", 0.0, 0, 0, 0, 0, 0, 0.0, 0.0, 0, 0, 0, circleSpgAxis, anchorC1.getWorldCenter(), null, anchorC1, circle2));
-        joints.add(new RoThroJoint("Pendulum", 0, 0, 0, Math.PI / 2.5, -Math.PI / 2.5, 0, 0, 3.0, 0, 0, 0, null, supptRect.getWorldCenter(), null, supptRect, circle1));
+        joints.add(new RoThroJoint("Revolute", 0, 0, 0, 0, 0, 0.8, 0, 0, 0, 0, 0, null, rect1.getWorldCenter(), null, anchorR1, rect1, false));
+        joints.add(new RoThroJoint("Revolute", 0, 0, 0, 0, 0, 0.8, 0, 0, 0, 0, 0, null, rect2.getWorldCenter(), null, anchorR2, rect2, false));
+        joints.add(new RoThroJoint("Revolute", 0, 0, 0, 0, 0, 0.8, 0, 0, 0, 0, 0, null, tri1.getWorldCenter(), null, anchorT1, tri1, false));
+        joints.add(new RoThroJoint("Revolute", 0, 0, 0, 0, 0, 0.8, 0, 0, 0, 0, 0, null, tri2.getWorldCenter(), null, anchorT2, tri2, false));
+        joints.add(new RoThroJoint("Revolute", 0, 0, 0, 0, 0, 0.8, 0, 0, 0, 0, 0, null, tri5.getWorldCenter(), null, anchorT5, tri5, false));
+        joints.add(new RoThroJoint("Revolute", 0, 0, 0, 0, 0, 0.8, 0, 0, 0, 0, 0, null, tri6.getWorldCenter(), null, anchorT6, tri6, false));
+        joints.add(new RoThroJoint("Distance", 0.4, 0, 0, 6, 0, 0, 3.5, 20.0, 0, 0, 0.25, null, circle2.getWorldCenter(), spgAnch1, anchorC1, circle2, false));
+        joints.add(new RoThroJoint("Distance", 0.4, 0, 0, 6, 0, 0, 5.0, 20.0, 0, 0, 0.25, null, rect3.getWorldCenter(), anchorR3.getWorldCenter(), anchorR3, rect3, false));
+        joints.add(new RoThroJoint("Prismatic", 0.0, 0, 0, 0, 0, 0, 0, 0.0, 0, 0, 0, rectSpgAxis, anchorR3.getWorldCenter(), null, anchorR3, rect3, false));
+        joints.add(new RoThroJoint("Prismatic", 0.0, 0, 0, 0, 0, 0, 0.0, 0.0, 0, 0, 0, circleSpgAxis, anchorC1.getWorldCenter(), null, anchorC1, circle2, false));
+        joints.add(new RoThroJoint("Pendulum", 0, 0, 0, Math.PI / 2.5, -Math.PI / 2.5, 0, 0, 3.0, 0, 0, 0, null, supptRect.getWorldCenter(), null, supptRect, circle1, true));
         level.setJoints(joints);
         level.addObstacle(statyRectObs);
         level.addObstacle(statyCircleObs);
@@ -216,8 +244,10 @@ public class Main {
         Level level = new Level();
         level.setLevelNum(2);
         level.setBallRadius(0.5);
-        level.setBallPos(new Vector2(-3, -9));
+        level.setBallPos(new Vector2(-13, 0));
         level.setHole(new Hole(8.0, level.getBallRadius() * 2 + 0.1));
+        Circle fulcrum = Geometry.createCircle(0.1);
+        Color fulCol = new Color(0xFFB86C);
 
         // Initialization of obstacle storage lists
         LinkedList<Obstacle> statyRectObs = new LinkedList<Obstacle>();
@@ -226,21 +256,147 @@ public class Main {
         LinkedList<Obstacle> rectObs = new LinkedList<Obstacle>();
         LinkedList<Obstacle> triObs = new LinkedList<Obstacle>();
         LinkedList<Obstacle> polygonObs = new LinkedList<Obstacle>();
+        LinkedList<Obstacle> ellipseObs = new LinkedList<Obstacle>();
+        LinkedList<Obstacle> circleObs = new LinkedList<Obstacle>();
 
         // Creation and addition of rectangle Obstacles and respective anchors
-        Obstacle rect1 = new Obstacle(new Rectangle(2, 7.5), -12.0, 0.0, new Color(90, 80, 170), false, "", "", 2);
-        statyCircleObs.add(rect1);
+        Rectangle sq = new Rectangle(2.0, 2.0);
+        Rectangle outl1 = new Rectangle(3.0, 0.5);
+        Rectangle outl2 = new Rectangle(0.5, 3);
+        Rectangle outl3 = new Rectangle(0.5, 2);
+        Rectangle outl4 = new Rectangle(0.5, 4);
+        Color col1 = new Color(20, 20, 90);
+        Color col23 = new Color(125, 87, 82);
+        Obstacle sq1 = new Obstacle(sq, -10.65, -7.795, new Color(0xCF234), true, "Distance", "NORM", 2);
+        Obstacle sq2 = new Obstacle(sq, 4.15, 7.95, new Color(0xCF234), true, "Distance", "NORM", 2);
+        Obstacle rect1 = new Obstacle(outl1, 11.0, -3.0, col1, false, "", "", 2);
+        Obstacle rect2 = new Obstacle(outl1, 14.0, -3.0, col1, true, "", "NORM", 2);
+        Obstacle rect3 = new Obstacle(outl2, 15.75, -4.25, col23, false, "", "", 2);
+        Obstacle rect4 = new Obstacle(outl3, 15.75, -5.75, col23, false, "", "", 2);
+        Obstacle rect5 = new Obstacle(outl1, 11.0, -6.0, col1, false, "", "", 2);
+        Obstacle rect6 = new Obstacle(outl4, 12.5, -7.75, col23, false, "", "", 2);
+        Obstacle rect7 = new Obstacle(outl3, 15.75, -7.75, col23, false, "", "", 2);
+        Obstacle rect8 = new Obstacle(outl3, 15.75, -9.75, col23, false, "", "", 2);
+        Obstacle rect9 = new Obstacle(outl3, 12.5, -9.95, col23, false, "", "", 2);
+        Obstacle rect10 = new Obstacle(outl1, 11.0, 4.0, col1, false, "", "", 2);
+        Obstacle rect11 = new Obstacle(outl1, 14.0, 4.0, col1, true, "", "NORM", 2);
+        Obstacle rect12 = new Obstacle(outl4, 15.75, 5.75, col23, false, "", "", 2);
+        Obstacle rect13 = new Obstacle(outl3, 15.75, 7.75, col23, false, "", "", 2);
+        Obstacle rect14 = new Obstacle(outl1, 11.0, 7.0, col1, false, "", "", 2);
+        Obstacle rect15 = new Obstacle(outl2, 12.75, 8.25, col23, false, "", "", 2);
+        Obstacle rect16 = new Obstacle(outl4, 15.75, 8.75, col23, false, "", "", 2);
+        Obstacle rect17 = new Obstacle(outl2, 12.75, 9.5, col23, false, "", "", 2);
+        rectObs.add(sq1);
+        rectObs.add(sq2);
+        rectObs.add(rect1);
+        rectObs.add(rect2);
+        rectObs.add(rect3);
+        rectObs.add(rect4);
+        rectObs.add(rect5);
+        rectObs.add(rect6);
+        rectObs.add(rect7);
+        rectObs.add(rect8);
+        rectObs.add(rect9);
+        rectObs.add(rect10);
+        rectObs.add(rect11);
+        rectObs.add(rect12);
+        rectObs.add(rect13);
+        rectObs.add(rect14);
+        rectObs.add(rect15);
+        rectObs.add(rect16);
+        rectObs.add(rect17);
+        Obstacle anchorR1 = new Obstacle(fulcrum, 14.0, -3.0, fulCol, false, "", "", 2);
+        Obstacle anchorR2 = new Obstacle(fulcrum, 14.0, 4.0, fulCol, false, "", "", 2);
+        statyCircleObs.add(anchorR1);
+        statyCircleObs.add(anchorR2);
+        Vector2 axisSq1 = new Vector2(-1.0, -1.0);
+        Vector2 axisSq2 = new Vector2(1.0, 1.0);
 
-        // Creation and addition of circle Obstacles and respective anchors
+        // Creation and addition of circle or Slice Obstacles and respective anchors
+        Obstacle slice1 = new Obstacle(Geometry.createSlice(3.0, Math.PI/2), -3.5, 8.0, new Color(130, 90, 255), true, "", "NORM", 2);
+        Obstacle suppt = new Obstacle(new Rectangle(3.0, 1.0), -3.5, 11.5, new Color(30, 40, 90), false, "", "", 2);
+        rectObs.add(suppt);
+        circleObs.add(slice1);
     
         // Creation and addition of capsule Obstacles and respective anchors
+        Capsule caps = new Capsule(6.0, 3.0);
+        Obstacle capsule1 = new Obstacle(caps, -3.5, 1.5, new Color(0xBD93F9), true, "Revolute", "NORM", 2);
+        Obstacle capsule2 = new Obstacle(caps, -3.5, -6.5, new Color(0xBD93F9), true, "Revolute", "NORM", 2);
+        Obstacle anchorC1 = new Obstacle(fulcrum, -3.5, 1.5, fulCol, false, "", "", 2);
+        Obstacle anchorC2 = new Obstacle(fulcrum, -3.5, -6.5, fulCol, false, "", "", 2);
+        capsuleObs.add(capsule1);
+        capsuleObs.add(capsule2);
+        statyCircleObs.add(anchorC1);
+        statyCircleObs.add(anchorC2);
 
         // Creation and addition of Polygon Obstacles and respective anchors
+        Color polyColor = new Color(0xF234C4);
+        Vector2 vec0 = new Vector2(0, 0);
+        Vector2[] polyVerts1 = new Vector2[]{vec0, new Vector2(2, -2), new Vector2(3.5, -0.5), new Vector2(1.5, 1.5)};
+        Vector2[] polyVerts2 = new Vector2[]{vec0, new Vector2(1.5, -1.5), new Vector2(3.5, 0.5), new Vector2(2, 2)};
+        Obstacle poly1 = new Obstacle(new Polygon(polyVerts1), -15.5, 11.275, polyColor, false, "", "", 2);
+        Obstacle poly2 = new Obstacle(new Polygon(polyVerts1), 5.5, -10.75, polyColor, false, "", "", 2);
+        Obstacle poly3 = new Obstacle(new Polygon(polyVerts2), 5.5, 10.75, polyColor, false, "", "", 2);
+        Obstacle poly4 = new Obstacle(new Polygon(polyVerts2), -15.5, -11.25, polyColor, false, "", "", 2);
+        Obstacle anchorTri1 = new Obstacle(fulcrum, -12.65, 10, fulCol, false, "", "", 2);
+        Obstacle anchorTri2 = new Obstacle(fulcrum, 6.15, -9.95, fulCol, false, "", "", 2);
+        Obstacle anchorSq1 = new Obstacle(fulcrum, 6.15, 9.95, fulCol, false, "", "", 2);
+        Obstacle anchorSq2 = new Obstacle(fulcrum, -12.65, -9.975, fulCol, false, "", "", 2);
+        polygonObs.add(poly1);
+        polygonObs.add(poly2);
+        polygonObs.add(poly3);
+        polygonObs.add(poly4);
+        statyCircleObs.add(anchorTri1);
+        statyCircleObs.add(anchorTri2);
+        statyCircleObs.add(anchorSq1);
+        statyCircleObs.add(anchorSq2);
 
         // Creation and addition of Triangle Obstacles and respective anchors
+        Triangle tri = Geometry.createIsoscelesTriangle(2.5, 3);
+        Obstacle isoTri1 = new Obstacle(tri, -10.65, 8, new Color(0xE789A1), true, "", "NORM", 2);
+        Obstacle isoTri2 = new Obstacle(tri, 4.15, -7.95, new Color(0xE789A1), true, "", "NORM", 2);
+        triObs.add(isoTri1);
+        triObs.add(isoTri2);
+        Vector2 axisTri1 = new Vector2(-1.0, 1.0);
+        Vector2 axisTri2 = new Vector2(1.0, -1.0);
+
+        // Creation and addition of Elliptical Obstacles and respective anchors
+        Ellipse ell = Geometry.createEllipse(3.0, 5.0);
+        Obstacle ellipse1 = new Obstacle(ell, 0.5, -2.5, new Color(230, 10, 40), true, "Revolute", "NORM", 2);
+        Obstacle ellipse2 = new Obstacle(ell, -7.5, -2.5, new Color(230, 10, 40), true, "Revolute", "NORM", 2);
+        Obstacle anchorE1 = new Obstacle(fulcrum, 0.5, -2.5, fulCol, false, "", "", 2);
+        Obstacle anchorE2 = new Obstacle(fulcrum, -7.5, -2.5, fulCol, false, "", "", 2);
+        ellipseObs.add(ellipse1);
+        ellipseObs.add(ellipse2);
+        statyCircleObs.add(anchorE1);
+        statyCircleObs.add(anchorE2);
 
         // Creation of the joints list & addition of Obstacle lists
         ArrayList<RoThroJoint> joints = new ArrayList<RoThroJoint>();
+
+        // Hinge/Revolute joints
+        joints.add(new RoThroJoint("Revolute", 0, 0, 0, 0, 0, 0.75, 0, 0, 0, 0, 0, null, capsule1.getWorldCenter(), null, anchorC1, capsule1, false));
+        joints.add(new RoThroJoint("Revolute", 0, 0, 0, 0, 0, 0.75, 0, 0, 0, 0, 0, null, capsule2.getWorldCenter(), null, anchorC2, capsule2, false));
+        joints.add(new RoThroJoint("Revolute", 0, 0, 0, 0, 0, 0.75, 0, 0, 0, 0, 0, null, ellipse1.getWorldCenter(), null, anchorE1, ellipse1, false));
+        joints.add(new RoThroJoint("Revolute", 0, 0, 0, 0, 0, 0.75, 0, 0, 0, 0, 0, null, ellipse2.getWorldCenter(), null, anchorE2, ellipse2, false));
+        joints.add(new RoThroJoint("Revolute", 0, 0, 0, 0, 0, 0.8, 0, 0, 0, 0, 0, null, rect2.getWorldCenter(), null, anchorR1, rect2, false));
+        joints.add(new RoThroJoint("Revolute", 0, 0, 0, 0, 0, 0.8, 0, 0, 0, 0, 0, null, rect11.getWorldCenter(), null, anchorR2, rect11, false));
+
+        // Spring joints
+        joints.add(new RoThroJoint("Distance", 0.5, 0, 0, 0, 0, 0, 3, 7.5, 0, 0, 0.35, null, sq1.getWorldCenter(), anchorSq2.getWorldCenter(), anchorSq2, sq1, false));
+        joints.add(new RoThroJoint("Distance", 0.5, 0, 0, 0, 0, 0, 3, 7.5, 0, 0, 0.35, null, sq2.getWorldCenter(), anchorSq1.getWorldCenter(), anchorSq1, sq2, false));
+        joints.add(new RoThroJoint("Distance", 0.5, 0, 0, 0, 0, 0, 3, 7.5, 0, 0, 0.35, null, isoTri1.getWorldCenter(), anchorTri1.getWorldCenter(), anchorTri1, isoTri1, false));
+        joints.add(new RoThroJoint("Distance", 0.5, 0, 0, 0, 0, 0, 3, 7.5, 0, 0, 0.35, null, isoTri2.getWorldCenter(), anchorTri2.getWorldCenter(), anchorTri2, isoTri2, false));
+
+        // Elevator/Prismatic joints
+        joints.add(new RoThroJoint("Prismatic", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, axisSq1, anchorSq2.getWorldCenter(), null, anchorSq2, sq1, false));
+        joints.add(new RoThroJoint("Prismatic", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, axisSq2, anchorSq1.getWorldCenter(), null, anchorSq1, sq2, false));
+        joints.add(new RoThroJoint("Prismatic", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, axisTri1, anchorTri1.getWorldCenter(), null, anchorTri1, isoTri1, false));
+        joints.add(new RoThroJoint("Prismatic", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, axisTri2, anchorTri2.getWorldCenter(), null, anchorTri2, isoTri2, false));
+
+        // Pendulum joints
+        joints.add(new RoThroJoint("Pendulum", 0, 0, 0, Math.PI/2.75, -Math.PI/2.75, 0, 0, 0, 1.5, 0, 0, null, suppt.getWorldCenter(), null, suppt, slice1, true));
+
         level.setJoints(joints);
         level.addObstacle(statyRectObs);
         level.addObstacle(statyCircleObs);
@@ -248,6 +404,8 @@ public class Main {
         level.addObstacle(capsuleObs);
         level.addObstacle(triObs);
         level.addObstacle(polygonObs);
+        level.addObstacle(ellipseObs);
+        level.addObstacle(circleObs);
 
         for (List<Obstacle> obstacleList : level.getObstacles())
         {

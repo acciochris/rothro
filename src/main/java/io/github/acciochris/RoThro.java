@@ -122,16 +122,6 @@ public class RoThro extends SimulationFrame {
 				}
 			}
 		});
-		
-		// this.world.addBody(arm1);
-		// this.world.addBody(arm2);
-		// arm1.translate(-3,1);
-		// arm2.translate(3,1);
-		// this.world.addBody(avatar);
-		// armJoint1 = new RevoluteJoint<SimulationBody>(avatar, arm1, new Vector2(-1,1));
-        // armJoint2 = new RevoluteJoint<SimulationBody>(avatar, arm2, new Vector2(1,1));
-		// this.world.addJoint(armJoint1);
-        // this.world.addJoint(armJoint2);
 
 		if (level.hasJoints())
 		{
@@ -209,7 +199,10 @@ public class RoThro extends SimulationFrame {
 		Obstacle body = pris.getBody2();
 		Obstacle anchor = pris.getBody1();
 		PrismaticJoint<SimulationBody> pj = new PrismaticJoint<SimulationBody>(anchor, body, pris.getAnchorPnt1(), pris.getAxis());
-		//pj.setLimitsEnabled(pris.getLowerLimit(), pris.getUpperLimit());
+		if (pris.getLimEn())
+		{
+			pj.setLimitsEnabled(pris.getLowerLimit(), pris.getUpperLimit());
+		}
 
 		body.setLinearVelocity(0.0, pris.getBody2Speed());
 
@@ -223,6 +216,10 @@ public class RoThro extends SimulationFrame {
 		b2.setAngularDamping(rev.getAngularDamping());
 		RevoluteJoint<SimulationBody> rj = new RevoluteJoint<SimulationBody>(b2, b1, rev.getAnchorPnt1());
 		revJoints.add(rj);
+		if (rev.getLimEn())
+		{
+			rj.setLimitsEnabled(rev.getLowerLimit(), rev.getUpperLimit());
+		}
 		rj.setCollisionAllowed(false);
 		this.world.addJoint(rj);
 	}
@@ -240,7 +237,10 @@ public class RoThro extends SimulationFrame {
 		spring.setSpringEnabled(true);
 		spring.setMaximumSpringForce(dist.getMaxMotorForce());
 		spring.setMaximumSpringForceEnabled(true);
-		spring.setLimitsEnabled(dist.getLowerLimit(), dist.getUpperLimit());
+		if (dist.getLimEn())
+		{
+			spring.setLimitsEnabled(dist.getLowerLimit(), dist.getUpperLimit());
+		}
 
 		this.world.addJoint(spring);
 	}
@@ -253,18 +253,20 @@ public class RoThro extends SimulationFrame {
 
 		Vector2 supptPos = support.getWorldCenter();
 		double rodLength = supptPos.y - bobPos.y;
-		double rodX = bobPos.x;
-		double rodY = rodLength / 2 + 1;
+		double rodY = rodLength / 2 + bobPos.y;
 		
-		Obstacle rod = new Obstacle(new Rectangle(0.5, rodLength), rodX, rodY, new Color(200, 20, 20), true, "", "NORM", bob.getLevel());
+		Obstacle rod = new Obstacle(new Rectangle(0.5, rodLength), supptPos.x, rodY, new Color(200, 20, 20), true, "", "NORM", bob.getLevel());
 
 		RevoluteJoint<SimulationBody> hinge1 = new RevoluteJoint<SimulationBody>(support, rod, supptPos);
 		RevoluteJoint<SimulationBody> hinge2 = new RevoluteJoint<SimulationBody>(bob, rod, bobPos);	
 
 		RevoluteJoint<SimulationBody> pendulum = new RevoluteJoint<SimulationBody>(support, bob, supptPos);
 		pendulum.setCollisionAllowed(false);
-		pendulum.setLimits(pend.getLowerLimit(), pend.getUpperLimit());
-		pendulum.setLimitsEnabled(true);
+
+		if (pend.getLimEn())
+		{
+			pendulum.setLimitsEnabled(pend.getLowerLimit(), pend.getUpperLimit());
+		}
 
 		FrictionJoint<SimulationBody> f = new FrictionJoint<SimulationBody>(support, bob, supptPos);
 		f.setMaximumForce(0);
