@@ -143,22 +143,43 @@ public class Obstacle extends SimulationBody
         return massType;
     }
 
-
+    /**
+     * Getter for level.
+     * 
+     * @return level in which this obstacle is found
+     */
     public int getLevel()
     {
         return level;
     }
 
+    /**
+     * Setter for visible.
+     * 
+     * @param visible visibility
+     */
     public void setVisible(boolean visible)
     {
         this.visible = visible;
     }
 
+    /**
+     * Getter for visible.
+     * 
+     * @return true if the obstacle is visible
+     */
     public boolean isVisible()
     {
         return visible;
     }
     
+	/**
+	 * Render the obstacle if it's visible.
+     * 
+	 * @param g the graphics object to render to
+	 * @param scale the scaling factor
+	 * @param color the color to render the body
+	 */
     @Override
     public void render(Graphics2D g, double scale, Color color) {
         if (visible)
