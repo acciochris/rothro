@@ -78,9 +78,6 @@ public class SimulationBody extends Body {
 	 * @param color the color to render the body
 	 */
 	public void render(Graphics2D g, double scale, Color color) {
-		// point radius
-		final int pr = 4;
-		
 		// save the original transform
 		AffineTransform ot = g.getTransform();
 		
@@ -96,17 +93,6 @@ public class SimulationBody extends Body {
 		for (BodyFixture fixture : this.fixtures) {
 			this.renderFixture(g, scale, fixture, color);
 		}
-		
-		// draw a center point
-		// Ellipse2D.Double ce = new Ellipse2D.Double(
-		// 		this.getLocalCenter().x * scale - pr * 0.5,
-		// 		this.getLocalCenter().y * scale - pr * 0.5,
-		// 		pr,
-		// 		pr);
-		// g.setColor(Color.WHITE);
-		// g.fill(ce);
-		// g.setColor(Color.DARK_GRAY);
-		// g.draw(ce);
 		
 		// set the original transform
 		g.setTransform(ot);

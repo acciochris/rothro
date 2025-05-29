@@ -3,7 +3,6 @@ package io.github.acciochris;
 import org.dyn4j.dynamics.BodyFixture;
 import org.dyn4j.geometry.*;
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import io.github.acciochris.framework.SimulationBody;
 
